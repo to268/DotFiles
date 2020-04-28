@@ -63,7 +63,6 @@ mpc
 mpd
 mpv
 mutt-wizard-git
-nano
 nasm
 ncmpcpp
 neofetch
@@ -74,8 +73,6 @@ newsboat
 noto-fonts
 noto-fonts-emoji
 numlockx
-octave
-openssh
 pacman
 patch
 pkgconf

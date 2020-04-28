@@ -1,11 +1,11 @@
 # ArchLinuxDotFiles
 My Arch Linux configuration
 
-# Instalation
+## Instalation
 You need to install yay in order to install some AUR packages
 list is in packges.txt
 
-# Lightdm (optional)
+## Lightdm (optional)
 
 requied packages :
 ```

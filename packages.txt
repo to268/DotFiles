@@ -111,7 +111,6 @@ unzip
 urlscan
 vifm
 vim
-virtualbox-guest-utils
 wal-git
 wget
 which

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Show 🌐 if connected to ethernet or ❎ if none.
+
+out=$(ip a | grep -w "inet" | sort -n | sed " /inet 127.0.0.1/ d; s/ brd.*//g; s/inet //g" | tr "|/" " " | sed "s/    //; s/ /\n/g" | sed "1 q")
+
+ping -c 1 -W 10 8.8.8.8 >/dev/null
+[ $? -ne 0 ] && echo "❎" && exit;
+
+echo "🌐 $out"

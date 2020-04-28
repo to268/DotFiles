@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Displays number of upgradeable packages.
+out=$(sudo pacman -Qu | grep -v "\[ignored\]" | wc -l | sed "s/^/📦 /;s/^📦 0$//g")
+[ -z "$out" ] && echo "📦 0" && exit;
+echo $out

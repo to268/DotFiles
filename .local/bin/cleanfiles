@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm .cache/.rangerdir
+rm .cache/wget-hsts
+rm ~/.xsession-errors

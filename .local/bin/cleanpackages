@@ -1,0 +1,5 @@
+#!/bin/sh
+
+packages=$(sudo pacman -Qtdq)
+sudo pacman -Rns $packages
+

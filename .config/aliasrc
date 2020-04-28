@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Aliases
+alias p="sudo pacman"
+alias sys="sudo systemctl"
+alias v="vim"
+alias sv="sudo vim"
+alias nv="nvim"
+alias snv="sudo nvim"
+alias r="ranger"
+alias yt="youtube-dl --add-metadata -i"
+alias yta="yt -x -f bestaudio/best"
+alias ffmpeg="ffmpeg -hide_banner"
+alias ytv="youtube-viewer"
+
+# Adding color
+alias ls="ls --color=auto --group-directories-first"
+alias grep="grep --color=auto"
+alias diff="diff --color=auto"
+alias hcat="highlight --out-format=ansi"
+
+# Directories Aliases
+alias cdf="cd ~/files"
+alias cdd="cd ~/files/Dev"
+alias cdv="cd ~/files/Videos"
+alias cdp="cd ~/files/Photos"
+alias cdm="cd ~/files/Music"
+
+# Weather
+alias weather="curl http://wttr.in/$LOCATION"
+alias weath="weather"
+
+# Auto cd on quit ranger
+alias ranger='ranger --choosedir=$HOME/.cache/.rangerdir; LASTDIR=`cat $HOME/.cache/.rangerdir`; cd "$LASTDIR"'

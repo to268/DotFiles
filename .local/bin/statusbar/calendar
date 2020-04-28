@@ -1,0 +1,16 @@
+#!/bin/sh
+
+getAppointementsCount(){
+	count=$(calcurse -D $CALCURSE_DIR -r | grep -w " -" | wc -l)
+	echo -n "📅 $count"
+}
+
+getTODOCount(){
+	count=$(ls $CALCURSE_DIR/notes | wc -l)
+	echo " $count"
+}
+
+getAppointementsCount
+echo -n " "
+getTODOCount
+

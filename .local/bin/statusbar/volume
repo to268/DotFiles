@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Prints the current volume or 🔇 if muted.
+
+volume=$(amixer sget Master | grep "Front Right:" | sort -n -r | awk '{print $5}' | cut -d "[" -f2 | cut -d "]" -f1 | sed "s/%//")
+state=$(amixer sget Master | grep "Front Right:" | sort -n -r | awk '{print $7}' | cut -d "[" -f2 | cut -d "]" -f1)
+
+off="off"
+
+[ "$state" == "$off" ] && echo "🔇 $volume%" && exit;
+
+if [[ $volume -gt "70" ]]; then
+	echo "🔊 $volume%"
+elif [[ $volume -lt "30" ]]; then
+	echo "🔈 $volume%"
+else
+	echo "🔉 $volume%"
+fi
+
+

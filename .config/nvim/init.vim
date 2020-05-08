@@ -93,7 +93,7 @@ call plug#end()
     nnoremap <F10> :YcmCompleter GetDoc<CR>
     let g:ycm_autoclose_preview_window_after_completion = 1
     let g:ycm_autoclose_preview_window_after_completion = 1
-    let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
+    let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
     let g:ycm_key_detailed_diagnostics = '<F1>d'
     let g:ycm_filepath_completion_use_working_dir = 1
     let g:ycm_auto_start_csharp_server = 1

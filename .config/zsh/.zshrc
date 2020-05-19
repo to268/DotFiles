@@ -1,10 +1,18 @@
 # Zoomer shell config
 
+# Base
 source $HOME/.zprofile
+setopt PROMPT_SUBST
+
+# Git Info
+autoload -Uz vcs_info
+precmd(){ vcs_info }
+zstyle ':vcs_info:git:*' formats '%F{011} %b%f'
+zstyle ':vcs_info:git:*' check-for-changes true
 
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
-PS1="%B%{$fg[blue]%}[%{$fg[red]%}%n%{$fg[yellow]%}@%{$fg[green]%}%M %{$fg[magenta]%}%~%{$fg[blue]%}]%{$fg[magenta]%}$%b%{$reset_color%} "
+PROMPT='%B%{$fg[blue]%}[%{$fg[red]%}%n%{$fg[yellow]%}@%{$fg[green]%}%M %{$fg[magenta]%}%~${vcs_info_msg_0_}%{$fg[blue]%}]%{$fg[magenta]%}%(!.#.$)%{$reset_color%} '
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 
@@ -19,10 +27,6 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
-
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
 
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.

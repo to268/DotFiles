@@ -11,7 +11,7 @@ alias r="ranger"
 alias yt="youtube-dl --add-metadata -i"
 alias yta="yt -x -f bestaudio/best"
 alias ffmpeg="ffmpeg -hide_banner"
-alias ytv="youtube-viewer"
+alias ytv="youtube-viewer -C --player=mpv"
 
 # Adding color
 alias ls="ls --color=auto --group-directories-first"

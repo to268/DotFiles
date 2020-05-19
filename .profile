@@ -9,6 +9,9 @@ source $XDG_CONFIG_HOME/aliasrc
 export PATH="$PATH:$(du "/usr/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="$PATH:$(du "$HOME/.local/bin/statusbar/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+# OS dev stuff
+export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf-4.9.1-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf-4.9.1-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 
 # Default programs:
 export EDITOR="nvim"
@@ -33,7 +36,7 @@ export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
 export LESS_TERMCAP_se="$(printf '%b' '[0m')"
 export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
-export LOCATION="Albertville"
+export LOCATION=""
 
 # Shortcuts to my Files
 export FR=$HOME/files

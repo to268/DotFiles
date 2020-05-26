@@ -13,6 +13,15 @@ alias yta="yt -x -f bestaudio/best"
 alias ffmpeg="ffmpeg -hide_banner"
 alias ytv="youtube-viewer -C --player=mpv"
 
+# Git Aliases
+alias g="git"
+alias gb="git branch"
+alias gch="git checkout"
+alias gco="git commit"
+alias ga="git add"
+alias gps="git push"
+alias gpl="git pull"
+
 # Adding color
 alias ls="ls --color=auto --group-directories-first"
 alias grep="grep --color=auto"

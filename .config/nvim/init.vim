@@ -72,7 +72,7 @@ call plug#end()
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Update Discord rich presence
-    autocmd VimEnter * DiscordUpdatePresence
+"	autocmd VimEnter * DiscordUpdatePresence
 
 " Goyo plugin:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
@@ -127,6 +127,7 @@ call plug#end()
         \ 'yml': 1,
         \ 'yaml': 1,
         \}
+	let g:ycm_global_ycm_extra_conf = '~/.config/nvim/plugged/YouCompleteMe/.ycm_extra_conf.py'
 
 " Spell-check:
 	map <leader>o :setlocal spell! spelllang=en_us<CR>

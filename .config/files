@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export CFGNV="~/.config/nvim/init.vim"
+export ZSHRC="~/.config/zsh/.zshrc"

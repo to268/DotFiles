@@ -1,0 +1,8 @@
+#!/bin/sh
+
+export FR="cd ~/files"
+export DEV="cd ~/files/Dev"
+export VIDS="cd ~/files/Videos"
+export PICS="cd ~/files/Photos"
+export MUSIC="cd ~/files/Music"
+

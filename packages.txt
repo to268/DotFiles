@@ -46,6 +46,7 @@ gzip
 highlight
 hwinfo
 iw
+lf
 libasl
 libnotify
 libtool
@@ -82,7 +83,6 @@ python-pip
 python-pyalsa
 python-pynvim
 radare2
-ranger
 ropgadget
 ropper
 rtmpdump

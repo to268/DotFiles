@@ -6,11 +6,10 @@ getAppointementsCount(){
 }
 
 getTODOCount(){
-	count=$(ls $CALCURSE_DIR/notes | wc -l)
+	count=$(cat $CALCURSE_DIR/todo | wc -l)
 	echo " $count"
 }
 
 getAppointementsCount
 echo -n " "
 getTODOCount
-

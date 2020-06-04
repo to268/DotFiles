@@ -3,5 +3,5 @@
 # startx config
 [ -f ~/.xprofile ] && . ~/.xprofile
 exec bspwm
-#exec dwm
+#ssh-agent dwm # exec dwm with ssh-agent
 setxkbmap fr

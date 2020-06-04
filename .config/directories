@@ -1,8 +1,7 @@
 #!/bin/sh
 
-export FR="cd ~/files"
-export DEV="cd ~/files/Dev"
-export VIDS="cd ~/files/Videos"
-export PICS="cd ~/files/Photos"
-export MUSIC="cd ~/files/Music"
-
+export FR="/home/to268/files"
+export DEV="/home/to268/files/Dev"
+export VIDS="/home/to268/files/Videos"
+export PICS="/home/to268/files/Photos"
+export MUSIC="/home/to268/files/Music"

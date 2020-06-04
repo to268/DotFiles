@@ -9,8 +9,6 @@ export XDG_CACHE_HOME="$HOME/.cache"
 source $XDG_CONFIG_HOME/aliasrc
 # Load shortcuts
 source $XDG_CONFIG_HOME/shortcuts
-# Load files
-source $XDG_CONFIG_HOME/files
 # Load directories
 source $XDG_CONFIG_HOME/directories
 
@@ -19,8 +17,8 @@ export PATH="$PATH:$(du "/usr/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="$PATH:$(du "$HOME/.local/bin/statusbar/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 # OS dev stuff
-#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
-#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 
 # Default programs:
 export EDITOR="nvim"

@@ -17,8 +17,8 @@ export PATH="$PATH:$(du "/usr/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 export PATH="$PATH:$(du "$HOME/.local/bin/statusbar/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 # OS dev stuff
-export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
-export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 
 # Default programs:
 export EDITOR="nvim"

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+calcurse-caldav --init=keep-local --authcode '' --datadir $CALCURSE_DIR

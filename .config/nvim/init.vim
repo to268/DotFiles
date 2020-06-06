@@ -14,6 +14,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
+Plug 'ap/vim-css-color'
 
 " File explorer
 Plug 'scrooloose/nerdtree'

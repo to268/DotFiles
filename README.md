@@ -5,6 +5,34 @@ My Arch Linux configuration
 You need to install yay in order to install some AUR packages
 list is in packges.txt
 
+## Suckless builds
+My Suckless custom builds of dwm, dmenu and st are located in .local/share/
+
+dwm patches:
+```
+systray
+fullscreen
+attachaside
+gridmode
+cyclelayouts
+mpdcontrol
+notitle
+rotatestack
+setborderpx
+three-column
+fullgaps
+```
+
+dmenu patches:
+```
+highpriority
+lineheight
+numbers
+```
+
+the st build is named st-luke-git in the AUR.
+bar-widgets is a program in developpement to handle the dwm status bar.
+
 ## Lightdm (optional)
 
 requied packages :

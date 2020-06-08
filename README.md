@@ -21,6 +21,7 @@ rotatestack
 setborderpx
 three-column
 fullgaps
+swallow
 ```
 
 dmenu patches:

@@ -5,7 +5,7 @@ CFLAGS:=-std=c99 -LMPD -lmpdclient -Wall -Wextra -Werror -O2 $(EXTRAFLAGS)
 SRCFILE:=mpdstatus.c
 OBJS:=$(SRCFILES:.c:.o)
 LDFLAGS:=
-EXECNAME:=mpd
+EXECNAME:=mpd-status
 
 all: $(EXECNAME)
 

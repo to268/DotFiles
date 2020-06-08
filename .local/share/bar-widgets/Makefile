@@ -3,11 +3,11 @@ SRCFILES:=$(wildcard src/*.c)
 INCLUDEDIR:=include/
 MPDCFLAGS:=-LMPD -lmpdclient
 EXTRAFLAGS:=-fpie -pie -Fpic -fstack-protector-all -D_FORTIFY_SOURCE=2 -Wl,-z,relro,-z,now
-CFLAGS:=-std=c99 -Wall -Wextra -Werror -O2 $(EXTRAFLAGS)
+CFLAGS:=-std=c99 -O2 $(EXTRAFLAGS)
 LDFLAGS:=-I $(INCLUDEDIR)
 PREFIX:=.local/bin/statusbar/
 EXECNAME:=bar-widgets
-MPDEXECNAME:=mpd
+MPDEXECNAME:=mpd-status
 MPDMAKE:=mpd-src/
 
 all: summary $(MPDEXECNAME) $(EXECNAME)

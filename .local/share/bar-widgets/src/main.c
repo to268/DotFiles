@@ -8,9 +8,9 @@
 
 int main(void){
 
-    //signal(SIGTERM, termhandler);
-	//signal(SIGINT, termhandler);
-	//statusloop();
-    printf("test\n");
+    signal(SIGTERM, finishproccess);
+	signal(SIGINT, finishproccess);
+	loop();
+    sleep(5);
     return 0;
 }

@@ -7,4 +7,7 @@ typedef struct Widget{
 	unsigned int signal;
 }Widget;
 
+void finishproccess(int signum);
+void loop(void);
+
 #endif

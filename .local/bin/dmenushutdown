@@ -1,6 +1,6 @@
 #!/bin/sh
 
-out=$(echo -e "Shutdown\nReboot\nLock\nChange-User" | dmenu -i -p "What do you want to do ?")
+out=$(echo -e "Shutdown\nReboot\nLock\nChange-User" | dmenu -nb '#393535' -nf '#cccccc' -sb '#ef4e4e' -sf '#feeeee' -i -p "What do you want to do ?")
 
 [ "$out" == "Shutdown" ] && sudo shutdown -h now && exit;
 

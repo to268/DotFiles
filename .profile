@@ -124,5 +124,8 @@ else
     echo "You need to install libxft-bgra to avoid a crash !"
 fi
 
+# Set fr keymap
+setxkbmap fr
+
 # Swap escape and caps lock keys on a tty
 sudo -n loadkeys .local/share/ttymaps.kmap 2>/dev/null

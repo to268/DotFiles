@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
+static const unsigned int gappx     = 4;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -32,7 +32,7 @@ static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
-     */
+	*/
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",    NULL,     NULL,           1 << 8,    1,          0,           0,        -1 },
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,           0,        -1 },
@@ -53,9 +53,9 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-    { "HHH",      grid },
+	{ "HHH",      grid },
 	{ "|||",      tcl },
-    { NULL,       NULL },
+	{ NULL,       NULL },
 };
 
 /* key definitions */
@@ -79,7 +79,7 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,             		    XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -90,13 +90,13 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,             		    XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ControlMask,		    XK_comma,  cyclelayout,    {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
  	{ MODKEY,                       XK_space,  zoom,           {0} },
@@ -106,12 +106,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_semicolon, focusmon,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_question,  tagmon,      {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             0xffad,  setgaps,        {.i = -1 } },
-	{ MODKEY|ShiftMask,             0xffab,  setgaps,        {.i = +1 } },
-	{ MODKEY|ShiftMask,             0x3d,    setgaps,        {.i = 0  } },
-    { MODKEY|ControlMask,           0xffad,  setborderpx,    {.i = -1 } },
-	{ MODKEY|ControlMask,           0xffab,  setborderpx,    {.i = +1 } },
-	{ MODKEY|ControlMask,           0x3d, 	 setborderpx,    {.i = 0 } },
+	{ MODKEY|ShiftMask,             0xffad,  setgaps,          {.i = -1 } },
+	{ MODKEY|ShiftMask,             0xffab,  setgaps,          {.i = +1 } },
+	{ MODKEY|ShiftMask,             0x3d,    setgaps,          {.i = 0  } },
+	{ MODKEY|ControlMask,           0xffad,  setborderpx,      {.i = -1 } },
+	{ MODKEY|ControlMask,           0xffab,  setborderpx,      {.i = +1 } },
+	{ MODKEY|ControlMask,           0x3d, 	 setborderpx,      {.i = 0 } },
 	TAGKEYS(                        0x26,                      0)
  	TAGKEYS(                        0xe9,                      1)
  	TAGKEYS(                        0x22,                      2)
@@ -121,11 +121,11 @@ static Key keys[] = {
  	TAGKEYS(                        0xe8,                      6)
  	TAGKEYS(                        0x5f,                      7)
  	TAGKEYS(                        0xe7,                      8)
- 	TAGKEYS(			            0xe0,                      9)
+ 	TAGKEYS(                        0xe0,                      9)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY,                       XK_F1,     mpdchange,      {.i = -1} },
-	{ MODKEY,                       XK_F2,     mpdchange,      {.i = +1} },
-	{ MODKEY,                       XK_Escape, mpdcontrol,     {0} },
+	{ MODKEY,                       0x2c,     mpdchange,       {.i = -1} },
+	{ MODKEY,                       0x3b,     mpdchange,       {.i = +1} },
+	{ MODKEY,                       0x0,      mpdcontrol,      {0} },
 };
 
 /* button definitions */

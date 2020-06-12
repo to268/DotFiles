@@ -8,5 +8,5 @@ alias pics="cd ~/files/Photos"
 alias music="cd ~/files/Music"
 
 # Files
-alias cfgnv="nvim ~/.config/nvim/init.vim"
+alias cfnv="nvim ~/.config/nvim/init.vim"
 alias zshrc="nvim ~/.config/zsh/.zshrc"

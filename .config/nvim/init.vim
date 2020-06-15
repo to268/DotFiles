@@ -14,7 +14,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
-Plug 'ap/vim-css-color'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -79,7 +78,7 @@ call plug#end()
     map <leader>f :Goyo \| set bg=dark \| set linebreak<CR>
 
 " UltiSnips
-    let g:UltiSnipsExpandTrigger="<c-s>"
+    let g:UltiSnipsExpandTrigger="<leader>s"
     let g:UltiSnipsJumpForwardTrigger="<c-b>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -110,6 +109,7 @@ call plug#end()
 
 " Spell check
 	map <leader>o :setlocal spell! spelllang=en_us<CR>
+    map <leader>p :setlocal spell! spelllang=fr_fr<CR>
 
 " Splits open at the bottom and right
 	set splitbelow splitright
@@ -120,6 +120,9 @@ call plug#end()
 	nm <leader>i :call ToggleIPA()<CR>
 	imap <leader>i <esc>:call ToggleIPA()<CR>a
 	nm <leader>q :call ToggleProse()<CR>
+
+" shortcuts
+    map <leader>dd yyp
 
 " Nerd Config
 	let g:NERDTreeGitStatusWithFlags = 1
@@ -138,7 +141,7 @@ call plug#end()
 
 " Enable Goyo for neomutt
 	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width = 80
-	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=light
+	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo | set bg=dark
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZZ :Goyo\|x!<CR>
 	autocmd BufRead,BufNewFile /tmp/neomutt* map ZQ :Goyo\|q!<CR>
     autocmd BufRead,BufNewFile /tmp/neomutt* let g:loaded_youcompleteme = 1

@@ -7,10 +7,16 @@
 #include "widgets-handler.h"
 
 int main(void){
+    /* Optionnals arguments */
 
-    signal(SIGTERM, finishproccess);
-	signal(SIGINT, finishproccess);
+    // Kill process handlers
+    struct sigaction sa;
+    sa.sa_handler = finishproccess;
+    sigaction(SIGTERM, &sa, NULL);
+    sigaction(SIGINT, &sa, NULL);
+
+    // launch main loop to handle widgets
 	loop();
-    sleep(5);
+    sleep(5); // test timeout
     return 0;
 }

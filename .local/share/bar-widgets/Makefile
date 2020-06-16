@@ -1,9 +1,8 @@
 CC:=gcc
 SRCFILES:=$(wildcard src/*.c)
 INCLUDEDIR:=include/
-MPDCFLAGS:=-LMPD -lmpdclient
-EXTRAFLAGS:=-fpie -pie -Fpic -fstack-protector-all -D_FORTIFY_SOURCE=2 -Wl,-z,relro,-z,now
-CFLAGS:=-std=c99 -O2 -D_POSIX_C_SOURCE
+MPDCFLAGS:=-std=c18 -LMPD -lmpdclient
+CFLAGS:=-O2
 LDFLAGS:=-I $(INCLUDEDIR)
 PREFIX:=.local/bin/statusbar/
 EXECNAME:=bar-widgets

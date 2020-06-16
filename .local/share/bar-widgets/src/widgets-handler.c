@@ -7,13 +7,27 @@
 #include "widgets-handler.h"
 #define LENGTH(X)   (sizeof(X)/sizeof(X[0]))
 
+static char bar[LENGTH(widgets)][CMDLENGTH] = {0};
+
 void finishproccess(int signum);
 void loop(void);
 void registersignals(void);
+void sighandler(int signum);
 void checkforupdates(int time);
+void executecmd(int position, char *out);
 
 void finishproccess(int sig){
     exit(0);
+}
+
+void executecmd(int position, char *out){
+    char *cmd = widgets[position].command;
+    FILE *cmdfd = popen(cmd, "r");
+    if(!cmdfd)
+        return;
+    fgets(out, CMDLENGTH, cmdfd);
+    pclose(cmdfd);
+    printf("out: %s\n", out);
 }
 
 void sighandler(int signum){
@@ -22,7 +36,7 @@ void sighandler(int signum){
     // Update the proper widget
     for (int i = 0; i < LENGTH(widgets); i++) {
         if(widgets[i].signal == signum){
-            // execute update command command
+            executecmd(i, bar[i]);
             printf("Updated module with the signal number: %d\n", signum);
             break;
         }
@@ -40,13 +54,13 @@ void registersignals(void){
 }
 
 void checkforupdates(int time) {
-  const Widget *cur;
-  for (int i = 0; i < LENGTH(widgets); i++) {
-    cur = widgets + i;
-    if ((cur->interval != 0 && time % cur->interval == 0) | time == -1) {
-      // setstatus()
+    const Widget *cur;
+    for (int i = 0; i < LENGTH(widgets); i++) {
+        cur = widgets + i;
+        if ((cur->interval != 0 && time % cur->interval == 0) | time == -1) {
+            // setstatus()
+        }
     }
-  }
 }
 
 void loop(void){
@@ -59,8 +73,8 @@ void loop(void){
     // main loop (infinite loop at final)
     int i = 0;
     while(i < 4){
-      checkforupdates(i);
-      sleep(TIME); // check every n seconds (avoid many checks)
-      i++;
+        checkforupdates(i);
+        sleep(TIME); // check every n seconds (avoid too many checks)
+        i++;
     }
 }

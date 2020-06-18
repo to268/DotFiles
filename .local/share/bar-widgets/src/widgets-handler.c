@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
@@ -8,6 +8,7 @@
 #define LENGTH(X)   (sizeof(X)/sizeof(X[0]))
 
 static char bar[LENGTH(widgets)][CMDLENGTH] = {0};
+static int running = 1;
 
 void finishproccess(int signum);
 void loop(void);
@@ -15,8 +16,13 @@ void registersignals(void);
 void sighandler(int signum);
 void checkforupdates(int time);
 void executecmd(int position, char *out);
+void setbar(void);
+void update(int position);
+void replace(char *old, char *new);
+void updateall(void);
 
-void finishproccess(int sig){
+void finishproccess(int signum){
+    running = 0;
     exit(0);
 }
 
@@ -25,9 +31,13 @@ void executecmd(int position, char *out){
     FILE *cmdfd = popen(cmd, "r");
     if(!cmdfd)
         return;
-    fgets(out, CMDLENGTH, cmdfd);
+    fgets(out, CMDLENGTH-strlen(delim), cmdfd);
     pclose(cmdfd);
-    printf("out: %s\n", out);
+    // removes all new lines
+    strtok(out, "\n");
+    // add delimiter at the end if it's not the last one and if it's not null
+    if(position != LENGTH(widgets) - 1 && !strcmp(delim, "\0"))
+        strcat(out, delim);
 }
 
 void sighandler(int signum){
@@ -36,11 +46,44 @@ void sighandler(int signum){
     // Update the proper widget
     for (int i = 0; i < LENGTH(widgets); i++) {
         if(widgets[i].signal == signum){
-            executecmd(i, bar[i]);
-            printf("Updated module with the signal number: %d\n", signum);
+            update(i);
+            setbar();
             break;
         }
     }
+}
+
+void update(int position){
+    char *old = bar[position];
+    char new[CMDLENGTH];
+    executecmd(position, new);
+    // replace all new chars of the widget rather than overwrite it for optimisation purposes
+    replace(old, new);
+}
+
+void updateall(void){
+    for (int i = 0; i < LENGTH(widgets); i++) {
+        update(i);
+    }
+    setbar();
+}
+
+void replace(char *old, char *new){
+    for(int i = 0; i < strlen(new); i++){
+        if(!(old[i] == new[i]))
+            old[i] = new[i];
+    }
+}
+
+void setbar(void){
+    // add 18 due the command prefix and suffix
+    char cmd[(LENGTH(widgets)*CMDLENGTH)+18];
+    strcpy(cmd, "xsetroot -name '");
+    for(int i = 0; i < LENGTH(widgets); i++){
+        strcat(cmd, bar[i]);
+    }
+    strcat(cmd, "'");
+    system(cmd);
 }
 
 void registersignals(void){
@@ -54,11 +97,10 @@ void registersignals(void){
 }
 
 void checkforupdates(int time) {
-    const Widget *cur;
     for (int i = 0; i < LENGTH(widgets); i++) {
-        cur = widgets + i;
-        if ((cur->interval != 0 && time % cur->interval == 0) | time == -1) {
-            // setstatus()
+        if (widgets[i].interval != 0 && time % widgets[i].interval == 0) {
+            update(i);
+            setbar();
         }
     }
 }
@@ -68,13 +110,13 @@ void loop(void){
     registersignals();
 
     // Initial Bar Launch
-    checkforupdates(-1);
+    updateall();
 
-    // main loop (infinite loop at final)
+    // main loop
     int i = 0;
-    while(i < 4){
+    while(running){
         checkforupdates(i);
-        sleep(TIME); // check every n seconds (avoid too many checks)
+        sleep(1.0); // check every second (avoid too many checks)
         i++;
     }
 }

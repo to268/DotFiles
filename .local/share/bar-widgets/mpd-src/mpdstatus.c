@@ -3,18 +3,7 @@
 #include <string.h>
 #include <mpd/client.h>
 
-/* add to config.mk :
-# mpd
-+ MPDLIB   =  -lmpdclient
-+ MPDFLAG  =  -DMPD
-
-- LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
-+ LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${MPDLIB}
-
-- CPPFLAGS = -DVERSION=\"${VERSION}\"
-+ CPPFLAGS = ${MPDFLAG} -DVERSION=\"${VERSION}\"
-*/
-/* simple function to retrieve mpd status */
+// simple function to retrieve mpd status
 void getmpdstat() {
     struct mpd_song * song;
 	const char * title;
@@ -40,7 +29,7 @@ void getmpdstat() {
 
                 elapsed = mpd_status_get_elapsed_time(theStatus);
                 total = mpd_status_get_total_time(theStatus);
-                printf("🎵 %s - %s %.2d:%.2d/%.2d:%.2d 🎵\n", title, artist, elapsed/60, elapsed%60, total/60, total%60);
+                printf("🎵 %s %.2d:%.2d/%.2d:%.2d 🎵\n", title, elapsed/60, elapsed%60, total/60, total%60);
                 mpd_song_free(song);
         }
 		mpd_response_finish(conn);

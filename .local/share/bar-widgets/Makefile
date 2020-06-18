@@ -4,7 +4,8 @@ INCLUDEDIR:=include/
 MPDCFLAGS:=-std=c18 -LMPD -lmpdclient
 CFLAGS:=-O2
 LDFLAGS:=-I $(INCLUDEDIR)
-PREFIX:=.local/bin/statusbar/
+PREFIX:=~/.local/bin/
+STATUSBARSCRIPTSDIR:=$(PREFIX)statusbar/
 EXECNAME:=bar-widgets
 MPDEXECNAME:=mpd-status
 MPDMAKE:=mpd-src/
@@ -23,10 +24,12 @@ $(EXECNAME):
 	$(CC) $(CFLAGS) $(LDFLAGS) $(SRCFILES) -o $(EXECNAME)
 
 install:
-
+	cp -f $(EXECNAME) $(PREFIX)
+	cp -f $(MPDEXECNAME) $(STATUSBARSCRIPTSDIR)
 
 uninstall:
-
+	rm -f $(PREFIX)$(EXECNAME)
+	rm -f $(STATUSBARSCRIPTSDIR)$(MPDEXECNAME)
 
 clean:
 	rm -f $(MPDEXECNAME) $(EXECNAME)

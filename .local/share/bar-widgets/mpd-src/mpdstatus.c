@@ -3,6 +3,8 @@
 #include <string.h>
 #include <mpd/client.h>
 
+static int isempty = 1;
+
 // simple function to retrieve mpd status
 void getmpdstat() {
     struct mpd_song * song;
@@ -30,14 +32,16 @@ void getmpdstat() {
                 elapsed = mpd_status_get_elapsed_time(theStatus);
                 total = mpd_status_get_total_time(theStatus);
                 printf("🎵 %s %.2d:%.2d/%.2d:%.2d 🎵\n", title, elapsed/60, elapsed%60, total/60, total%60);
+                isempty = 0;
                 mpd_song_free(song);
         }
 		mpd_response_finish(conn);
 		mpd_connection_free(conn);
 }
 
-int main(void)
-{
+int main(void){
     getmpdstat();
+    if(isempty)
+        printf("NULL\n");
     return 0;
 }

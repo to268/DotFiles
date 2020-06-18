@@ -11,11 +11,13 @@ And finally the kill signal to send to update the widget or set it to 0 for no k
 The delim variable contains the delimiter to set between widgets or set it to \0 to set nothing.
 The CMDLENGTH variable is the number of characters for each widget, set it to the max characters you can encounter in one widget to avoid the program
 to truncate the output of a widget or to crash.
+If a command can print anything, print NULL when it's the case to hide it.
 
 ## Signals
 The Signal number is the number added after SIGTRMIN signal, to send it, if your signal number is 10 the commad is:
 ```kill -44 $(pidof bar-widgets)```
 Just add 34 to your number, it's 44 in this example.
+If you sending a Signal other than SIGINIT, SIGTERM or others signals set into config.h, the program will crash.
 
 ## Makefile Options
 Variables EXECNAME and MPDEXECNAME are the name of the output executable.

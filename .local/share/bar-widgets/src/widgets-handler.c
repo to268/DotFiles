@@ -35,9 +35,6 @@ void executecmd(int position, char *out){
     pclose(cmdfd);
     // removes all new lines
     strtok(out, "\n");
-    // add delimiter at the end if it's not the last one and if it's not null
-    if(position != LENGTH(widgets) - 1 && !strcmp(delim, "\0"))
-        strcat(out, delim);
 }
 
 void sighandler(int signum){
@@ -54,17 +51,15 @@ void sighandler(int signum){
 }
 
 void update(int position){
-    char *old = bar[position];
     char new[CMDLENGTH];
     executecmd(position, new);
     // replace all new chars of the widget rather than overwrite it for optimisation purposes
-    replace(old, new);
+    replace(bar[position], new);
 }
 
 void updateall(void){
-    for (int i = 0; i < LENGTH(widgets); i++) {
+    for (int i = 0; i < LENGTH(widgets); i++)
         update(i);
-    }
     setbar();
 }
 
@@ -80,7 +75,11 @@ void setbar(void){
     char cmd[(LENGTH(widgets)*CMDLENGTH)+18];
     strcpy(cmd, "xsetroot -name '");
     for(int i = 0; i < LENGTH(widgets); i++){
-        strcat(cmd, bar[i]);
+        if(!strstr(bar[i], "NULL"))
+            strcat(cmd, bar[i]);
+        // add delimiter at the end if it's not the last one and if output is NULL don't output
+        if(i != LENGTH(widgets) - 1 && !strstr(bar[i], "NULL"))
+            strcat(cmd, delim);
     }
     strcat(cmd, "'");
     system(cmd);
@@ -113,7 +112,7 @@ void loop(void){
     updateall();
 
     // main loop
-    int i = 0;
+    int i = 1;
     while(running){
         checkforupdates(i);
         sleep(1.0); // check every second (avoid too many checks)

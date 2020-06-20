@@ -31,8 +31,28 @@ lineheight
 numbers
 ```
 
-the st build is named st-luke-git in the AUR.
-bar-widgets is a program in developpement to handle the dwm status bar.
+st patches:
+```
+alpha
+anysize
+blinking cursor
+copyurl
+externalpipe
+externalpipe-eternal
+font2
+gruvbox
+iso14755
+newterm
+openurl
+scrollbar
+scrollbar-mouse
+sync
+vertcenter
+Xressources
+workingdir
+```
+
+bar-widgets is a program to handle the dwm status bar.
 
 ## Lightdm (optional)
 

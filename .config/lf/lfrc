@@ -1,16 +1,9 @@
-# Luke's lf settings
-
-# Basic vars
-set shell bash
-set shellopts '-eu'
-set ifs "\n"
-set scrolloff 10
+# Basic
+set preview true
+set previewer ~/.config/lf/preview
 set color256
 set icons
-set period 1
-
-# Vars that depend on environmental variables
-$lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
+set hidden true
 
 # cmds/functions
 cmd open ${{
@@ -61,9 +54,6 @@ cmd bulkrename ${{
 }}
 
 # Bindings
-map <c-f> $lf -remote "send $id select '$(fzf)'"
-map J $lf -remote "send $id cd $(cut -d'	' -f2 ${XDG_CONFIG_HOME:-$HOME/.config}/directories | fzf)"
-map gh
 map g top
 map D delete
 map C copyto
@@ -75,13 +65,6 @@ map x $$f
 map X !$f
 map o &mimeopen $f
 map O $mimeopen --ask $f
-
-map A rename # at the very end
-map c push A<c-u> # new rename
-map I push A<c-a> # at the very beginning
-map i push A<a-b><a-b><a-f> # before extention
-map a push A<a-b> # after extention
-map b bulkrename
 
 map <c-e> down
 map <c-y> up

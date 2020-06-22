@@ -15,3 +15,4 @@ dunst &			# dunst for notifications
 xset r rate 300 60 &	# Speed xrate up
 sxhkd -m -1 & 		# Shortcuts
 numlockx & 		# enable numpad
+#bar-widgets & # status bar

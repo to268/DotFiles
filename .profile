@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Profile file. Runs on login. Environmental variables are set here.
 
 # Common Paths

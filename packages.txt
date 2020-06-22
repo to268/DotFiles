@@ -51,11 +51,13 @@ siji-git
 sxhkd
 sxiv
 systemd-numlockontty
+task-spooler
 tmux
 tree
 ttf-inconsolata
 ttf-linux-libertine
 unzip
+urlscan
 vim
 wget
 wireless_tools

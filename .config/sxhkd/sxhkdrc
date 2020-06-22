@@ -62,15 +62,15 @@ alt + shift + m
 
 # Increase volume
 alt + {_,shift +} + KP_Add
-	amixer sset Master {2,10}%+
+	amixer sset Master {2,10}%+; kill -44 $(pidof bar-widgets)
 
 # Decrease volume
 alt + {_,shift +} + KP_Subtract
-	amixer sset Master {2,10}%-
+	amixer sset Master {2,10}%-; kill -44 $(pidof bar-widgets)
 
 # Mute/Unmute
-alt + shift + m
-	amixer sset Master toggle
+alt + m
+	amixer sset Master toggle; kill -44 $(pidof bar-widgets)
 
 # mpd control
 
@@ -86,11 +86,17 @@ alt + colon
 alt + exclam
 	mpc seek +10
 
-alt + {_,shift +} + parenright
-	mpc random {off, on}
+alt + parenright
+	mpc random off; notify-send "Music Player" "Random mode off"
 
-alt + {_,shift +} + equal
-	mpc repeat {off, on}
+alt + shift + parenright
+	mpc random on; notify-send "Music Player" "Random mode on"
+
+alt + equal
+	mpc repeat off; notify-send "Music Player" "Repeat mode off"
+
+alt + shift + equal
+	mpc repeat on; notify-send "Music Player" "Repeat mode on"
 
 alt + dead_circumflex
 	mpc toggle
@@ -99,10 +105,10 @@ alt + dollar
 	mpc stop
 
 alt + ugrave
-	mpc shuffle
+	mpc shuffle; notify-send "Music Player" "Shuffled all songs"
 
 alt + asterisk
-	mpc update
+	mpc update; notify-send "Music Player" "Database Updated"
 
 alt + agrave
 	mpc seek 0%

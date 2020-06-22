@@ -2,6 +2,8 @@
 
 # Show 🌐 if connected or ❎ otherwise.
 
+#ping -q -c 1 8.8.8.8 >/dev/null || exit
+
 IP=$(nmcli -a | grep 'inet4 192' | awk '{print $2}' | tr "|/" " " | sed "s/ .*$//")
 [ "$IP" == "" ] && echo "❎"
 

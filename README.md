@@ -1,4 +1,4 @@
-# ArchLinuxDotFiles
+# DotFiles
 My Arch Linux configuration:
 
 OS: Arch Linux

@@ -94,14 +94,21 @@ call plug#end()
     fun! YCM()
         nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
         nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
+        nnoremap <buffer> <silent> <leader>gi :YcmCompleter GoToInclude<CR>
+        nnoremap <buffer> <silent> <leader>gp :YcmCompleter GetParent<CR>
+        nnoremap <buffer> <silent> <leader>gdo :YcmCompleter GetDoc<CR>
         nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename
         let g:ycm_autoclose_preview_window_after_completion = 1
         let g:ycm_autoclose_preview_window_after_completion = 1
-        let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+        let g:ycm_key_list_select_completion = ['<leader>q', '<Down>']
+        let g:ycm_key_list_previous_completion = ['<leader>f', '<Up>']
+        let g:ycm_key_list_stop_completion = ['<leader>x']
+        let g:ycm_key_invoke_completion = '<leader>c'
         let g:ycm_key_detailed_diagnostics = '<F1>d'
         let g:ycm_filepath_completion_use_working_dir = 1
         let g:ycm_auto_start_csharp_server = 1
         let g:ycm_auto_stop_csharp_server = 1
+        let g:ycm_complete_in_comments = 0
         let g:ycm_complete_in_strings = 1
         let g:ycm_show_diagnostics_ui = 1
     endfun
@@ -115,14 +122,14 @@ call plug#end()
 	set splitbelow splitright
 
 " vimling
-	nm <leader>d :call ToggleDeadKeys()<CR>
-	imap <leader>d <esc>:call ToggleDeadKeys()<CR>a
-	nm <leader>i :call ToggleIPA()<CR>
-	imap <leader>i <esc>:call ToggleIPA()<CR>a
-	nm <leader>q :call ToggleProse()<CR>
+	nm <leader>D :call ToggleDeadKeys()<CR>
+	imap <leader>D <esc>:call ToggleDeadKeys()<CR>a
+	nm <leader>I :call ToggleIPA()<CR>
+	imap <leader>I <esc>:call ToggleIPA()<CR>a
+	nm <leader>I :call ToggleProse()<CR>
 
 " shortcuts
-    map <leader>dd yyp
+    map <leader>d yyp
 
 " Nerd Config
 	let g:NERDTreeGitStatusWithFlags = 1
@@ -130,8 +137,8 @@ call plug#end()
     map <C-n> :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Shortcutting split navigation, saving a keypress
-	map <C-h> <C-w>h
+" Shortcutting split navigation
+    map <C-h> <C-w>h
 	map <C-j> <C-w>j
 	map <C-k> <C-w>k
 	map <C-l> <C-w>l

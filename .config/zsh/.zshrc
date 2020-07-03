@@ -3,6 +3,7 @@
 # Base
 source $HOME/.zprofile
 setopt PROMPT_SUBST
+setopt zle
 
 # Git Info
 git_info() {
@@ -82,7 +83,16 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
+bindkey '^v' edit-command-line
+
+# Usefull Shortcuts
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
+bindkey "^w" forward-word
+bindkey "^b" backward-word
+bindkey "^r" history-incremental-search-backward
+bindkey "^x" delete-char
+bindkey "^d" delete-word
 
 # Load zsh-fast-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null

@@ -3,6 +3,7 @@ alsa-utils
 autoconf
 automake
 base
+bat
 bdf-unifont
 bind-tools
 bison
@@ -11,6 +12,7 @@ cmake
 cronie
 discord
 dunst
+exa
 fakeroot
 firefox
 flex
@@ -45,6 +47,7 @@ odt2txt
 patch
 pkgconf
 pwndbg
+ripgrep
 rsync
 scrot
 siji-git

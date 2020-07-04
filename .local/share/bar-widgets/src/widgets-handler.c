@@ -64,7 +64,7 @@ void updateall(void){
 }
 
 void replace(char *old, char *new){
-    for(int i = 0; i < strlen(new); i++){
+    for(int i = 0; i < CMDLENGTH; i++){
         if(!(old[i] == new[i]))
             old[i] = new[i];
     }

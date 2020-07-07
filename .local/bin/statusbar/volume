@@ -9,12 +9,10 @@ off="off"
 
 [ "$state" == "$off" ] && echo "🔇 $volume%" && exit;
 
-if [[ $volume -gt "70" ]]; then
+if [[ $volume -gt "69" ]]; then
 	echo "🔊 $volume%"
 elif [[ $volume -lt "30" ]]; then
 	echo "🔈 $volume%"
 else
 	echo "🔉 $volume%"
 fi
-
-

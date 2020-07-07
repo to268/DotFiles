@@ -13,6 +13,7 @@ Plug 'ycm-core/YouCompleteMe'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
+Plug 'ap/vim-css-color'
 Plug 'morhetz/gruvbox'
 
 " File explorer
@@ -31,6 +32,7 @@ Plug 'jreybert/vimagit'
 Plug 'lukesmithxyz/vimling'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-man'
 Plug 'kien/ctrlp.vim'
 Plug 'mbbill/undotree'
@@ -60,8 +62,6 @@ call plug#end()
     set nohlsearch
     set tabstop=4 softtabstop=4
     set shiftwidth=4
-    colorscheme gruvbox
-    set background=dark
     nnoremap <F5> :edit <CR>
     let mapleader = ","
 
@@ -76,6 +76,16 @@ call plug#end()
 
 " Goyo plugin
     map <leader>f :Goyo \| set bg=dark \| set linebreak<CR>
+
+" Gruvbox
+    let g:gruvbox_constrast_dark = 'hard'
+    let g:gruvbox_invert_selection = '0'
+    colorscheme gruvbox
+    set background=dark
+
+" Vim-airline
+    let g:airline_theme = "angr"
+    set noshowmode
 
 " UltiSnips
     let g:UltiSnipsExpandTrigger="<leader>s"

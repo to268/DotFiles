@@ -23,11 +23,11 @@ ctrl + shift + n
 ctrl + shift + m
 	$TERMINAL -e neomutt
 
-ctrl + shift + p
-	$TERMINAL -e ncmpcpp
-
 ctrl + shift + d
 	discord
+
+ctrl + alt + p
+	$TERMINAL -e ncmpcpp
 
 # Alternative programs and shortcuts
 
@@ -44,19 +44,19 @@ alt + shift + s
 	maim -s $HOME/files/Screenshots/$(date +%s).png
 
 alt + f
-	cd ~/files; $TERMINAL
+	$TERMINAL -d ~/files
 
 alt + d
-	cd ~/files/Dev; $TERMINAL
+	$TERMINAL -d ~/files/Dev
 
 alt + shift + v
-	cd ~/files/Videos; $TERMINAL
+	$TERMINAL -d ~/files/Videos
 
 alt + shift + p
-	cd ~/files/Photos; $TERMINAL
+	$TERMINAL -d ~/files/Photos
 
 alt + shift + m
-	cd ~/files/Music; $TERMINAL
+	$TERMINAL -d ~/files/Music
 
 # Alsa Song
 

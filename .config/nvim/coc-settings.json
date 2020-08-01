@@ -1,0 +1,9 @@
+{
+    // Using coc-clangd coc-cmake coc-css coc-discord-neovim coc-html coc-java coc-json coc-lua coc-marketplace coc-python coc-r-lsp coc-snippets coc-ultisnips coc-utils coc-vimlsp coc-xml coc-yaml
+    "coc.preferences.formatOnTypeFiletypes": ["html","css", "python", "c", "cpp", "markdown", "Markdown", "javascript"],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "snippets.ultisnips.directories": [
+        "UltiSnips"
+    ]
+}

@@ -1,12 +1,10 @@
 # DotFiles
-My Arch Linux configuration:
+My Linux configuration:
 
-OS: Arch Linux
 WM: dwm
 Terminal: st
 Shell: zsh
 Menu: dmenu
-Fonts: mono, Noto Color Emoji
 File Explorer: lf
 Browser: firefox
 Composite Manager: xcompmgr
@@ -15,11 +13,12 @@ Image Viewer: sxiv
 Video Viewer: mpv
 Music: mpc, mpd, ncmpcpp
 
-see packages.txt for more details
+see packges.txt for more details
 
 ## Instalation
-You need to install yay in order to install some AUR packages
-list is in packges.txt
+You need to install yay in order to install soem AUR packages.
+all packages are in packages.txt
+
 
 ## Suckless builds
 My Suckless custom builds of dwm, dmenu and st are located in .local/share/
@@ -88,5 +87,5 @@ run-directory=/run/lightdm
 session-wrapper=/etc/lightdm/Xsession
 greeter-setup-script=/usr/bin/numlockx on
 greeter-session=lightdm-webkit2-greeter
-user-session=bspwm
+user-session=dwm
 ```

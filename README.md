@@ -1,24 +1,8 @@
 # DotFiles
-My Linux configuration:
-
-WM: dwm
-Terminal: st
-Shell: zsh
-Menu: dmenu
-File Explorer: lf
-Browser: firefox
-Composite Manager: xcompmgr
-Text Editor/IDE: vim, neovim
-Image Viewer: sxiv
-Video Viewer: mpv
-Music: mpc, mpd, ncmpcpp
-
-see packges.txt for more details
 
 ## Instalation
-You need to install yay in order to install soem AUR packages.
+You need to install yay in order to install some AUR packages.
 all packages are in packages.txt
-
 
 ## Suckless builds
 My Suckless custom builds of dwm, dmenu and st are located in .local/share/

@@ -78,8 +78,7 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+echo -ne '\e[5 q' # Set beam cursor shape
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line

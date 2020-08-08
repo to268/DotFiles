@@ -42,7 +42,6 @@ export TMUX_TMPDIR="$XDG_CACHE_HOME"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 
 # Other program settings:
-export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 export LESS=-R
 export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
 export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"

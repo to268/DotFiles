@@ -6,6 +6,10 @@ out=$(echo -e "Shutdown\nReboot\nLock\nChange-User" | dmenu -i -p "What do you w
 
 [ "$out" == "Reboot" ] && sudo reboot && exit;
 
-[ "$out" == "Lock" ] && dm-tool lock && exit;
+[ "$out" == "Lock" ] && slock && exit; # Minimal Version
 
-[ "$out" == "Change-User" ] && dm-tool switch-to-greeter && exit;
+[ "$out" == "Change-User" ] && sudo pkill x && exit; # Minimal Version
+
+# Lightdm Version
+#[ "$out" == "Lock" ] && dm-tool lock && exit;
+#[ "$out" == "Change-User" ] && dm-tool switch-to-greeter && exit;

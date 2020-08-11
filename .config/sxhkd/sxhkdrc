@@ -1,10 +1,20 @@
 # WM independent hotkeys
 
+# Minimal Version
 super + shift + l
-	dm-tools lock
+	slock
 
+# Lightdm Version
+#super + shift + l
+#	dm-tools lock
+
+# Minimal Version
 super + shift + c
-	dm-tools switch-to-greeter
+	sudo pkill x
+
+# Lightdm Version
+#super + shift + c
+#	dm-tools switch-to-greeter
 
 super + x
 	dmenushutdown

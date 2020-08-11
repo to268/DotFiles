@@ -51,11 +51,17 @@ Xressources
 workingdir
 ```
 
+slock:
+```
+capscolor
+control-clear
+```
+
 bar-widgets is a program to handle the dwm status bar.
 
-## Lightdm (optional)
+## Lightdm Version
 
-requied packages :
+Lightdm packages :
 ```
 lightdm
 lightdm-webkit-theme-aether
@@ -73,3 +79,5 @@ greeter-setup-script=/usr/bin/numlockx on
 greeter-session=lightdm-webkit2-greeter
 user-session=dwm
 ```
+
+You need to change sxhkd config and dmenushtdown to call Lightdm.

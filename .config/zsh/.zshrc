@@ -78,7 +78,7 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-echo -ne '\e[5 q' # Set beam cursor shape
+precmd() { echo -ne '\e[5 q' }; # Set beam cursor shape
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line

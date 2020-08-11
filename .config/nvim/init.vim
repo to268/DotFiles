@@ -62,8 +62,8 @@ set nohlsearch
 set nobackup
 set tabstop=4 softtabstop=4
 set shiftwidth=4
-set scrolloff=4
-set updatetime=300
+set scrolloff=6
+set updatetime=50
 set shortmess+=c
 let mapleader = ","
 

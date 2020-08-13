@@ -4,7 +4,7 @@
 alias p="sudo pacman"
 alias sys="sudo systemctl"
 alias v="vim"
-alias sv="sudo vim"
+alias svi="sudo vim"
 alias nv="nvim"
 alias snv="sudo nvim"
 alias m="man"

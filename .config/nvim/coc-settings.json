@@ -3,6 +3,10 @@
     "coc.preferences.formatOnTypeFiletypes": ["html","css", "python", "c", "cpp", "markdown", "Markdown", "javascript"],
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
+    "diagnostic.infoSign": "",
+    "diagnostic.hintSign": "💡",
+    "diagnostic.warningSign": "⚠",
+    "diagnostic.errorSign": "🛑",
     "snippets.ultisnips.directories": [
         "UltiSnips"
     ]

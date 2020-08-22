@@ -93,5 +93,8 @@ bindkey "^r" history-incremental-search-backward
 bindkey "^x" delete-char
 bindkey "^d" delete-word
 
+# Load fzf-tab
+source /usr/share/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh 2>/dev/null
+
 # Load zsh-fast-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null

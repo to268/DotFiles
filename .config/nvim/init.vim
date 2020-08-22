@@ -14,6 +14,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'ap/vim-css-color'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-dispatch'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -21,6 +22,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
 
 " Comments
 Plug 'tpope/vim-commentary'
@@ -32,7 +34,6 @@ Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'vuciv/vim-bujo'
@@ -65,7 +66,7 @@ set shiftwidth=4
 set scrolloff=6
 set updatetime=50
 set shortmess+=c
-let mapleader = ","
+let mapleader = "!"
 
 " Autocompletion
 set wildmode=longest,list,full
@@ -88,6 +89,9 @@ let g:airline_theme = "angr"
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 
+" Fzf checkout
+let g:fzf_checkout_track_key = 'ctrl-t'
+
 " Set the fuzzy finder to use if we are in a git repo or not
 fun! SetFuzzy()
     let l:gitcmd = system("git rev-parse --git-dir 2> /dev/null")
@@ -103,7 +107,7 @@ call SetFuzzy()
 set splitbelow splitright
 
 " Goyo plugin
-map <leader>go :Goyo \| set bg=dark \| set linebreak<CR>
+map <silent><leader>go :Goyo \| set bg=dark \| set linebreak<CR>
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<leader>s"
@@ -116,7 +120,10 @@ let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
 let g:bujo#window_width = 50
 
 " shortcuts
-map <leader>d yyp
+nmap <leader>d yyp
+nnoremap <silent><leader>m :Make<CR>
+nnoremap <silent><leader>ms :Make!<CR>
+nnoremap <silent><leader>mp :Make! mrproper<CR>
 nnoremap <silent><F5> :edit<CR>
 nnoremap <silent><leader>pi :PlugInstall<CR>
 nnoremap <silent><leader>pu :PlugUpdate<CR>
@@ -124,22 +131,25 @@ inoremap <C-c> <esc>
 nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fo :CocSearch <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><leader>u :UndotreeShow<CR>
 nnoremap <silent><Leader>rg :Rg<SPACE>
 nnoremap <silent><Leader><F5> :so ~/.config/nvim/init.vim<CR>
 nnoremap <silent><Leader>+ :vertical resize +5<CR>
 nnoremap <silent><Leader>- :vertical resize -5<CR>
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+vnoremap <silent>J :m '>+1<CR>gv=gv
+vnoremap <silent>K :m '<-2<CR>gv=gv
 
 " Vim fugitive
-nmap <leader>gj :diffget //3<CR>
 nmap <leader>gf :diffget //2<CR>
+nmap <leader>gj :diffget //3<CR>
 nmap <leader>gl :GlLog<CR>
 nmap <leader>gs :G<CR>
 nmap <leader>gc :Gcommit<CR>
+nmap <leader>gch :GCheckout<CR>
 nmap <leader>gps :Gpush<CR>
 nmap <leader>gpl :Gpull<CR>
+nmap <leader>gt :GCheckoutTag<CR>
 
 " Coc
 inoremap <silent><expr> <leader>q

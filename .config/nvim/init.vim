@@ -65,8 +65,9 @@ set tabstop=4 softtabstop=4
 set shiftwidth=4
 set scrolloff=6
 set updatetime=50
+set timeoutlen=250
 set shortmess+=c
-let mapleader = "!"
+let mapleader = " "
 
 " Autocompletion
 set wildmode=longest,list,full

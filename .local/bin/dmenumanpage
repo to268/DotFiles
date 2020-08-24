@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Dmenu script to choose between a specific man page to display or a random one with the choice of the category
+
+# Get a random man page with the choice of the category
+random() {
+    dir=$(echo -e "all\n$(ls -d /usr/share/man/man* | awk -F '/' '{ print $5 }')" | dmenu -i -p 'Select Category: ')
+    [ -z $dir ] && exit
+    [ "$dir" == "all" ] && dir="man*"
+    page=$(ls /usr/share/man/$dir | shuf | grep --color=never .gz | sed 's/.gz//g' | head -n 1)
+    notify-send "📄 New random man page 📄" "New page is $page"
+    st -e man $page
+}
+
+# Select the man page to display
+choose() {
+    page=$(echo -e "$(ls /usr/share/man/man* | shuf | grep --color=never .gz | sed 's/.gz//g' | sort -n)" | dmenu -i -p 'Select a man page: ')
+    [ -z $page ] && exit
+    notify-send "📄 Opened A New Man Page 📄" "page is $page"
+    st -e man $page
+}
+
+# Select the man page to display with a vertical list
+choose_vertical() {
+    page=$(echo -e "$(ls /usr/share/man/man* | shuf | grep --color=never .gz | sed 's/.gz//g' | sort -n)" | dmenu -i -l 20 -p 'Select a man page: ')
+    [ -z $page ] && exit
+    notify-send "📄 Opened A New Man Page 📄" "page is $page"
+    st -e man $page
+}
+
+# Select between modes
+mode="$(echo -e "Choose\nChoose vertical\nRandom" | dmenu -i -p 'Select mode: ')"
+echo $mode
+case $mode in
+    "Choose")choose;;
+    "Choose vertical")choose_vertical;;
+    "Random")random;;
+esac

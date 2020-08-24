@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Get temp to the first core
+
+sensors | awk '/Core 0/ {print "🔲 " $3}'

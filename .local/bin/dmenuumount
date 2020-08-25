@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# dmenuumount lets you unmount Normal Drives, Encrypted Drives and Phones with the mtp protocol and auto find the device type
+
+normal_umount() {
+    sudo umount $1
+    [ $? != 0 ] && notify-send --urgency=normal "💽 Error Drive $2 cannot be umount !" "verify if another process is using the Drive $2 at $1" && exit
+    sudo rmdir $1
+    [ $? != 0 ] && notify-send --urgency=normal "💽 Error Directory $1 cannot be removed !" "verify if another process is using the Directory $1" && exit
+    notify-send --urgency=normal "💽 Drive $2 has been umounted" "$2 is now umounted of $1"
+    exit
+}
+
+encrypted_umount() {
+    sudo umount $1
+    [ $? != 0 ] && notify-send --urgency=normal "🔓 Error Encrypted Drive $2 cannot be umount !" "verify if another process is using the Drive $2 at $1" && exit
+    sudo rmdir $1
+    [ $? != 0 ] && notify-send --urgency=normal "🔓 Error Directory $1 cannot be removed !" "verify if another process is using the Directory $1" && exit
+    sudo cryptsetup luksClose $2
+    [ $? != 0 ] && notify-send --urgency=normal "🔓 Error Encrypted Drive $2 cannot be closed" "verify if another process is using the Drive $2" && exit
+    notify-send --urgency=normal "🔒 Encrypted Drive $2 has been umounted" "$2 is now umounted and closed of $1"
+    exit
+}
+
+phone_umount() {
+    fusermount -u $1
+    [ $? != 0 ] && notify-send --urgency=normal "📲 Error The Phone at $1 cannot be umount !" "verify if another process is using the Phone Storage at $1" && exit
+    rmdir $1
+    [ $? != 0 ] && notify-send --urgency=normal "📲 Error Directory $1 cannot be removed !" "verify if another process is using the Phone Storage at $1" && exit
+    notify-send --urgency=normal "📱 The Phone at $1 has been umounted" "$1 is now umounted"
+    exit
+}
+
+point=$(cat /etc/mtab | grep "$HOME\|/mnt\|/media" | awk '{ print $2 }' | dmenu -i -p 'Which Directory to umount: ')
+[ -z $point ] && exit
+drive_type=$(cat /etc/mtab | grep "$point" | awk '{ print $1 }')
+[ -n "$(echo $drive_type | grep "mapper")" ] && encrypted_umount $point $drive_type
+[ "$drive_type" == "simple-mtpfs" ] && phone_umount $point
+normal_umount $point $drive_type

@@ -8,6 +8,7 @@ bat
 bdf-unifont
 bind-tools
 calcurse
+chafa
 cmake
 cronie
 discord
@@ -57,6 +58,7 @@ radare2
 ripgrep
 rsync
 scrot
+simple-mtpfs
 sxhkd
 sxiv
 task-spooler

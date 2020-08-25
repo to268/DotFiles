@@ -122,3 +122,14 @@ alt + asterisk
 
 alt + agrave
 	mpc seek 0%
+
+# Scripts Shortcuts
+
+alt + shift + 1
+	dmenumanpage
+
+alt + shift + 2
+	dmenumount
+
+alt + shift + 3
+	dmenuumount

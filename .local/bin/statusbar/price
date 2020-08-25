@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# Get the price of a crypto-currency
+# Get the price of a currency
 
-price=$(curl -s https://api.cryptonator.com/api/ticker/btc-usd | sed "s/:/ /g;s/,/ /g" | awk '{ print $7 }' | cut -d'"' -f2)
+[ -z $1 ] && echo "Add the currency you want as a parameter" && exit
+
+price=$(curl -s https://api.cryptonator.com/api/ticker/"$1"-usd | sed "s/:/ /g;s/,/ /g" | awk '{ print $7 }' | cut -d'"' -f2)
 echo "💰 $price"

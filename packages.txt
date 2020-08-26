@@ -18,6 +18,7 @@ firefox
 fzf
 genius
 gotop
+hexyl
 highlight
 htop
 lf

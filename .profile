@@ -13,6 +13,8 @@ source $XDG_CONFIG_HOME/aliasrc
 source $XDG_CONFIG_HOME/shortcuts
 # Load directories
 source $XDG_CONFIG_HOME/directories
+# Load Files env vars
+source $XDG_CONFIG_HOME/files
 
 # Adds servals directories to $PATH
 export PATH="$PATH:$(du "/usr/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
@@ -52,7 +54,8 @@ export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm
-export LOCATION="Albertville"
+export LOCATION=""
+export GTK_THEME=Adwaita:dark
 
 # list for lf icons:
 export LF_ICONS="di=📁:\

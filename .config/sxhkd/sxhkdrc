@@ -133,3 +133,9 @@ alt + shift + 2
 
 alt + shift + 3
 	dmenuumount
+
+alt + shift + 4
+	kill -45 $(pidof notify-manager)
+
+alt + shift + 5
+	notify-send --urgency=low "Changed Notification Apparence" "Notifications will be hidden or showed" && sleep 2 && notify-send "DUNST_COMMAND_TOGGLE"

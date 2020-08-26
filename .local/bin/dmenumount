@@ -25,7 +25,7 @@ normal_mount() {
     [ $? == 1 ] && exit
     point=$(echo -e "/media/usb/\n/mnt/disk\n$HOME/usb\n$HOME/disk" | dmenu -i -p 'Where to mount the Drive: ')
     [ -z $point ] && exit
-    stat $point
+    stat $point > /dev/null
     [ $? == 1 ] && sudo mkdir -p $point
     sudo mount $disk $point
     sudo chown $(whoami):$(whoami) $point
@@ -46,13 +46,13 @@ encrypted_mount() {
     # Ask pass in a new terminal
     st -e sudo cryptsetup luksOpen "$disk" "$label"
     mapper="/dev/mapper/$label"
-    stat $mapper
+    stat $mapper > /dev/null
     [ $? != 0 ] && notify-send --urgency=normal "🔐 Error when decrypting the Drive !" "Password error or decrypting error" && exit
     # Check for filesystem support
     fs=$(lsblk -rpo "name,fstype" | grep $mapper | awk '{ print $2 }')
     check_fs_compactibility $fs
     [ $? == 1 ] && sudo cryptsetup luksClose "$mapper" && exit
-    stat $point
+    stat $point > /dev/null
     [ $? == 1 ] && sudo mkdir -p $point
     # Mounting with noatime
     sudo mount $mapper $point -o noatime
@@ -69,7 +69,7 @@ phone_mount() {
     [ -z "$phone" ] && exit
     point=$(echo -e "$HOME/phone\n$HOME/cell" | dmenu -i -p 'Where to mount the Drive: ')
     [ -z "$point" ] && exit
-    stat $point
+    stat $point > /dev/null
     [ $? == 1 ] && mkdir $point
     simple-mtpfs --device "$(echo $phone | head -c 1)" "$point"
     [ $? != 0 ] && notify-send --urgency=normal "📱 Error The phone cannot be mount !" " Check if you have authorized storage access on your phone" && exit

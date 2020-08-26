@@ -31,6 +31,7 @@ phone_umount() {
     exit
 }
 
+[ -z $(cat /etc/mtab | grep "$HOME\|/mnt\|/media") ] && notify-send --urgency=normal "❌ Error No Mounted Device found !" "unmount the device manually if it was not mounted by dmenumount" && exit
 point=$(cat /etc/mtab | grep "$HOME\|/mnt\|/media" | awk '{ print $2 }' | dmenu -i -p 'Which Directory to umount: ')
 [ -z $point ] && exit
 drive_type=$(cat /etc/mtab | grep "$point" | awk '{ print $1 }')

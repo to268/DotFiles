@@ -15,6 +15,7 @@ Plug 'ap/vim-css-color'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-dispatch'
+Plug 'sheerun/vim-polyglot'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -37,6 +38,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mbbill/undotree'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'vuciv/vim-bujo'
+Plug 'ThePrimeagen/vim-apm', {'branch': 'timings'}
+Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 call plug#end()
 
 " Basic
@@ -68,6 +71,15 @@ set updatetime=50
 set timeoutlen=250
 set shortmess+=c
 let mapleader = " "
+
+" Vim Apm
+autocmd VimEnter * VimApm
+autocmd VimLeavePre * VimApmShutdown
+cnoremap apm VimApm
+
+" Vim Be Good
+let g:vim_be_good_floating = 0
+let g:vim_be_good_delete_me_random_offset = 5
 
 " Autocompletion
 set wildmode=longest,list,full
@@ -111,7 +123,7 @@ set splitbelow splitright
 map <silent><leader>go :Goyo \| set bg=dark \| set linebreak<CR>
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<leader>s"
+let g:UltiSnipsExpandTrigger="<c-s>"
 
 " Bujo
 nmap <silent><leader>t :Todo<CR>
@@ -153,11 +165,11 @@ nmap <leader>gpl :Gpull<CR>
 nmap <leader>gt :GCheckoutTag<CR>
 
 " Coc
-inoremap <silent><expr> <leader>q
+inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><leader>f pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1

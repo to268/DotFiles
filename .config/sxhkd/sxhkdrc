@@ -123,6 +123,21 @@ alt + asterisk
 alt + agrave
 	mpc seek 0%
 
+
+# Swap keyboard
+
+ctrl + Return
+	setxkbmap fr && notify-send --urgency=low "Key map swapped" "Key map is now azerty"
+
+ctrl + shift + Return
+	setxkbmap us -variant dvorak && notify-send --urgency=low "Key map swapped" "Key map is now dvorak us"
+
+ctrl + alt + Return
+	setxkbmap fr -variant bepo && notify-send --urgency=low "Key map swapped" "Key map is now bepo"
+
+ctrl + alt shift + Return
+	setxkbmap fr -variant dvorak && notify-send --urgency=low "Key map swapped" "Key map is now dvorak fr"
+
 # Scripts Shortcuts
 
 alt + shift + 1
@@ -139,3 +154,9 @@ alt + shift + 4
 
 alt + shift + 5
 	notify-send --urgency=low "Changed Notification Apparence" "Notifications will be hidden or showed" && sleep 2 && notify-send "DUNST_COMMAND_TOGGLE"
+
+alt + shift + 6
+	calendar-status 0
+
+alt + shift + 7
+	calendar-status 1

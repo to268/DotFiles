@@ -38,8 +38,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mbbill/undotree'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'vuciv/vim-bujo'
-Plug 'ThePrimeagen/vim-apm', {'branch': 'timings'}
-Plug 'ThePrimeagen/vim-be-good', {'do': './install.sh'}
 call plug#end()
 
 " Basic
@@ -72,15 +70,6 @@ set timeoutlen=250
 set shortmess+=c
 let mapleader = " "
 
-" Vim Apm
-autocmd VimEnter * VimApm
-autocmd VimLeavePre * VimApmShutdown
-cnoremap apm VimApm
-
-" Vim Be Good
-let g:vim_be_good_floating = 0
-let g:vim_be_good_delete_me_random_offset = 5
-
 " Autocompletion
 set wildmode=longest,list,full
 
@@ -103,7 +92,48 @@ let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 
 " Fzf checkout
-let g:fzf_checkout_track_key = 'ctrl-t'
+let g:fzf_branch_actions = {
+      \ 'checkout': {
+      \   'prompt': 'Checkout> ',
+      \   'execute': 'echo system("{git} checkout {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'enter',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \ 'track': {
+      \   'prompt': 'Track> ',
+      \   'execute': 'echo system("{git} checkout --track {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'alt-t',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \ 'create': {
+      \   'prompt': 'Create> ',
+      \   'execute': 'echo system("{git} checkout -b {input}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-n',
+      \   'required': ['input'],
+      \   'confirm': v:false,
+      \ },
+      \ 'delete': {
+      \   'prompt': 'Delete> ',
+      \   'execute': 'echo system("{git} branch -D {branch}")',
+      \   'multiple': v:true,
+      \   'keymap': 'ctrl-d',
+      \   'required': ['branch'],
+      \   'confirm': v:true,
+      \ },
+      \ 'merge':{
+      \   'prompt': 'Merge> ',
+      \   'execute': 'echo system("{git} merge {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-e',
+      \   'required': ['branch'],
+      \   'confirm': v:true,
+      \ },
+      \}
 
 " Set the fuzzy finder to use if we are in a git repo or not
 fun! SetFuzzy()
@@ -193,9 +223,7 @@ nmap <silent><leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent><leader>gn <Plug>(coc-diagnostic-next-error)
 nmap <silent><leader>fx <Plug>(coc-fix-current)
 nnoremap <silent><leader>dc :call <SID>show_documentation()<CR>
-inoremap <silent><expr> <leader>c coc#refresh()
 nnoremap <silent><leader>cr :CocRestart
-inoremap <silent><expr> <leader>j pumvisible() ? coc#_select_confirm() : ""
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 let g:airline#extensions#coc#enabled = 0

@@ -10,6 +10,7 @@ In order to add a notif; you need to provide arguments for all options but you c
 The kill signal to send to update a notif or set it to 0 for no kill signal, details in the Signals section.
 The Content Path is the path of the command to fill the content with the output of the script, the Icon path is the path to the icon to show or NULL for no icon.
 The Severity can be NOTIFY_URGENCY_LOW for a low severity NOTIFY_URGENCY_NORMAL for a normal severity or NOTIFY_URGENCY_CRITICAL for a critical severity.
+If you want to not show a notif, the script need to output NULL
 
 ## Signals
 The Signal number is the number added after SIGTRMIN signal, to send it, if your signal number is 10 the command is:

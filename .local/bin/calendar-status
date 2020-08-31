@@ -31,13 +31,16 @@ check_for_appointements() {
     fi
     [[ $min -lt 10 ]] && min=0$min
     now="$hour:$min"
-    echo "$now"
     res=$(echo $data | sed "s/ /\n/" | grep "$now")
     [ -z "$res" ] && exit
-    notify-send "📆 Upcoming appointment" "You have an upcoming appointment"
+    title=$(cat .config/calcurse/apts | grep "$now" | sed 's/ /\n/g' | sed '1,7d')
+    [ -z "$title" ] && exit
+    notify-send "📆 Upcoming appointment" "You have an upcoming appointment: $title"
     exit
 }
 
+echo $data
+exit
 [ -z "$1" ] && check_for_appointements
 [ "$1" == "0" ] && today_appointments
 [ "$1" == "1" ] && tomorrow_appointements

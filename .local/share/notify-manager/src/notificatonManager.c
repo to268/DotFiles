@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <unistd.h>
 #include <signal.h>
 #include <libnotify/notify.h>
@@ -61,6 +62,10 @@ void sendNotif(const struct Notif *notif) {
     // Get content
     char data[MAX_CONTENT_LENGTH];
     getContent(notif->cmd, data);
+    if (!strcmp(data, "NULL")) {
+        bzero(data, MAX_CONTENT_LENGTH);
+        return;
+    }
     notify_init("notify-manager");
     NotifyNotification *not = notify_notification_new(notif->title, data, NULL);
     notify_notification_set_timeout(not, notif->timeout);

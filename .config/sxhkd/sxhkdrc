@@ -154,9 +154,3 @@ alt + shift + 4
 
 alt + shift + 5
 	notify-send --urgency=low "Changed Notification Apparence" "Notifications will be hidden or showed" && sleep 2 && notify-send "DUNST_COMMAND_TOGGLE"
-
-alt + shift + 6
-	calendar-status 0
-
-alt + shift + 7
-	calendar-status 1

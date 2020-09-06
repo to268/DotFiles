@@ -7,7 +7,9 @@
     "diagnostic.hintSign": "💡",
     "diagnostic.warningSign": "⚠",
     "diagnostic.errorSign": "🛑",
+    "lua.commandPath": "/usr/bin/lua5.3",
     "snippets.ultisnips.directories": [
+        "~/.config/nvim/UltiSnips",
         "UltiSnips"
     ]
 }

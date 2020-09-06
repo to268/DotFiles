@@ -12,7 +12,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'ap/vim-css-color'
-Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
@@ -28,6 +27,10 @@ Plug 'stsewd/fzf-checkout.vim'
 " Comments
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+
+" Colors Schemes
+Plug 'gruvbox-community/gruvbox'
+Plug 'joshdick/onedark.vim'
 
 " Utils
 Plug 'junegunn/goyo.vim'
@@ -73,19 +76,32 @@ let mapleader = " "
 " Autocompletion
 set wildmode=longest,list,full
 
-" Gruvbox
+" Initialize Gruvbox Color Scheme Here because of AirlineTheme cmd
 let g:gruvbox_constrast_dark = 'hard'
 let g:gruvbox_invert_selection = '0'
 colorscheme gruvbox
 set background=dark
+let g:airline_theme = 'angr'
+
+" Gruvbox
+func! SetGruvbox()
+    let g:gruvbox_constrast_dark = 'hard'
+    let g:gruvbox_invert_selection = '0'
+    colorscheme gruvbox
+    set background=dark
+	execute 'AirlineTheme angr'
+endfun
+
+" OneDark
+func! SetOneDark()
+    colorscheme onedark
+	execute 'AirlineTheme onedark'
+endfun
 
 " Rg
 if executable('rg')
     let g:rg_derive_root='true'
 endif
-
-" Vim-airline
-let g:airline_theme = "angr"
 
 " Fzf
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
@@ -100,38 +116,6 @@ let g:fzf_branch_actions = {
       \   'keymap': 'enter',
       \   'required': ['branch'],
       \   'confirm': v:false,
-      \ },
-      \ 'track': {
-      \   'prompt': 'Track> ',
-      \   'execute': 'echo system("{git} checkout --track {branch}")',
-      \   'multiple': v:false,
-      \   'keymap': 'alt-t',
-      \   'required': ['branch'],
-      \   'confirm': v:false,
-      \ },
-      \ 'create': {
-      \   'prompt': 'Create> ',
-      \   'execute': 'echo system("{git} checkout -b {input}")',
-      \   'multiple': v:false,
-      \   'keymap': 'ctrl-n',
-      \   'required': ['input'],
-      \   'confirm': v:false,
-      \ },
-      \ 'delete': {
-      \   'prompt': 'Delete> ',
-      \   'execute': 'echo system("{git} branch -D {branch}")',
-      \   'multiple': v:true,
-      \   'keymap': 'ctrl-d',
-      \   'required': ['branch'],
-      \   'confirm': v:true,
-      \ },
-      \ 'merge':{
-      \   'prompt': 'Merge> ',
-      \   'execute': 'echo system("{git} merge {branch}")',
-      \   'multiple': v:false,
-      \   'keymap': 'ctrl-e',
-      \   'required': ['branch'],
-      \   'confirm': v:true,
       \ },
       \}
 
@@ -162,7 +146,7 @@ nmap <leader>ta <Plug>BujoAddnormal
 let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
 let g:bujo#window_width = 50
 
-" shortcuts
+" Shortcuts
 nmap <leader>d yyp
 nnoremap <silent><leader>m :Make<CR>
 nnoremap <silent><leader>ms :Make!<CR>
@@ -170,6 +154,8 @@ nnoremap <silent><leader>mp :Make! mrproper<CR>
 nnoremap <silent><F5> :edit<CR>
 nnoremap <silent><leader>pi :PlugInstall<CR>
 nnoremap <silent><leader>pu :PlugUpdate<CR>
+nnoremap <silent><leader>gv :call SetGruvbox()<CR>
+nnoremap <silent><leader>od :call SetOneDark()<CR>
 inoremap <C-c> <esc>
 nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
@@ -222,8 +208,7 @@ nmap <silent><leader>g) <Plug>(coc-diagnostic-next)
 nmap <silent><leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent><leader>gn <Plug>(coc-diagnostic-next-error)
 nmap <silent><leader>fx <Plug>(coc-fix-current)
-nnoremap <silent><leader>dc :call <SID>show_documentation()<CR>
-nnoremap <silent><leader>cr :CocRestart
+nnoremap <silent><leader>cr :CocRestart<CR>
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 let g:airline#extensions#coc#enabled = 0

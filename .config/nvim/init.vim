@@ -1,8 +1,4 @@
-if !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-	echo "Downloading junegunn/vim-plug to manage plugins..."
-	silent !mkdir -p ~/.config/nvim/autoload/ silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
-	autocmd VimEnter * PlugInstall
-endif
+" Download plug.vim in ~/.config/nvim/autoload link : "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" and do :PlugInstall
 
 call plug#begin('~/.config/nvim/plugged')
 " Dev stuff
@@ -40,7 +36,6 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mbbill/undotree'
-Plug 'kovetskiy/sxhkd-vim'
 Plug 'vuciv/vim-bujo'
 call plug#end()
 
@@ -79,12 +74,11 @@ let mapleader = " "
 set completeopt=menuone,noinsert,noselect
 set wildmode=longest,list,full
 
-" Initialize Gruvbox Color Scheme Here because of AirlineTheme cmd
-let g:gruvbox_constrast_dark = 'hard'
-let g:gruvbox_invert_selection = '0'
-colorscheme gruvbox
-set background=dark
-let g:airline_theme = 'base16_gruvbox_dark_hard'
+" OneDark
+func! SetOneDark()
+    colorscheme onedark
+	execute 'AirlineTheme onedark'
+endfun
 
 " Gruvbox
 func! SetGruvbox()
@@ -95,12 +89,14 @@ func! SetGruvbox()
 	execute 'AirlineTheme base16_gruvbox_dark_hard'
 endfun
 
-" OneDark
-func! SetOneDark()
-    colorscheme onedark
-	execute 'AirlineTheme onedark'
-	execute 'set termguicolors'
-endfun
+" Initialize Gruvbox Color Scheme
+colorscheme gruvbox
+set background=dark
+
+augroup gruvbox
+    autocmd!
+    autocmd VimEnter * call SetGruvbox()
+augroup END
 
 " Rg
 if executable('rg')
@@ -184,7 +180,7 @@ nmap <leader>gps :Gpush<CR>
 nmap <leader>gpl :Gpull<CR>
 nmap <leader>gt :GCheckoutTag<CR>
 
-" Coc
+" Coc (coc will be replaced by neovim built in lsp)
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -215,6 +211,7 @@ nmap <silent><leader>fx <Plug>(coc-fix-current)
 nnoremap <silent><leader>cr :CocRestart<CR>
 
 augroup coc
+	autocmd!
 	autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
 
@@ -237,11 +234,13 @@ let NERDTreeShowHidden=1
 map <C-n> :NERDTreeToggle<CR>
 
 augroup NERDTree
+	autocmd!
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
 " Disables automatic commenting on newline
 augroup commenting
+	autocmd!
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
 
@@ -261,19 +260,27 @@ fun! Neomutt()
 endfunction
 
 augroup neomutt
+	autocmd!
 	autocmd BufRead,BufNewFile /tmp/neomutt* call Neomutt()
 augroup END
 
 " Automatically deletes all trailing whitespace on save
 augroup cleanFile
+	autocmd!
 	autocmd BufWritePre * %s/\s\+$//e
 	autocmd BufWritePre * %s/\n\+\%$//e
 augroup END
 
 " Automations
 augroup automations
+	autocmd!
 	" Update Xresources
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 	" Update sxhkdrc
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+augroup END
+
+augroup scheme
+    autocmd!
+    autocmd VimEnter * call SetGruvbox()
 augroup END

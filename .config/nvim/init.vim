@@ -1,4 +1,4 @@
-if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+if !filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p ~/.config/nvim/autoload/ silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
 	autocmd VimEnter * PlugInstall
@@ -31,6 +31,7 @@ Plug 'tpope/vim-surround'
 " Colors Schemes
 Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
+Plug 'chriskempson/base16-vim'
 
 " Utils
 Plug 'junegunn/goyo.vim'
@@ -71,9 +72,11 @@ set scrolloff=6
 set updatetime=50
 set timeoutlen=250
 set shortmess+=c
+set termguicolors
 let mapleader = " "
 
 " Autocompletion
+set completeopt=menuone,noinsert,noselect
 set wildmode=longest,list,full
 
 " Initialize Gruvbox Color Scheme Here because of AirlineTheme cmd
@@ -81,7 +84,7 @@ let g:gruvbox_constrast_dark = 'hard'
 let g:gruvbox_invert_selection = '0'
 colorscheme gruvbox
 set background=dark
-let g:airline_theme = 'angr'
+let g:airline_theme = 'base16_gruvbox_dark_hard'
 
 " Gruvbox
 func! SetGruvbox()
@@ -89,13 +92,14 @@ func! SetGruvbox()
     let g:gruvbox_invert_selection = '0'
     colorscheme gruvbox
     set background=dark
-	execute 'AirlineTheme angr'
+	execute 'AirlineTheme base16_gruvbox_dark_hard'
 endfun
 
 " OneDark
 func! SetOneDark()
     colorscheme onedark
 	execute 'AirlineTheme onedark'
+	execute 'set termguicolors'
 endfun
 
 " Rg
@@ -156,7 +160,7 @@ nnoremap <silent><leader>pi :PlugInstall<CR>
 nnoremap <silent><leader>pu :PlugUpdate<CR>
 nnoremap <silent><leader>gv :call SetGruvbox()<CR>
 nnoremap <silent><leader>od :call SetOneDark()<CR>
-inoremap <C-c> <esc>
+inoremap <esc> <C-c>
 nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fo :CocSearch <C-R>=expand("<cword>")<CR><CR>
@@ -210,7 +214,10 @@ nmap <silent><leader>gn <Plug>(coc-diagnostic-next-error)
 nmap <silent><leader>fx <Plug>(coc-fix-current)
 nnoremap <silent><leader>cr :CocRestart<CR>
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup coc
+	autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
 let g:airline#extensions#coc#enabled = 0
 
 " Spell check
@@ -228,13 +235,21 @@ nnoremap <silent><C-q> :quit<CR>
 let g:NERDTreeGitStatusWithFlags = 1
 let NERDTreeShowHidden=1
 map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+augroup NERDTree
+	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup END
 
 " Disables automatic commenting on newline
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup commenting
+	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
 
 " Save file as sudo on files that require root permission
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
+" use :W for write
+com! W w
 
 " Enable Goyo for neomutt
 fun! Neomutt()
@@ -244,14 +259,21 @@ fun! Neomutt()
     map <leader>q :Goyo\|q!<CR>
     let b:coc_enabled = 0
 endfunction
-autocmd BufRead,BufNewFile /tmp/neomutt* call Neomutt()
+
+augroup neomutt
+	autocmd BufRead,BufNewFile /tmp/neomutt* call Neomutt()
+augroup END
 
 " Automatically deletes all trailing whitespace on save
-autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre * %s/\n\+\%$//e
+augroup cleanFile
+	autocmd BufWritePre * %s/\s\+$//e
+	autocmd BufWritePre * %s/\n\+\%$//e
+augroup END
 
 " Automations
-" Update Xresources
-autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-" Update sxhkdrc
-autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+augroup automations
+	" Update Xresources
+	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+	" Update sxhkdrc
+	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+augroup END

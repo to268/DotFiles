@@ -279,8 +279,3 @@ augroup automations
 	" Update sxhkdrc
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 augroup END
-
-augroup scheme
-    autocmd!
-    autocmd VimEnter * call SetGruvbox()
-augroup END

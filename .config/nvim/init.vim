@@ -8,7 +8,8 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'ap/vim-css-color'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
 
@@ -35,6 +36,7 @@ Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'aurieh/discord.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'mbbill/undotree'
 Plug 'vuciv/vim-bujo'
 call plug#end()
@@ -65,7 +67,6 @@ set tabstop=4 softtabstop=4
 set shiftwidth=4
 set scrolloff=6
 set updatetime=50
-set timeoutlen=250
 set shortmess+=c
 set termguicolors
 let mapleader = " "
@@ -156,10 +157,10 @@ nnoremap <silent><leader>pi :PlugInstall<CR>
 nnoremap <silent><leader>pu :PlugUpdate<CR>
 nnoremap <silent><leader>gv :call SetGruvbox()<CR>
 nnoremap <silent><leader>od :call SetOneDark()<CR>
+nnoremap <silent><leader>rp :DiscordUpdatePresence<CR>
 inoremap <esc> <C-c>
 nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>fo :CocSearch <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><leader>u :UndotreeShow<CR>
 nnoremap <silent><Leader>rg :Rg<SPACE>
@@ -168,6 +169,8 @@ nnoremap <silent><Leader>+ :vertical resize +5<CR>
 nnoremap <silent><Leader>- :vertical resize -5<CR>
 vnoremap <silent>J :m '>+1<CR>gv=gv
 vnoremap <silent>K :m '<-2<CR>gv=gv
+vnoremap <c-p> "_dP
+vnoremap X "_d
 
 " Vim fugitive
 nmap <leader>gf :diffget //2<CR>
@@ -180,42 +183,29 @@ nmap <leader>gps :Gpush<CR>
 nmap <leader>gpl :Gpull<CR>
 nmap <leader>gt :GCheckoutTag<CR>
 
-" Coc (coc will be replaced by neovim built in lsp)
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Nvim lsp
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+lua require'nvim_lsp'.clangd.setup{ on_attach=require'completion'.on_attach  }
+lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
+lua require'nvim_lsp'.pyls.setup{ on_attach=require'completion'.on_attach  }
+lua require'nvim_lsp'.bashls.setup{ on_attach=require'completion'.on_attach  }
+lua require'nvim_lsp'.r_language_server.setup{ on_attach=require'completion'.on_attach  }
+lua require'nvim_lsp'.sumneko_lua.setup{ on_attach=require'completion'.on_attach  }
+lua require'nvim_lsp'.vimls.setup{ on_attach=require'completion'.on_attach  }
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+inoremap <TAB> <c-n>
+nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent><leader>vh <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent><leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent><leader>vt <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent><leader>vr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent><leader>vf <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent><leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
 
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-nmap <silent><leader>gd <Plug>(coc-definition)
-nmap <silent><leader>gy <Plug>(coc-type-definition)
-nmap <silent><leader>gi <Plug>(coc-implementation)
-nmap <silent><leader>gr <Plug>(coc-references)
-nmap <silent><leader>rr <Plug>(coc-rename)
-nmap <silent><leader>g( <Plug>(coc-diagnostic-prev)
-nmap <silent><leader>g) <Plug>(coc-diagnostic-next)
-nmap <silent><leader>gp <Plug>(coc-diagnostic-prev-error)
-nmap <silent><leader>gn <Plug>(coc-diagnostic-next-error)
-nmap <silent><leader>fx <Plug>(coc-fix-current)
-nnoremap <silent><leader>cr :CocRestart<CR>
-
-augroup coc
-	autocmd!
-	autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup lsp
+    autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)
 augroup END
-
-let g:airline#extensions#coc#enabled = 0
 
 " Spell check
 map <leader>o :setlocal spell! spelllang=en_us<CR>
@@ -247,7 +237,6 @@ augroup END
 " Save file as sudo on files that require root permission
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" use :W for write
 com! W w
 
 " Enable Goyo for neomutt

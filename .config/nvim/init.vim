@@ -19,6 +19,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
 Plug 'stsewd/fzf-checkout.vim'
 
 " Comments
@@ -125,9 +128,13 @@ fun! SetFuzzy()
     let l:gitcmd = system("git rev-parse --git-dir 2> /dev/null")
     if (l:gitcmd == '')
         nmap <C-p> :Files<CR>
+        "telescope
+        "nnoremap <C-p> <cmd>lua require'telescope.builtin'.find_files{}<CR>
         return
     endif
     nmap <C-p> :GFiles<CR>
+    "telescope
+    "nnoremap <C-p> <cmd>lua require'telescope.builtin'.git_files{}<CR>
 endfun
 call SetFuzzy()
 
@@ -185,7 +192,7 @@ nmap <leader>gt :GCheckoutTag<CR>
 
 " Nvim lsp
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-lua require'nvim_lsp'.clangd.setup{ on_attach=require'completion'.on_attach  }
+lua require'nvim_lsp'.clangd.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
 lua require'nvim_lsp'.pyls.setup{ on_attach=require'completion'.on_attach  }
 lua require'nvim_lsp'.bashls.setup{ on_attach=require'completion'.on_attach  }
@@ -193,7 +200,9 @@ lua require'nvim_lsp'.r_language_server.setup{ on_attach=require'completion'.on_
 lua require'nvim_lsp'.sumneko_lua.setup{ on_attach=require'completion'.on_attach  }
 lua require'nvim_lsp'.vimls.setup{ on_attach=require'completion'.on_attach  }
 
-inoremap <TAB> <c-n>
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+imap <silent><c-space> <Plug>(completion_trigger)
 nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>vh <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent><leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -203,8 +212,16 @@ nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent><leader>vf <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent><leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
 
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_matching_ignore_case = 1
+
 augroup lsp
-    autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)
+    autocmd!
+    autocmd BufEnter * let g:completion_trigger_character = ['.']
+    autocmd BufEnter *.r let g:completion_trigger_character = ['.', '@']
+    autocmd BufEnter *.java let g:completion_trigger_character = ['.', '@']
+    autocmd BufEnter *.rb let g:completion_trigger_character = ['.', '::', '@']
+    autocmd BufEnter *.c,*.cpp,*.h,*.hpp let g:completion_trigger_character = ['.', '->', '::']
 augroup END
 
 " Spell check

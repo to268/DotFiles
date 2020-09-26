@@ -25,7 +25,9 @@ swallow
 
 dmenu patches:
 ```
-highpriority
+fuzzyhighlight
+fuzzymatch
+incremental
 lineheight
 numbers
 ```

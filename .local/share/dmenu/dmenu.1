@@ -16,9 +16,18 @@ dmenu \- dynamic menu
 .IR color ]
 .RB [ \-nf
 .IR color ]
+.RB [ \-r ]
 .RB [ \-sb
 .IR color ]
 .RB [ \-sf
+.IR color ]
+.RB [ \-nhb
+.IR color ]
+.RB [ \-nhf
+.IR color ]
+.RB [ \-shb
+.IR color ]
+.RB [ \-shf
 .IR color ]
 .RB [ \-w
 .IR windowid ]
@@ -60,6 +69,9 @@ from 0.
 .BI \-p " prompt"
 defines the prompt to be displayed to the left of the input field.
 .TP
+.B \-r
+dmenu outputs text each time a key is pressed.
+.TP
 .BI \-fn " font"
 defines the font or font set used.
 .TP
@@ -77,6 +89,18 @@ defines the selected background color.
 .TP
 .BI \-sf " color"
 defines the selected foreground color.
+.TP
+.BI \-nhb " color"
+defines the normal highlight background color.
+.TP
+.BI \-nhf " color"
+defines the normal highlight foreground color.
+.TP
+.BI \-shb " color"
+defines the selected highlight background color.
+.TP
+.BI \-shf " color"
+defines the selected highlight foreground color.
 .TP
 .B \-v
 prints version information to stdout, then exits.

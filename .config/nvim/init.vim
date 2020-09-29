@@ -39,6 +39,7 @@ Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'aurieh/discord.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'mbbill/undotree'
 Plug 'vuciv/vim-bujo'
@@ -191,14 +192,8 @@ nmap <leader>gpl :Gpull<CR>
 nmap <leader>gt :GCheckoutTag<CR>
 
 " Nvim lsp
+lua require("lspconfig").launchServers()
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-lua require'nvim_lsp'.clangd.setup{ on_attach=require'completion'.on_attach }
-lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
-lua require'nvim_lsp'.pyls.setup{ on_attach=require'completion'.on_attach  }
-lua require'nvim_lsp'.bashls.setup{ on_attach=require'completion'.on_attach  }
-lua require'nvim_lsp'.r_language_server.setup{ on_attach=require'completion'.on_attach  }
-lua require'nvim_lsp'.sumneko_lua.setup{ on_attach=require'completion'.on_attach  }
-lua require'nvim_lsp'.vimls.setup{ on_attach=require'completion'.on_attach  }
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
@@ -208,7 +203,7 @@ nnoremap <silent><leader>vh <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent><leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent><leader>vt <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent><leader>vr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent><leader>vds <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent><leader>vf <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent><leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
 
@@ -221,7 +216,7 @@ augroup lsp
     autocmd BufEnter *.r let g:completion_trigger_character = ['.', '@']
     autocmd BufEnter *.java let g:completion_trigger_character = ['.', '@']
     autocmd BufEnter *.rb let g:completion_trigger_character = ['.', '::', '@']
-    autocmd BufEnter *.c,*.cpp,*.h,*.hpp let g:completion_trigger_character = ['.', '->', '::']
+    autocmd BufEnter *.c,*.cpp,*.h,*.hpp let g:completion_trigger_character = ['.', '->', '::', '#']
 augroup END
 
 " Spell check

@@ -17,3 +17,4 @@ sxhkd -m -1 & 		# Shortcuts
 numlockx & 		# enable numpad
 bar-widgets & # status bar
 notify-manager & # Notify service
+setxkbmap fr # Set french keymap

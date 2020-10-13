@@ -4,6 +4,7 @@
 source $HOME/.zprofile
 setopt PROMPT_SUBST
 setopt zle
+set -o vi
 
 # Git Info
 git_info() {

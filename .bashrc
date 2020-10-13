@@ -4,6 +4,7 @@
 #
 stty -ixon # Disable ctrl-s and ctrl-q
 shopt -s autocd # auto cd
+set -o vi # Enable vim mode
 HISTSIZE= HISTFILESIZE= # infinite history size
 
 # If not running interactively, don't do anything

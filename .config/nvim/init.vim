@@ -34,7 +34,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
 
 " Utils
-Plug 'junegunn/goyo.vim'
 Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
@@ -142,21 +141,24 @@ call SetFuzzy()
 " Splits open at the bottom and right
 set splitbelow splitright
 
-" Goyo plugin
-map <silent><leader>go :Goyo \| set bg=dark \| set linebreak<CR>
-
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<c-s>"
 
 " Bujo
-nmap <silent><leader>t :Todo<CR>
+nmap <silent><leader>td :Todo<CR>
 nmap <leader>tc <Plug>BujoChecknormal
 nmap <leader>ta <Plug>BujoAddnormal
 let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
 let g:bujo#window_width = 50
 
 " Shortcuts
-nmap <leader>d yyp
+tnoremap <leader>q <C-\><C-n>
+nnoremap <silent><leader>tm :split term://zsh<CR>
+nnoremap <silent><leader>tv :vsplit term://zsh<CR>
+nnoremap <silent><leader>rj :resize 10<CR>
+nnoremap <silent><leader>rk :resize 100<CR>
+nnoremap <silent><leader>r= <C-w>=
+nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <silent><leader>m :Make<CR>
 nnoremap <silent><leader>ms :Make!<CR>
 nnoremap <silent><leader>mp :Make! mrproper<CR>
@@ -250,15 +252,6 @@ augroup END
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 com! W w
-
-" Enable Goyo for neomutt
-fun! Neomutt()
-    let g:goyo_width = 80
-    silent :Goyo | set bg=dark
-    map <leader>z :Goyo\|x!<CR>
-    map <leader>q :Goyo\|q!<CR>
-    let b:coc_enabled = 0
-endfunction
 
 augroup neomutt
 	autocmd!

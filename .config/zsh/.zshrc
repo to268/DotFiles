@@ -2,6 +2,7 @@
 
 # Base
 source $HOME/.zprofile
+setopt HIST_IGNORE_SPACE
 setopt PROMPT_SUBST
 setopt zle
 set -o vi

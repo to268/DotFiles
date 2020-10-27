@@ -1,7 +1,6 @@
 # Basic
 set preview true
 set previewer ~/.config/lf/preview
-set color256
 set icons
 set hidden true
 

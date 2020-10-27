@@ -44,7 +44,7 @@ encrypted_mount() {
     [ -z $point ] && exit
     label=$(echo $point | awk -F"/" '{ if ( $4 )  { print $4 }  else { print $3 } }')
     # Ask pass in a new terminal
-    st -e sudo cryptsetup luksOpen "$disk" "$label"
+    $TERMINAL -e sudo cryptsetup luksOpen "$disk" "$label"
     mapper="/dev/mapper/$label"
     stat $mapper > /dev/null
     [ $? != 0 ] && notify-send --urgency=normal "🔐 Error when decrypting the Drive !" "Password error or decrypting error" && exit

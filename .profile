@@ -35,17 +35,21 @@ export LESSHISTFILE="-"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export CALCURSE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/calcurse"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc-2.0"
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/AndroidSDK"
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}/gnupg"
 export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/winepfx/default"
+export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
+export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export TMUX_TMPDIR="$XDG_CACHE_HOME"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 
 # Other program settings:
 export LESS=-R
+export QT_QPA_PLATFORMTHEME="gtk2"      # Use gtk2 theme on QT
 export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm
 export LOCATION=""
-export GTK_THEME=Adwaita:dark
+export GTK_THEME=Arc:dark
 
 # list for lf icons:
 export LF_ICONS="di=📁:\
@@ -109,6 +113,8 @@ ex=🎯:\
 *.vcf=👪:\
 *.part=💔:\
 *.torrent=🔽:\
+*.jar=♨:\
+*.java=♨:\
 "
 
 if pacman -Qs libxft-bgra >/dev/null 2>&1; then
@@ -120,4 +126,4 @@ fi
 
 # Load ssh-keys
 eval `ssh-agent` >/dev/null
-ssh-add -q
+ssh-add -q "$HOME/.ssh/rpi"

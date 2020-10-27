@@ -3,13 +3,17 @@
 call plug#begin('~/.config/nvim/plugged')
 " Dev stuff
 Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'ap/vim-css-color'
+Plug 'rust-lang/rust.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'tjdevries/nlua.nvim'
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
 
@@ -17,6 +21,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/popup.nvim'
@@ -32,10 +37,12 @@ Plug 'tpope/vim-surround'
 Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
+Plug 'ayu-theme/ayu-vim'
 
 " Utils
 Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
+Plug 'vim-utils/vim-man'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nvim-lua/lsp-status.nvim'
@@ -46,7 +53,7 @@ call plug#end()
 
 " Basic
 syntax on
-filetype plugin on
+filetype plugin indent on
 set clipboard+=unnamedplus
 set nocompatible
 set encoding=utf-8
@@ -123,18 +130,18 @@ let g:fzf_branch_actions = {
       \ },
       \}
 
+" Telescope
+let g:telescope_cache_results = 1
+let g:telescope_prime_fuzzy_find = 1
+
 " Set the fuzzy finder to use if we are in a git repo or not
 fun! SetFuzzy()
     let l:gitcmd = system("git rev-parse --git-dir 2> /dev/null")
     if (l:gitcmd == '')
-        nmap <C-p> :Files<CR>
-        "telescope
-        "nnoremap <C-p> <cmd>lua require'telescope.builtin'.find_files{}<CR>
+        nnoremap <C-p> <cmd>lua require'telescope.builtin'.find_files{}<CR>
         return
     endif
-    nmap <C-p> :GFiles<CR>
-    "telescope
-    "nnoremap <C-p> <cmd>lua require'telescope.builtin'.git_files{}<CR>
+    nnoremap <C-p> <cmd>lua require'telescope.builtin'.git_files{}<CR>
 endfun
 call SetFuzzy()
 
@@ -152,13 +159,11 @@ let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
 let g:bujo#window_width = 50
 
 " Shortcuts
-tnoremap <leader>q <C-\><C-n>
-nnoremap <silent><leader>tm :split term://zsh<CR>
+nnoremap <silent><leader>ts :split term://zsh<CR>
 nnoremap <silent><leader>tv :vsplit term://zsh<CR>
 nnoremap <silent><leader>rj :resize 10<CR>
 nnoremap <silent><leader>rk :resize 100<CR>
 nnoremap <silent><leader>r= <C-w>=
-nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <silent><leader>m :Make<CR>
 nnoremap <silent><leader>ms :Make!<CR>
 nnoremap <silent><leader>mp :Make! mrproper<CR>
@@ -168,17 +173,21 @@ nnoremap <silent><leader>pu :PlugUpdate<CR>
 nnoremap <silent><leader>gv :call SetGruvbox()<CR>
 nnoremap <silent><leader>od :call SetOneDark()<CR>
 nnoremap <silent><leader>rp :DiscordUpdatePresence<CR>
-inoremap <esc> <C-c>
 nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><leader>u :UndotreeShow<CR>
-nnoremap <silent><Leader>rg :Rg<SPACE>
-nnoremap <silent><Leader><F5> :so ~/.config/nvim/init.vim<CR>
-nnoremap <silent><Leader>+ :vertical resize +5<CR>
-nnoremap <silent><Leader>- :vertical resize -5<CR>
+nnoremap <silent><leader>bf <cmd>lua require'telescope.builtin'.buffers{}<CR>
+nnoremap <silent><leader>ch <cmd>lua require'telescope.builtin'.command_history{}<CR>
+nnoremap <silent><leader>of <cmd>lua require'telescope.builtin'.oldfiles{}<CR>
+nnoremap <silent><leader>rg <cmd>lua require'telescope.builtin'.live_grep{}<CR>
+nnoremap <silent><leader>tr <cmd>lua require'telescope.builtin'.treesitter{}<CR>
+nnoremap <silent><leader><F5> :so ~/.config/nvim/init.vim<CR>
+nnoremap <silent><leader>+ :vertical resize +5<CR>
+nnoremap <silent><leader>- :vertical resize -5<CR>
 vnoremap <silent>J :m '>+1<CR>gv=gv
 vnoremap <silent>K :m '<-2<CR>gv=gv
+inoremap <esc> <C-c>
 vnoremap <c-p> "_dP
 vnoremap X "_d
 
@@ -200,12 +209,13 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 imap <silent><c-space> <Plug>(completion_trigger)
+nnoremap <silent><leader>vds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>
+nnoremap <silent><leader>vws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
 nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>vh <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent><leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent><leader>vt <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent><leader>vr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>vds <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent><leader>vf <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent><leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
 

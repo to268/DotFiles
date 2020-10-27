@@ -1,5 +1,9 @@
 # WM independent hotkeys
 
+# Launch tmux
+super + shift + Return
+    $TERMINAL -e tmux
+
 # Minimal Version
 super + shift + l
 	slock
@@ -35,6 +39,9 @@ ctrl + shift + m
 
 ctrl + shift + d
 	discord
+
+alt + p
+    PASSWORD_STORE_DIR="$HOME/.local/share/password-store" passmenu -l 20
 
 ctrl + alt + p
 	$TERMINAL -e ncmpcpp

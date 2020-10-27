@@ -6,7 +6,7 @@ type=$(file --dereference --brief --mime-type "$1")
 get_mime(){
     case "$type" in
         video/*|audio/*|application/octet-steam) mediainfo "$file";;
-        image/*) chafa --fill=block --symbols=block -c 256 "$file";;
+        image/*) mediainfo "$file";;
         text/x-shellscript) highlight --out-format=ansi "$file";;
         text/*|*/xml|application/json) highlight --out-format=ansi --force "$file";;
         application/vnd.oasis.opendocument.text|*opendocument*) odt2txt "$1";;

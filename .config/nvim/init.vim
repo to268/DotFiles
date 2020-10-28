@@ -47,6 +47,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'aurieh/discord.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree'
 Plug 'vuciv/vim-bujo'
 call plug#end()
@@ -88,7 +89,7 @@ set wildmode=longest,list,full
 " OneDark
 func! SetOneDark()
     colorscheme onedark
-	execute 'AirlineTheme onedark'
+    execute 'AirlineTheme onedark'
 endfun
 
 " Gruvbox
@@ -97,7 +98,7 @@ func! SetGruvbox()
     let g:gruvbox_invert_selection = '0'
     colorscheme gruvbox
     set background=dark
-	execute 'AirlineTheme base16_gruvbox_dark_hard'
+    execute 'AirlineTheme base16_gruvbox_dark_hard'
 endfun
 
 " Initialize Gruvbox Color Scheme
@@ -129,10 +130,6 @@ let g:fzf_branch_actions = {
       \   'confirm': v:false,
       \ },
       \}
-
-" Telescope
-let g:telescope_cache_results = 1
-let g:telescope_prime_fuzzy_find = 1
 
 " Set the fuzzy finder to use if we are in a git repo or not
 fun! SetFuzzy()
@@ -211,6 +208,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 imap <silent><c-space> <Plug>(completion_trigger)
 nnoremap <silent><leader>vds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>
 nnoremap <silent><leader>vws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
+nnoremap <silent><leader>vrn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>vh <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent><leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>

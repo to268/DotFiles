@@ -24,7 +24,7 @@ alias rbin="rabin2"
 alias yt="youtube-dl --add-metadata -i"
 alias yta="yt -x -f bestaudio/best"
 alias ffmpeg="ffmpeg -hide_banner"
-alias ytv="youtube-viewer -C --player=mpv"
+alias ytv="straw-viewer -C --player=mpv"
 
 # Git Aliases
 alias g="git"

@@ -75,6 +75,7 @@ ttf-inconsolata
 ttf-linux-libertine
 unzip
 urlscan
+straw-viewer-git
 vim
 wget
 wireless_tools
@@ -90,7 +91,8 @@ xorg-xinit
 xwallpaper
 yay
 youtube-dl
-youtube-viewer
+zathura
+zathura-pdf-poppler
 zip
 zsh
 zsh-fast-syntax-highlighting

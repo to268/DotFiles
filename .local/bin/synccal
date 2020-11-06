@@ -1,3 +1,3 @@
 #!/bin/sh
 
-calcurse-caldav --init=two-way --authcode '' --datadir $CALCURSE_DIR
+CALCURSE_CALDAV_PASSWORD=$(pass show) calcurse-caldav --init=two-way --datadir $CALCURSE_DIR

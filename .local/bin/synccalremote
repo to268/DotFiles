@@ -1,6 +1,3 @@
 #!/bin/sh
 
-cp -f $CALCURSE_DIR/todo /tmp/todo
-calcurse-caldav --init=keep-remote --authcode '' --datadir $CALCURSE_DIR
-cp -f /tmp/todo $CALCURSE_DIR/todo
-rm -f /tmp/todo
+CALCURSE_CALDAV_PASSWORD=$(pass show) calcurse-caldav --init=keep-remote --datadir $CALCURSE_DIR

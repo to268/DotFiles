@@ -4,7 +4,6 @@ call plug#begin('~/.config/nvim/plugged')
 " Dev stuff
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'airblade/vim-gitgutter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
@@ -43,10 +42,9 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'jreybert/vimagit'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-utils/vim-man'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'aurieh/discord.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/landscape.vim'
+Plug 'itchyny/vim-gitbranch'
 Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree'
 Plug 'vuciv/vim-bujo'
@@ -86,29 +84,53 @@ let mapleader = " "
 set completeopt=menuone,noinsert,noselect
 set wildmode=longest,list,full
 
-" OneDark
-func! SetOneDark()
-    colorscheme onedark
-    execute 'AirlineTheme onedark'
+" Set Background Trasparent
+fun! Transparent()
+    highlight Normal guibg=none
+    highlight LineNr guibg=none
 endfun
 
-" Gruvbox
-func! SetGruvbox()
+" Gruvbox Color Scheme
+fun! Gruvbox()
     let g:gruvbox_constrast_dark = 'hard'
     let g:gruvbox_invert_selection = '0'
     colorscheme gruvbox
     set background=dark
-    execute 'AirlineTheme base16_gruvbox_dark_hard'
 endfun
 
-" Initialize Gruvbox Color Scheme
-colorscheme gruvbox
-set background=dark
+" OneDark Color Scheme
+fun! OneDark()
+    colorscheme onedark
+    set background=dark
+endfun
 
-augroup gruvbox
-    autocmd!
-    autocmd VimEnter * call SetGruvbox()
-augroup END
+" Ayu Color Scheme
+fun! Ayu()
+    colorscheme ayu
+    set background=dark
+endfun
+
+" Default Theme Configuration
+fun! Default()
+    call Gruvbox()
+    let g:lightline = {
+        \ 'colorscheme': 'deus',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+        \   'right': [ [ 'lineinfo' ],
+        \              [ 'percent' ],
+        \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+        \ },
+        \ 'component': {
+        \   'charvaluehex': '0x%B'
+        \ },
+        \ 'component_function': {
+        \   'gitbranch': 'gitbranch#name'
+        \ },
+    \ }
+endfun
+call Default()
 
 " Rg
 if executable('rg')
@@ -167,9 +189,11 @@ nnoremap <silent><leader>mp :Make! mrproper<CR>
 nnoremap <silent><F5> :edit<CR>
 nnoremap <silent><leader>pi :PlugInstall<CR>
 nnoremap <silent><leader>pu :PlugUpdate<CR>
-nnoremap <silent><leader>gv :call SetGruvbox()<CR>
-nnoremap <silent><leader>od :call SetOneDark()<CR>
-nnoremap <silent><leader>rp :DiscordUpdatePresence<CR>
+nnoremap <silent><leader>df :call Default()<CR>
+nnoremap <silent><leader>gv :call Gruvbox()<CR>
+nnoremap <silent><leader>od :call OneDark()<CR>
+nnoremap <silent><leader>ayu :call Ayu()<CR>
+nnoremap <silent><leader>tsp :call Transparent()<CR>
 nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
 nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
@@ -209,7 +233,7 @@ imap <silent><c-space> <Plug>(completion_trigger)
 nnoremap <silent><leader>vds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>
 nnoremap <silent><leader>vws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
 nnoremap <silent><leader>vrn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent><leader>vi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent><leader>vh <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent><leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -228,6 +252,7 @@ augroup lsp
     autocmd BufEnter *.java let g:completion_trigger_character = ['.', '@']
     autocmd BufEnter *.rb let g:completion_trigger_character = ['.', '::', '@']
     autocmd BufEnter *.c,*.cpp,*.h,*.hpp let g:completion_trigger_character = ['.', '->', '::', '#']
+    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText" }
 augroup END
 
 " Spell check

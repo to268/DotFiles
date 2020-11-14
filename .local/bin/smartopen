@@ -1,0 +1,20 @@
+#!/bin/sh
+
+file="$1"
+type=$(file --dereference --brief --mime-type "$1")
+
+get_mime(){
+    case "$type" in
+        application/pdf) $READER "$file";;
+        audio/*) mpv --no-audio-display "$file";;
+        image/*) sxiv "$file";;
+        text/*) $EDITOR "$file";;
+        video/*) mpv "$file";;
+        *) $EDITOR "$file";;
+    esac
+}
+
+case "$1" in
+    # Add extentions check here to process before the mime type
+    *) get_mime;;
+esac

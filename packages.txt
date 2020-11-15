@@ -1,5 +1,6 @@
 alsa-oss
 alsa-utils
+ant-theme-git
 arc-gtk-theme
 arc-icon-theme
 autoconf
@@ -12,7 +13,7 @@ bind-tools
 calcurse
 cmake
 cronie
-discord
+cryptsetup
 dunst
 exa
 fd
@@ -29,8 +30,6 @@ lf
 libnotify
 linux
 linux-headers
-linux-lts
-linux-lts-headers
 maim
 make
 man-db

@@ -209,6 +209,7 @@ nnoremap <silent><leader>- :vertical resize -5<CR>
 vnoremap <silent>J :m '>+1<CR>gv=gv
 vnoremap <silent>K :m '<-2<CR>gv=gv
 inoremap <esc> <C-c>
+vnoremap <leader>s :sort<CR>
 vnoremap <c-p> "_dP
 vnoremap X "_d
 
@@ -224,7 +225,7 @@ nmap <leader>gpl :Gpull<CR>
 nmap <leader>gt :GCheckoutTag<CR>
 
 " Nvim lsp
-lua require("lspconfig").launchServers()
+lua require("lsp-config").launchServers()
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -286,11 +287,6 @@ augroup END
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 com! W w
-
-augroup neomutt
-	autocmd!
-	autocmd BufRead,BufNewFile /tmp/neomutt* call Neomutt()
-augroup END
 
 " Automatically deletes all trailing whitespace on save
 augroup cleanFile

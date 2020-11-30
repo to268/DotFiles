@@ -126,4 +126,4 @@ fi
 
 # Load ssh-keys
 eval `ssh-agent` >/dev/null
-ssh-add -q "$HOME/.ssh/rpi"
+ssh-add -q

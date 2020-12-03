@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Display keyboard layout
+
+[ "$(setxkbmap -query | wc -l)" == "4" ] && echo "⌨  $(setxkbmap -query | grep variant | sed "s/^.* //g")" && exit
+echo "⌨  $(setxkbmap -query | grep layout | sed "s/^.* //g")" && exit

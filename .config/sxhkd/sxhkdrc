@@ -37,9 +37,6 @@ ctrl + shift + n
 ctrl + shift + m
 	$TERMINAL -e neomutt
 
-ctrl + shift + d
-	discord
-
 alt + p
     PASSWORD_STORE_DIR="$HOME/.local/share/password-store" passmenu -l 20
 
@@ -134,16 +131,13 @@ alt + agrave
 # Swap keyboard
 
 ctrl + Return
-	setxkbmap fr && notify-send --urgency=low "Key map swapped" "Key map is now azerty"
+	setxkbmap fr && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 ctrl + shift + Return
-	setxkbmap us -variant dvorak && notify-send --urgency=low "Key map swapped" "Key map is now dvorak us"
+	setxkbmap us -variant dvorak && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 ctrl + alt + Return
-	setxkbmap fr -variant bepo && notify-send --urgency=low "Key map swapped" "Key map is now bepo"
-
-ctrl + alt shift + Return
-	setxkbmap fr -variant dvorak && notify-send --urgency=low "Key map swapped" "Key map is now dvorak fr"
+	setxkbmap fr -variant bepo && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 # Scripts Shortcuts
 

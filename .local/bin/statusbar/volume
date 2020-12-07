@@ -2,6 +2,10 @@
 
 # Prints the current volume or 🔇 if muted.
 
+# Mono
+#volume=$(amixer sget Master | grep "Mono:" | awk -F "[" '{print $2}' | cut -d "]" -f1 | cut -d "%" -f1)
+#state=$(amixer sget Master | grep "Mono:" | awk -F "[" '{print $4}' | cut -d "]" -f1)
+# Stereo
 volume=$(amixer sget Master | grep "Front Right:" | sort -n -r | awk '{print $5}' | cut -d "[" -f2 | cut -d "]" -f1 | sed "s/%//")
 state=$(amixer sget Master | grep "Front Right:" | sort -n -r | awk '{print $7}' | cut -d "[" -f2 | cut -d "]" -f1)
 

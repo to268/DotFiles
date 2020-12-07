@@ -75,11 +75,11 @@ alt + shift + m
 # Alsa Song
 
 # Increase volume
-alt + {_,shift +} + KP_Add
+alt + {_,shift +} + Up
 	amixer sset Master {2,10}%+; kill -44 $(pidof bar-widgets)
 
 # Decrease volume
-alt + {_,shift +} + KP_Subtract
+alt + {_,shift +} + Down
 	amixer sset Master {2,10}%-; kill -44 $(pidof bar-widgets)
 
 # Mute/Unmute

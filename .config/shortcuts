@@ -7,6 +7,7 @@ alias vids="cd ~/files/Videos"
 alias pics="cd ~/files/Photos"
 alias music="cd ~/files/Music"
 
-# Files
+# Config Files
 alias cfnv="nvim ~/.config/nvim/init.vim"
+alias cfsx="nvim ~/.config/sxhkd/sxhkdrc"
 alias cfzsh="nvim ~/.config/zsh/.zshrc"

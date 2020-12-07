@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Script to connect to the network configured in /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Wireless interface to use
+interface="wlo1"
+
+# Make sure to kill wpa_supplicant if is already running
+sudo pkill -e wpa_supplicant
+
+# Launch wpa_supplicant in the background
+sudo wpa_supplicant -B -i $interface -c /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Launch dhcp client to get an ip address
+sudo dhcpcd

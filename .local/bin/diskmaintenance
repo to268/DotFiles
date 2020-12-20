@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Trim supported devices in fstab
+echo "[*] Trim:"
+sudo fstrim -v -A
+
+# Scub
+echo "[*] Scrub:"
+sudo btrfs scrub start -B /
+sudo btrfs scrub start -B /home
+sudo btrfs scrub start -B ~/files/ext/data
+sudo btrfs scrub start -B ~/files/ext/snapshots

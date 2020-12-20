@@ -1,4 +1,0 @@
-#!/bin/sh
-
-rm -f .cache/wget-hsts > /dev/null
-rm -f ~/.xsession-errors > /dev/null

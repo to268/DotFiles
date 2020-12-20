@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Remove old snapshot
+snapdate=$(ls /snapshots/ | awk '{print $1}')
+sudo btrfs su delete /snapshots/$snapdate/root
+sudo btrfs su delete /home/snapshots/$snapdate/home
+
+# Make new snapshot
+timenow=$(date "+%d-%m-%Y")
+sudo mv /snapshots/$snapdate /snapshots/$timenow
+sudo mv /home/snapshots/$snapdate /home/snapshots/$timenow
+sudo btrfs su snap -r / /snapshots/$timenow/root
+sudo btrfs su snap -r /home /home/snapshots/$timenow/home
+
+# Remove old snapshot on the backup disk
+sudo btrfs su delete ~/files/ext/snapshots/$snapdate/root
+sudo btrfs su delete ~/files/ext/snapshots/$snapdate/home
+
+# Copy new snapshot
+sudo mv ~/files/ext/snapshots/$snapdate ~/files/ext/snapshots/$timenow
+sudo btrfs send /snapshots/$timenow/root | sudo btrfs receive -v ~/files/ext/snapshots/$timenow
+sudo btrfs send /home/snapshots/$timenow/home | sudo btrfs receive -v ~/files/ext/snapshots/$timenow

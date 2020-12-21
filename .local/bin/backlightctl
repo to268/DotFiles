@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# Notify backlight status (0: no, 1: yes) can be overwrite by providing this value as a second argument
+arg2=$2
+notify=${arg2:-0}
+
+# Get backlight name
+name=$(ls /sys/class/backlight/ | awk '{print $1}')
+# Get actual brightness
+current=$(cat /sys/class/backlight/$name/actual_brightness)
+# Get max brightness
+max=$(cat /sys/class/backlight/$name/max_brightness)
+# Store arg
+arg=$1
+
+plus() {
+    arg=$(echo $arg | sed "s/+//g")
+    value=$(( current + arg ))
+    [ $value -gt $max ] && value=$max
+    [ $value -lt 1 ] && value=1
+    echo $value > /sys/class/backlight/$name/brightness
+    msg="$value/$max"
+    [ $notify -eq 1 ] && notify-send --urgency=low "💡 Backlight changed" "$msg" && exit
+    echo $msg
+    exit
+}
+
+minus() {
+    arg=$(echo $arg | sed "s/-//g")
+    value=$(( current - arg ))
+    [ $value -gt $max ] && value=$max
+    [ $value -lt 1 ] && value=1
+    echo $value > /sys/class/backlight/$name/brightness
+    msg="$value/$max"
+    [ $notify -eq 1 ] && notify-send --urgency=low "💡 Backlight changed" "$msg" && exit
+    echo $msg
+    exit
+}
+
+value() {
+    value=$arg
+    [ $value -gt $max ] && value=$max
+    [ $value -lt 1 ] && value=1
+    echo $value > /sys/class/backlight/$name/brightness
+    msg="$value/$max"
+    [ $notify -eq 1 ] && notify-send --urgency=low "💡 Backlight changed" "$msg" && exit
+    echo $msg
+    exit
+}
+
+[ -z "$(echo $arg | grep "+")" ] || plus
+[ -z "$(echo $arg | grep "-")" ] || minus
+[ -z "$(echo $arg | grep "[0-9]")" ] || value
+
+exit -1

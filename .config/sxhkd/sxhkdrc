@@ -139,6 +139,22 @@ ctrl + shift + Return
 ctrl + alt + Return
 	setxkbmap fr -variant bepo && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
+# Backlight
+
+super + Prior
+    sudo sh ~/.local/bin/backlightctl +10000
+
+super + Next
+    sudo sh ~/.local/bin/backlightctl -10000
+
+# Set the max value for the backlight or set a big value and the script will
+# automaticly set the max value even if the value is larger than the max value
+super + Home
+    sudo sh ~/.local/bin/backlightctl 120000
+
+super + End
+    xset dpms force off
+
 # Scripts Shortcuts
 
 alt + shift + 1

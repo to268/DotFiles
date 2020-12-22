@@ -17,12 +17,11 @@ source $XDG_CONFIG_HOME/directories
 source $XDG_CONFIG_HOME/files
 
 # Adds servals directories to $PATH
-export PATH="$PATH:$(du "/usr/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
-export PATH="$PATH:$(du "$HOME/.local/bin/statusbar/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
+export PATH="$PATH:$(du "$HOME/.local/bin/statusbar/" | cut -f2 | paste -sd ':' -)"
 # OS dev stuff
-#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
-#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | paste -sd ':' -)"
+#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf-10.1.0-Linux-x86_64/bin" | cut -f2 | paste -sd ':' -)"
 
 # Default programs:
 export EDITOR="nvim"
@@ -32,6 +31,7 @@ export READER="zathura"
 
 # ~/ Clean-up:
 export LESSHISTFILE="-"
+export AlSA_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/alsa/asoundrc"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export CALCURSE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/calcurse"

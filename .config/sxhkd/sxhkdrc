@@ -72,19 +72,33 @@ alt + shift + p
 alt + shift + m
 	$TERMINAL -d ~/files/Music
 
-# Alsa Song
+# Alsa
+
+# Increase volume
+#alt + {_,shift +} + Up
+#	amixer sset Master {2,10}%+; kill -44 $(pidof bar-widgets)
+
+# Decrease volume
+#alt + {_,shift +} + Down
+#	amixer sset Master {2,10}%-; kill -44 $(pidof bar-widgets)
+
+# Mute/Unmute
+#alt + m
+#	amixer sset Master toggle; kill -44 $(pidof bar-widgets)
+
+# Pulseaudio
 
 # Increase volume
 alt + {_,shift +} + Up
-	amixer sset Master {2,10}%+; kill -44 $(pidof bar-widgets)
+	pamixer -i {2,10}; kill -44 $(pidof bar-widgets)
 
 # Decrease volume
 alt + {_,shift +} + Down
-	amixer sset Master {2,10}%-; kill -44 $(pidof bar-widgets)
+	pamixer -d {2,10}; kill -44 $(pidof bar-widgets)
 
 # Mute/Unmute
 alt + m
-	amixer sset Master toggle; kill -44 $(pidof bar-widgets)
+	pamixer -t; kill -44 $(pidof bar-widgets)
 
 # mpd control
 

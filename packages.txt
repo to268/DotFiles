@@ -55,8 +55,15 @@ noto-fonts-extra
 npm
 numlockx
 odt2txt
+pamixer
 pass
 patch
+pavucontrol
+pulseaudio
+pulseaudio-alsa
+pulseaudio-equalizer
+pulseaudio-equalizer-ladspa
+pulsemixer
 pwndbg
 python-pip
 radare2

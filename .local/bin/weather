@@ -1,0 +1,4 @@
+#!/bin/sh
+
+[ -z $1 ] || curl wttr.in/$1 && exit
+curl wttr.in/$LOCATION

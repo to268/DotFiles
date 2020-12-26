@@ -40,6 +40,9 @@ ctrl + shift + m
 alt + p
     PASSWORD_STORE_DIR="$HOME/.local/share/password-store" passmenu -l 20
 
+alt + shift + p
+    PASSWORD_STORE_DIR="$HOME/.local/share/password-store" dmenuotp -l 20
+
 ctrl + alt + p
 	$TERMINAL -e ncmpcpp
 
@@ -65,9 +68,6 @@ alt + d
 
 alt + shift + v
 	$TERMINAL -d ~/files/Videos
-
-alt + shift + p
-	$TERMINAL -d ~/files/Photos
 
 alt + shift + m
 	$TERMINAL -d ~/files/Music

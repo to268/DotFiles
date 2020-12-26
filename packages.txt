@@ -57,6 +57,7 @@ numlockx
 odt2txt
 pamixer
 pass
+pass-otp
 patch
 pavucontrol
 pulseaudio
@@ -100,6 +101,7 @@ yay
 youtube-dl
 zathura
 zathura-pdf-poppler
+zbar
 zip
 zsh
 zsh-fast-syntax-highlighting

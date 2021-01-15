@@ -1,31 +1,66 @@
-" Download plug.vim in ~/.config/nvim/autoload link : "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" and do :PlugInstall
+"
+"   ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+"   ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+"   ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+"   ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+"   ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+"   ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+"
+" Config Structure:
+"
+" init.vim:
+"       used for the uncategorized part and plugins
+" augroups:
+"       in ./after/plugin/augroups/*.vim
+" remaps:
+"       in ./after/plugin/augroups/*.vim
+" basic configurations:
+"       in ./plugins/*.vim
+" lua scripts:
+"       in ./lua/*.lua
 
+" Plugins
 call plug#begin('~/.config/nvim/plugged')
 " Dev stuff
-Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'tpope/vim-fugitive'
 Plug 'ap/vim-css-color'
 Plug 'rust-lang/rust.vim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'tjdevries/nlua.nvim'
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'tpope/vim-projectionist'
 
-" File explorer
+" Neovim LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'tjdevries/nlua.nvim'
+Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
+" Neovim Tree Sitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'bryall/contextprint.nvim'
+
+" NERDTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'ryanoasis/vim-devicons'
+
+" Fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" Telescope
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/telescope.nvim'
+
+" Git
+Plug 'jreybert/vimagit'
+Plug 'tpope/vim-fugitive'
 Plug 'stsewd/fzf-checkout.vim'
 
 " Comments
@@ -36,271 +71,83 @@ Plug 'tpope/vim-surround'
 Plug 'gruvbox-community/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'ayu-theme/ayu-vim'
+
+" Status Line
+Plug 'hoob3rt/lualine.nvim'
 
 " Utils
-Plug 'jreybert/vimagit'
+Plug 'dbeniamine/cheat.sh-vim'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-utils/vim-man'
-Plug 'itchyny/lightline.vim'
-Plug 'itchyny/landscape.vim'
-Plug 'itchyny/vim-gitbranch'
 Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree'
 Plug 'vuciv/vim-bujo'
+Plug 'mhinz/vim-rfc'
 call plug#end()
 
-" Basic
-syntax on
-filetype plugin indent on
-set clipboard+=unnamedplus
-set nocompatible
-set encoding=utf-8
-set relativenumber
-set nu
-set signcolumn=yes
-set smarttab
-set smartindent
-set expandtab
-set hidden
-set nowrap
-set noshowmode
-set smartcase
-set undodir=~/.cache/undodir
-set undofile
-set incsearch
-set noerrorbells
-set nohlsearch
-set nobackup
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set scrolloff=6
-set updatetime=50
-set shortmess+=c
-set termguicolors
+" Execute .nvimrc
+set exrc
+
+" Map the leader key
 let mapleader = " "
-
-" Autocompletion
-set completeopt=menuone,noinsert,noselect
-set wildmode=longest,list,full
-
-" Set Background Trasparent
-fun! Transparent()
-    highlight Normal guibg=none
-    highlight LineNr guibg=none
-endfun
-
-" Gruvbox Color Scheme
-fun! Gruvbox()
-    let g:gruvbox_constrast_dark = 'hard'
-    let g:gruvbox_invert_selection = '0'
-    colorscheme gruvbox
-    set background=dark
-endfun
-
-" OneDark Color Scheme
-fun! OneDark()
-    colorscheme onedark
-    set background=dark
-endfun
-
-" Ayu Color Scheme
-fun! Ayu()
-    colorscheme ayu
-    set background=dark
-endfun
-
-" Default Theme Configuration
-fun! Default()
-    call Gruvbox()
-    let g:lightline = {
-        \ 'colorscheme': 'deus',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-        \   'right': [ [ 'lineinfo' ],
-        \              [ 'percent' ],
-        \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
-        \ },
-        \ 'component': {
-        \   'charvaluehex': '0x%B'
-        \ },
-        \ 'component_function': {
-        \   'gitbranch': 'gitbranch#name'
-        \ },
-    \ }
-endfun
-call Default()
 
 " Rg
 if executable('rg')
     let g:rg_derive_root='true'
 endif
 
-" Fzf
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
-
-" Fzf checkout
-let g:fzf_branch_actions = {
-      \ 'checkout': {
-      \   'prompt': 'Checkout> ',
-      \   'execute': 'echo system("{git} checkout {branch}")',
-      \   'multiple': v:false,
-      \   'keymap': 'enter',
-      \   'required': ['branch'],
-      \   'confirm': v:false,
-      \ },
-      \}
-
-" Set the fuzzy finder to use if we are in a git repo or not
-fun! SetFuzzy()
-    let l:gitcmd = system("git rev-parse --git-dir 2> /dev/null")
-    if (l:gitcmd == '')
-        nnoremap <C-p> <cmd>lua require'telescope.builtin'.find_files{}<CR>
-        return
-    endif
-    nnoremap <C-p> <cmd>lua require'telescope.builtin'.git_files{}<CR>
-endfun
-call SetFuzzy()
-
-" Splits open at the bottom and right
-set splitbelow splitright
-
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<c-s>"
 
-" Bujo
-nmap <silent><leader>td :Todo<CR>
-nmap <leader>tc <Plug>BujoChecknormal
-nmap <leader>ta <Plug>BujoAddnormal
-let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
-let g:bujo#window_width = 50
-
-" Shortcuts
-nnoremap <silent><leader>ts :split term://zsh<CR>
-nnoremap <silent><leader>tv :vsplit term://zsh<CR>
-nnoremap <silent><leader>rj :resize 10<CR>
-nnoremap <silent><leader>rk :resize 100<CR>
-nnoremap <silent><leader>r= <C-w>=
-nnoremap <silent><leader>m :Make<CR>
-nnoremap <silent><leader>ms :Make!<CR>
-nnoremap <silent><leader>mp :Make! mrproper<CR>
-nnoremap <silent><F5> :edit<CR>
-nnoremap <silent><leader>pi :PlugInstall<CR>
-nnoremap <silent><leader>pu :PlugUpdate<CR>
-nnoremap <silent><leader>df :call Default()<CR>
-nnoremap <silent><leader>gv :call Gruvbox()<CR>
-nnoremap <silent><leader>od :call OneDark()<CR>
-nnoremap <silent><leader>ayu :call Ayu()<CR>
-nnoremap <silent><leader>tsp :call Transparent()<CR>
-nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
-nnoremap <silent><leader>u :UndotreeShow<CR>
-nnoremap <silent><leader>bf <cmd>lua require'telescope.builtin'.buffers{}<CR>
-nnoremap <silent><leader>ch <cmd>lua require'telescope.builtin'.command_history{}<CR>
-nnoremap <silent><leader>of <cmd>lua require'telescope.builtin'.oldfiles{}<CR>
-nnoremap <silent><leader>rg <cmd>lua require'telescope.builtin'.live_grep{}<CR>
-nnoremap <silent><leader>tr <cmd>lua require'telescope.builtin'.treesitter{}<CR>
-nnoremap <silent><leader><F5> :so ~/.config/nvim/init.vim<CR>
-nnoremap <silent><leader>+ :vertical resize +5<CR>
-nnoremap <silent><leader>- :vertical resize -5<CR>
-vnoremap <silent>J :m '>+1<CR>gv=gv
-vnoremap <silent>K :m '<-2<CR>gv=gv
-inoremap <esc> <C-c>
-vnoremap <leader>s :sort<CR>
-vnoremap <c-p> "_dP
-vnoremap X "_d
-
-" Vim fugitive
-nmap <leader>gf :diffget //2<CR>
-nmap <leader>gj :diffget //3<CR>
-nmap <leader>gl :GlLog<CR>
-nmap <leader>gs :G<CR>
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gch :GCheckout<CR>
-nmap <leader>gps :Gpush<CR>
-nmap <leader>gpl :Gpull<CR>
-nmap <leader>gt :GCheckoutTag<CR>
-
-" Nvim lsp
-lua require("lsp-config").launchServers()
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-imap <silent><c-space> <Plug>(completion_trigger)
-nnoremap <silent><leader>vds <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<CR>
-nnoremap <silent><leader>vws <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
-nnoremap <silent><leader>vrn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent><leader>vi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent><leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent><leader>vh <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent><leader>vs <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent><leader>vt <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent><leader>vr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent><leader>vf <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent><leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
-
+" Neovim LSP
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_matching_ignore_case = 1
-
-augroup lsp
-    autocmd!
-    autocmd BufEnter * let g:completion_trigger_character = ['.']
-    autocmd BufEnter *.r let g:completion_trigger_character = ['.', '@']
-    autocmd BufEnter *.java let g:completion_trigger_character = ['.', '@']
-    autocmd BufEnter *.rb let g:completion_trigger_character = ['.', '::', '@']
-    autocmd BufEnter *.c,*.cpp,*.h,*.hpp let g:completion_trigger_character = ['.', '->', '::', '#']
-    autocmd BufEnter *.rs let g:completion_trigger_character = ['.', ':', '::']
-    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText" }
-augroup END
-
-" Spell check
-map <leader>o :setlocal spell! spelllang=en_us<CR>
-map <leader>p :setlocal spell! spelllang=fr_fr<CR>
-
-" Shortcutting split navigation
-nnoremap <silent><C-h> :wincmd h<CR>
-nnoremap <silent><C-j> :wincmd j<CR>
-nnoremap <silent><C-k> :wincmd k<CR>
-nnoremap <silent><C-l> :wincmd l<CR>
-nnoremap <silent><C-q> :quit<CR>
 
 " Nerd Config
 let g:NERDTreeGitStatusWithFlags = 1
 let NERDTreeShowHidden=1
 map <C-n> :NERDTreeToggle<CR>
 
-augroup NERDTree
-	autocmd!
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-augroup END
+" Bujo
+let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
+let g:bujo#window_width = 50
 
-" Disables automatic commenting on newline
-augroup commenting
-	autocmd!
-	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-augroup END
+" Vim.cpp
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
 
-" Save file as sudo on files that require root permission
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+" Basic Remaps
+nnoremap <silent><leader>ts :split term://zsh<CR>
+nnoremap <silent><leader>tv :vsplit term://zsh<CR>
+nnoremap <silent><leader>rj :resize 10<CR>
+nnoremap <silent><leader>rk :resize 100<CR>
+nnoremap <silent><leader>r= <C-w>=
+nnoremap <silent><leader>m :Make -j6<CR>
+nnoremap <silent><leader>ms :Make!<CR>
+nnoremap <silent><leader>mc :Make! clean<CR>
+nnoremap <silent><leader>mp :Make! mrproper<CR>
+nnoremap <silent><F5> :edit<CR>
+nnoremap <silent><leader>pi :PlugInstall<CR>
+nnoremap <silent><leader>pu :PlugUpdate<CR>
+nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
+nnoremap <silent><leader>u :UndotreeShow<CR>
+nnoremap <silent><leader><F5> :so ~/.config/nvim/init.vim<CR>
+nnoremap <silent><leader>+ :vertical resize +5<CR>
+nnoremap <silent><leader>- :vertical resize -5<CR>
+nnoremap <leader>cP :lua require("contextprint").add_statement()<CR>
+nnoremap <leader>cp :lua require("contextprint").add_statement(true)<CR>
+vnoremap <silent>J :m '>+1<CR>gv=gv
+vnoremap <silent>K :m '<-2<CR>gv=gv
+vnoremap <leader>s :sort<CR>
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+inoremap <esc> <C-c>
+vnoremap <c-p> "_dP
+vnoremap <c-x> "_d
 
+" Ignore case for the write command
 com! W w
-
-" Automatically deletes all trailing whitespace on save
-augroup cleanFile
-	autocmd!
-	autocmd BufWritePre * %s/\s\+$//e
-	autocmd BufWritePre * %s/\n\+\%$//e
-augroup END
-
-" Automations
-augroup automations
-	autocmd!
-	" Update Xresources
-	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-	" Update sxhkdrc
-	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
-augroup END

@@ -151,3 +151,6 @@ vnoremap <c-x> "_d
 
 " Ignore case for the write command
 com! W w
+
+" Use alt-w for managing buffers for the dvorak layout
+map <A-w> <C-w>

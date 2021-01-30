@@ -27,7 +27,6 @@ Plug 'honza/vim-snippets'
 Plug 'ap/vim-css-color'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-dispatch'
-Plug 'sheerun/vim-polyglot'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-projectionist'
 

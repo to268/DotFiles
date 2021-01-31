@@ -141,6 +141,7 @@ nnoremap <leader>cp :lua require("contextprint").add_statement(true)<CR>
 vnoremap <silent>J :m '>+1<CR>gv=gv
 vnoremap <silent>K :m '<-2<CR>gv=gv
 vnoremap <leader>s :sort<CR>
+vnoremap <leader>S :sort!<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y gg"+yG

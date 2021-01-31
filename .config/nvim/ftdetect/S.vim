@@ -1,4 +1,4 @@
 augroup asm_S
     autocmd!
-    autocmd BufReadPre *.S set filetype=gasm
+    autocmd BufReadPost *.S set filetype=gasm
 augroup END

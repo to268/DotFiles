@@ -31,6 +31,7 @@ set background=dark
 " Autocompletion
 set completeopt=menuone,noinsert,noselect
 set wildmode=longest,list,full
+set wildignore+=*.o,*.obj,*.a,*.bin,*.elf,*.iso,.git,*.rbc,*.pyc,__pycache__
 
 " Splits open at the bottom and right
 set splitbelow splitright

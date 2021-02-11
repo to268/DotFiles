@@ -36,11 +36,11 @@ void getContent(const char *cmd, char *out) {
 }
 
 void sighandler(int signum) {
-    // substract 34 to get the number after SIGRTMIN
+    // Substract 34 to get the number after SIGRTMIN
     signum -= 34;
     // Find the notif and display it
     for (int i = 0; i < LENGTH(notifs); i++) {
-        if(notifs[i].signal == signum){
+        if (notifs[i].signal == signum) {
             sendNotif(&notifs[i]);
             break;
         }
@@ -49,8 +49,8 @@ void sighandler(int signum) {
 
 void registerSignals(void) {
     struct sigaction sa;
-    for(int i = 0; i < LENGTH(notifs); i++){
-        if(notifs[i].signal > 0){
+    for (int i = 0; i < LENGTH(notifs); i++) {
+        if (notifs[i].signal > 0) {
             sa.sa_handler = sighandler;
             sigaction(SIGRTMIN+notifs[i].signal, &sa, NULL);
         }
@@ -65,6 +65,8 @@ void sendNotif(const struct Notif *notif) {
         bzero(data, MAX_CONTENT_LENGTH);
         return;
     }
+
+    // Prepare Notification to send
     notify_init("notify-manager");
     NotifyNotification *not = notify_notification_new(notif->title, data, NULL);
     notify_notification_set_timeout(not, notif->timeout);
@@ -73,10 +75,13 @@ void sendNotif(const struct Notif *notif) {
         GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(notif->iconPath, NULL);
         notify_notification_set_icon_from_pixbuf(not, pixbuf);
     }
+
+    // Display Notification
     if (!notify_notification_show(not, NULL)) {
         perror("failed to show the notification\n");
         return;
     }
+    // Unload Notification
     g_object_unref(not);
     notify_uninit();
 }
@@ -93,9 +98,9 @@ void loop(void) {
     // Register signals
     registerSignals();
 
-    // main loop
+    // Main loop
     int i = 1;
-    while(running) {
+    while (running) {
         // Check if needed to send a notification
         checkForPendingNotifications(i);
         sleep(1.0);

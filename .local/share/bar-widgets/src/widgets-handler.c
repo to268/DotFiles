@@ -3,9 +3,16 @@
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
+#include <X11/Xlib.h>
 #include "config.h"
 #include "widgets-handler.h"
+
 #define LENGTH(X)   (sizeof(X)/sizeof(X[0]))
+
+// Xlib variables
+static Display *dpy;
+static int screen;
+static Window root;
 
 static char bar[LENGTH(widgets)][CMDLENGTH] = {0};
 static int running = 1;
@@ -29,7 +36,7 @@ void finishproccess(int signum){
 void executecmd(int position, char *out){
     char *cmd = widgets[position].command;
     FILE *cmdfd = popen(cmd, "r");
-    if(!cmdfd)
+    if (!cmdfd)
         return;
     fgets(out, CMDLENGTH-strlen(delim), cmdfd);
     pclose(cmdfd);
@@ -42,7 +49,7 @@ void sighandler(int signum){
     signum -= 34;
     // Update the proper widget
     for (int i = 0; i < LENGTH(widgets); i++) {
-        if(widgets[i].signal == signum){
+        if (widgets[i].signal == signum) {
             update(i);
             setbar();
             break;
@@ -64,31 +71,36 @@ void updateall(void){
 }
 
 void replace(char *old, char *new){
-    for(int i = 0; i < CMDLENGTH; i++){
-        if(!(old[i] == new[i]))
+    for (int i = 0; i < CMDLENGTH; i++) {
+        if (!(old[i] == new[i]))
             old[i] = new[i];
     }
 }
 
 void setbar(void){
-    // add 18 due the command prefix and suffix
-    char cmd[(LENGTH(widgets)*CMDLENGTH)+18];
-    strcpy(cmd, "xsetroot -name '");
-    for(int i = 0; i < LENGTH(widgets); i++){
-        if(!strstr(bar[i], "NULL"))
-            strcat(cmd, bar[i]);
-        // add delimiter at the end if it's not the last one and if output is NULL don't output
-        if(i != LENGTH(widgets) - 1 && !strstr(bar[i], "NULL"))
-            strcat(cmd, delim);
+    char stripped_bar[(LENGTH(widgets)*CMDLENGTH)];
+    for (int i = 0; i < LENGTH(widgets); i++) {
+        if (!strstr(bar[i], "NULL"))
+            strcat(stripped_bar, bar[i]);
+        // Add delimiter at the end if it's not the last one and if output is NULL don't output
+        if (i != LENGTH(widgets) - 1 && !strstr(bar[i], "NULL"))
+            strcat(stripped_bar, delim);
     }
-    strcat(cmd, "'");
-    system(cmd);
+
+    // Display the bar with the Xlib
+    Display *d = XOpenDisplay(NULL);
+    if (d)
+        dpy = d;
+    screen = DefaultScreen(dpy);
+    root = RootWindow(dpy, screen);
+    XStoreName(dpy, root, stripped_bar);
+    XCloseDisplay(dpy);
 }
 
 void registersignals(void){
     struct sigaction sa;
-    for(int i = 0; i < LENGTH(widgets); i++){
-        if(widgets[i].signal > 0){
+    for (int i = 0; i < LENGTH(widgets); i++) {
+        if (widgets[i].signal > 0) {
             sa.sa_handler = sighandler;
             sigaction(SIGRTMIN+widgets[i].signal, &sa, NULL);
         }
@@ -105,17 +117,17 @@ void checkforupdates(int time) {
 }
 
 void loop(void){
-    // enable kill signal handler
+    // Enable kill signal handler
     registersignals();
 
     // Initial Bar Launch
     updateall();
 
-    // main loop
+    // Main loop
     int i = 1;
-    while(running){
+    while (running) {
         checkforupdates(i);
-        sleep(1.0); // check every second (avoid too many checks)
+        sleep(1.0); // Check every second (avoid too many checks)
         i++;
     }
 }

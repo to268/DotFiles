@@ -17,9 +17,8 @@ get_mime(){
 
 case "$1" in
     *.zip) zipinfo "$1";;
-    *.tar.gz) tar -ztvf "$1";;
-    *.tar.bz2) tar -jtvf "$1";;
     *.tar) tar -tvf "$1";;
+    *.tar.*) tar -tvf "$1";;
     *.a) rabin2 -I "$file";;
     *.o) file --brief "$file" | sed "s/), /), \n/g;s/, B/,\nB/g" && echo "" && rabin2 -I "$file";;
     *) get_mime;;

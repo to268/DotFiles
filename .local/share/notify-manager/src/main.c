@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     sigaction(SIGTERM, &sa, NULL);
     sigaction(SIGINT, &sa, NULL);
 
-    // main loop
+    // Main loop
     loop();
     return 0;
 }

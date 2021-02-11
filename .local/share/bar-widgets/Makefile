@@ -1,8 +1,8 @@
 CC:=gcc
 SRCFILES:=$(wildcard src/*.c)
 INCLUDEDIR:=include/
-MPDCFLAGS:=-std=c18 -LMPD -lmpdclient
-CFLAGS:=-O2
+MPDCFLAGS:=-std=c18 -O2 -LMPD -lmpdclient
+CFLAGS:=-O2 -lX11
 LDFLAGS:=-I $(INCLUDEDIR)
 PREFIX:=~/.local/bin/
 STATUSBARSCRIPTSDIR:=$(PREFIX)statusbar/

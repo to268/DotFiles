@@ -7,7 +7,7 @@
 #include "config.h"
 #include "widgets-handler.h"
 
-int main(void){
+int main (void) {
 
     // Kill process handlers with sigaction for more compactibility
     struct sigaction sa;

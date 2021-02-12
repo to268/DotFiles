@@ -55,10 +55,10 @@ alt + shift + c
 	$TERMINAL -e genius
 
 alt + s
-	scrot $HOME/files/Screenshots/%d-%m-%Y.png
+	scrot -q 100 $HOME/files/Screenshots/%d-%m-%Y.png
 
 alt + shift + s
-	maim -s $HOME/files/Screenshots/$(date +%s).png
+	maim -m 10 -s $HOME/files/Screenshots/$(date +%s).png
 
 alt + f
 	$TERMINAL -d ~/files
@@ -145,13 +145,16 @@ alt + agrave
 # Swap keyboard
 
 ctrl + Return
-	setxkbmap fr && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
+	setxkbmap us -variant true-dvorak -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 ctrl + shift + Return
-	setxkbmap us -variant dvorak && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
+	setxkbmap fr -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 ctrl + alt + Return
-	setxkbmap fr -variant bepo && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
+	setxkbmap fr -variant bepo -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
+
+ctrl + shift alt + Return
+	setxkbmap us -variant dvorak -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 # Backlight
 

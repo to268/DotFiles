@@ -28,12 +28,12 @@ void update(int position);
 void replace(char *old, char *new);
 void updateall(void);
 
-void finishproccess(int signum){
+void finishproccess(int signum) {
     running = 0;
     exit(0);
 }
 
-void executecmd(int position, char *out){
+void executecmd(int position, char *out) {
     char *cmd = widgets[position].command;
     FILE *cmdfd = popen(cmd, "r");
     if (!cmdfd)
@@ -44,7 +44,7 @@ void executecmd(int position, char *out){
     strtok(out, "\n");
 }
 
-void sighandler(int signum){
+void sighandler(int signum) {
     // substract 34 to get the number after SIGRTMIN
     signum -= 34;
     // Update the proper widget
@@ -57,27 +57,27 @@ void sighandler(int signum){
     }
 }
 
-void update(int position){
+void update(int position) {
     char new[CMDLENGTH];
     executecmd(position, new);
     // replace all new chars of the widget rather than overwrite it for optimisation purposes
     replace(bar[position], new);
 }
 
-void updateall(void){
+void updateall(void) {
     for (int i = 0; i < LENGTH(widgets); i++)
         update(i);
     setbar();
 }
 
-void replace(char *old, char *new){
+void replace(char *old, char *new) {
     for (int i = 0; i < CMDLENGTH; i++) {
         if (!(old[i] == new[i]))
             old[i] = new[i];
     }
 }
 
-void setbar(void){
+void setbar(void) {
     char stripped_bar[(LENGTH(widgets)*CMDLENGTH)];
     for (int i = 0; i < LENGTH(widgets); i++) {
         if (!strstr(bar[i], "NULL"))
@@ -97,7 +97,7 @@ void setbar(void){
     XCloseDisplay(dpy);
 }
 
-void registersignals(void){
+void registersignals(void) {
     struct sigaction sa;
     for (int i = 0; i < LENGTH(widgets); i++) {
         if (widgets[i].signal > 0) {
@@ -116,7 +116,7 @@ void checkforupdates(int time) {
     }
 }
 
-void loop(void){
+void loop(void) {
     // Enable kill signal handler
     registersignals();
 

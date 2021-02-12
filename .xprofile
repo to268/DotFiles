@@ -5,15 +5,16 @@
 # Fix Gnome Apps Slow  Start due to failing services
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
-mpd &			            # Music player daemon
-setbg &			            # Set the background
-xrdb ~/.config/Xresources &	# Load Xresources colors/settings on startup
-xcompmgr &		            # Xcompmgr for transparency
-dunst &			            # Dunst for notifications
-xset r rate 300 60 &	    # Speed xrate up
-sxhkd -m -1 & 		        # Keyboard shortcuts
-numlockx & 		            # Enable numpad
-bar-widgets &               # Status bar
-notify-manager &            # Notify service
-setxkbmap fr                # Set french keymap
-wificonnect &               # Connect to the configured wifi
+mpd &                                                       # Music player daemon
+setbg &                                                     # Set the background
+xrdb ~/.config/Xresources &                                 # Load Xresources colors/settings on startup
+xcompmgr &                                                  # Xcompmgr for transparency
+dunst &                                                     # Dunst for notifications
+xset r rate 300 60 &                                        # Speed xrate up
+sxhkd -m -1 &                                               # Keyboard shortcuts
+numlockx &                                                  # Enable numpad
+bar-widgets &                                               # Status bar
+notify-manager &                                            # Notify service
+setxkbmap us -variant true-dvorak -option ctrl:nocaps       # Set the True-Dvorak keymap
+wificonnect &                                               # Connect to the configured wifi
+extdrivemount &                                             # Mount the encrypted external hdd

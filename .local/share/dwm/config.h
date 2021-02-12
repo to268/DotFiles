@@ -37,7 +37,6 @@ static const Rule rules[] = {
 	{ "Gimp",    NULL,     NULL,           1 << 8,    1,          0,           0,        -1 },
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,           0,        -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "Discord", NULL,     NULL,           1 << 8,    0,          0,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -86,7 +85,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             0x64,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
@@ -106,12 +105,13 @@ static Key keys[] = {
 	{ MODKEY,                       XK_semicolon, focusmon,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_question,  tagmon,      {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             0xffad,  setgaps,          {.i = -1 } },
-	{ MODKEY|ShiftMask,             0xffab,  setgaps,          {.i = +1 } },
+	{ MODKEY|ShiftMask,             0xff55,  setgaps,          {.i = -1 } },
+	{ MODKEY|ShiftMask,             0xff56,  setgaps,          {.i = +1 } },
 	{ MODKEY|ShiftMask,             0x3d,    setgaps,          {.i = 0  } },
-	{ MODKEY|ControlMask,           0xffad,  setborderpx,      {.i = -1 } },
-	{ MODKEY|ControlMask,           0xffab,  setborderpx,      {.i = +1 } },
+	{ MODKEY|ControlMask,           0xff55,  setborderpx,      {.i = -1 } },
+	{ MODKEY|ControlMask,           0xff56,  setborderpx,      {.i = +1 } },
 	{ MODKEY|ControlMask,           0x3d, 	 setborderpx,      {.i = 0 } },
+    /* Azerty
 	TAGKEYS(                        0x26,                      0)
  	TAGKEYS(                        0xe9,                      1)
  	TAGKEYS(                        0x22,                      2)
@@ -122,6 +122,18 @@ static Key keys[] = {
  	TAGKEYS(                        0x5f,                      7)
  	TAGKEYS(                        0xe7,                      8)
  	TAGKEYS(                        0xe0,                      9)
+    */
+    /* True Dvorak */
+	TAGKEYS(                        0x26,                      0)
+ 	TAGKEYS(                        0x5b,                      1)
+ 	TAGKEYS(                        0x7b,                      2)
+ 	TAGKEYS(                        0x28,                      3)
+ 	TAGKEYS(                        0x2b,                      4)
+ 	TAGKEYS(                        0x3d,                      5)
+ 	TAGKEYS(                        0x29,                      6)
+ 	TAGKEYS(                        0x7d,                      7)
+ 	TAGKEYS(                        0x5d,                      8)
+ 	TAGKEYS(                        0x23,                      9)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY,                       0x2c,     mpdchange,       {.i = -1} },
 	{ MODKEY,                       0x3b,     mpdchange,       {.i = +1} },

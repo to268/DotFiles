@@ -100,45 +100,31 @@ alt + {_,shift +} + Down
 alt + m
 	pamixer -t; kill -44 $(pidof bar-widgets)
 
+
 # mpd control
 
-alt + comma
+alt + asterisk
 	mpc prev
 
-alt + semicolon
+alt + numbersign
 	mpc next
 
-alt + colon
+alt + shift + asterisk
 	mpc seek -10
 
-alt + exclam
+alt + shift + numbersign
 	mpc seek +10
 
-alt + parenright
-	mpc random off; notify-send "Music Player" "Random mode off"
-
-alt + shift + parenright
-	mpc random on; notify-send "Music Player" "Random mode on"
-
-alt + equal
-	mpc repeat off; notify-send "Music Player" "Repeat mode off"
-
-alt + shift + equal
-	mpc repeat on; notify-send "Music Player" "Repeat mode on"
-
-alt + dead_circumflex
+alt + ampersand
 	mpc toggle
 
 alt + dollar
 	mpc stop
 
-alt + ugrave
-	mpc shuffle; notify-send "Music Player" "Shuffled all songs"
-
-alt + asterisk
+alt + exclam
 	mpc update; notify-send "Music Player" "Database Updated"
 
-alt + agrave
+alt + slash
 	mpc seek 0%
 
 

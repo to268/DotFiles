@@ -1,4 +1,4 @@
-// The True and the only one Dvoak layout by to268
+// The True and the only one Dvorak layout by to268
 
 partial alphanumeric_keys
 xkb_symbols "true-dvorak" {
@@ -16,8 +16,8 @@ xkb_symbols "true-dvorak" {
     key <AE07> { [          parenright, 7, egrave                       ]       };
     key <AE08> { [          braceright, 8, dead_grave,  trademark       ]       };
     key <AE09> { [          bracketright,   9,  ccedilla,   plusminus   ]       };
-    key <AE10> { [          numbersign,     0, agrave                   ]       };
-    key <AE11> { [ asterisk, percent,   questiondown                    ]       };
+    key <AE10> { [          asterisk,     0, agrave                     ]       };
+    key <AE11> { [ numbersign, percent,   questiondown                  ]       };
     key <AE12> { [ bar,     grave,      dead_tilde                      ]       };
 
     key <AD01> { [  semicolon,  colon, dead_acute, dead_diaeresis           ] };
@@ -34,7 +34,7 @@ xkb_symbols "true-dvorak" {
     key <AD12> { [          exclam, asciicircum, dead_belowdot, dead_abovedot   ] };
 
     key <AC01> { [          a,  A,  ae, AE              ]       };
-    key <AC02> { [          o,  O, guillemotleft        ]       };
+    key <AC02> { [          o,  O,                      ]       };
     key <AC03> { [          e,  E,  EuroSign,    Cent   ]       };
     key <AC04> { [          u,  U                       ]       };
     key <AC05> { [          i,  I                       ]       };

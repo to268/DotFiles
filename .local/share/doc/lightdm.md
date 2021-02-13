@@ -20,6 +20,6 @@ user-session=dwm
 ```
 
 ## Additional Informations
-Change some lines in theses files:
-.config/sxhkd/sxhkdrc
-.local/bin/dmenushutdown
+Change some lines in theses files to use lightdm instead:
+```.config/sxhkd/sxhkdrc```
+```.local/bin/dmenushutdown```

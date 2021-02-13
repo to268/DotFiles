@@ -3,10 +3,11 @@
 Add it to you systems keyboard and restart your computer.
 
 ```
-sudo cat true-dvorak >> /usr/share/X11/xkb/symbols/us
+cat true-dvorak >> /usr/share/X11/xkb/symbols/us
 ```
 
-Then you have to update the `sudo vim /usr/share/X11/xkb/rules/evdev.xml` with the following, add it near the other English keyboards
+Then you have to update the file `/usr/share/X11/xkb/rules/evdev.xml` with the following, add it near the other English keyboards
+
 
 ```
 <variant>

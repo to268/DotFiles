@@ -34,7 +34,7 @@ xkb_symbols "true-dvorak" {
     key <AD12> { [          exclam, asciicircum, dead_belowdot, dead_abovedot   ] };
 
     key <AC01> { [          a,  A,  ae, AE              ]       };
-    key <AC02> { [          o,  O,                      ]       };
+    key <AC02> { [          o,  O                       ]       };
     key <AC03> { [          e,  E,  EuroSign,    Cent   ]       };
     key <AC04> { [          u,  U                       ]       };
     key <AC05> { [          i,  I                       ]       };

@@ -1,5 +1,5 @@
 " Loading statusline
-lua require("statusline")
+lua require("statusline").statusline()
 
 " Loading Neovim LSP
 lua require("lsp-config").launchServers()

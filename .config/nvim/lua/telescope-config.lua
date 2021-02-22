@@ -10,8 +10,8 @@ local function setup()
             mappings = {
                 i = {
                     ["<C-x>"] = false,
-                    ["<C-s>"] = actions.goto_file_selection_split,
-                    ["<C-q>"] = actions.send_to_qflist,
+                    ["<C-s>"] = actions.select_default:replace(goto_file_selection_split),
+                    ["<C-q>"] = actions.select_default:replace(send_to_qflist),
                 },
             }
         }

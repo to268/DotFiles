@@ -73,7 +73,7 @@ ripgrep
 rsync
 scrot
 simple-mtpfs
-straw-viewer-git
+pipe-viewer-git
 sxhkd
 sxiv
 task-spooler
@@ -85,6 +85,7 @@ ttf-liberation
 ttf-linux-libertine
 unzip
 urlscan
+vidir
 vim
 wget
 wireless_tools

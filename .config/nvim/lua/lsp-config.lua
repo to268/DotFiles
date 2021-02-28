@@ -12,7 +12,7 @@ local function launchServers()
 
     local lua_base_dir = "/usr/share/lua-language-server/"
     lspconfig.sumneko_lua.setup{
-        cmd = {lua_base_dir .. "bin/Linux/lua-language-server", "-E", lua_base_dir .. "main.lua"};
+        cmd = {lua_base_dir .. "bin/linux/lua-language-server", "-E", lua_base_dir .. "main.lua"};
         settings = {
             Lua = {
                 runtime = {

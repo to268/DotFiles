@@ -29,6 +29,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-projectionist'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'
@@ -41,12 +42,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'bryall/contextprint.nvim'
-
-" NERDTree
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
 
 " Fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -102,11 +97,6 @@ let g:UltiSnipsExpandTrigger="<c-s>"
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_matching_ignore_case = 1
 
-" Nerd Config
-let g:NERDTreeGitStatusWithFlags = 1
-let NERDTreeShowHidden=1
-map <C-n> :NERDTreeToggle<CR>
-
 " Bujo
 let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
 let g:bujo#window_width = 50
@@ -119,8 +109,10 @@ let g:cpp_class_decl_highlight = 1
 " Basic Remaps
 nnoremap <silent><leader>ts :split term://zsh<CR>
 nnoremap <silent><leader>tv :vsplit term://zsh<CR>
-nnoremap <silent><leader>rj :resize 10<CR>
+nnoremap <silent><leader>rj :resize 15<CR>
 nnoremap <silent><leader>rk :resize 100<CR>
+nnoremap <silent><leader>r+ :resize +5<CR>
+nnoremap <silent><leader>r- :resize -5<CR>
 nnoremap <silent><leader>r= <C-w>=
 nnoremap <silent><leader>m :Make -j6<CR>
 nnoremap <silent><leader>ms :Make!<CR>

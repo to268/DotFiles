@@ -36,6 +36,6 @@ https://aur.archlinux.org/vidir.git
 https://aur.archlinux.org/zsh-fast-syntax-highlighting.git
 
 
-### For installing all packages using package manager
+### To install these packages using a suitable package manager
 Copy and paste the following after the installation command:   
 ```ant-theme-git gotop lf simple-mtpfs pipe-viewer-git task-spooler vidir zsh-fast-syntax-highlighting```

@@ -29,6 +29,7 @@ htop
 inetutils
 lf
 libnotify
+libxft-bgra
 linux
 linux-headers
 maim
@@ -61,6 +62,7 @@ pass
 pass-otp
 patch
 pavucontrol
+pipe-viewer-git
 pulseaudio
 pulseaudio-alsa
 pulseaudio-equalizer
@@ -73,7 +75,6 @@ ripgrep
 rsync
 scrot
 simple-mtpfs
-pipe-viewer-git
 sxhkd
 sxiv
 task-spooler

@@ -1,4 +1,4 @@
-## NOTE
+#### NOTE
 AUR packages are not official packages. They cannot be installed using default package managers.
 They contain PKGBUILD(package descriptions) which allows to compile package to make an installation.
 Yay package manager can be used to avoid the hassle of compiling package from source.

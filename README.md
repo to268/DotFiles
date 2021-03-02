@@ -4,7 +4,7 @@
 You might need to install 'yay' in order to install some AUR packages.
 All packages are listed in [packages.txt](.local/share/doc/packages.txt) file.
 AUR packages (also included in the list of all packages)
-and corresponding URLs for cloning their resources are listed in [aur.md](,local/share/doc/aur.md) file.
+and corresponding URLs for cloning their resources are listed in [aur.md](.local/share/doc/aur.md) file.
 
 ## Information
 Configurations files are located in [.config/](.config/).

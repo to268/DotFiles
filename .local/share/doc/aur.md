@@ -44,4 +44,4 @@ https://aur.archlinux.org/zsh-fast-syntax-highlighting.git
 
 ### To install these packages using a suitable package manager
 Copy and paste the following after the installation command:
-```ant-theme-git gotop lf simple-mtpfs pipe-viewer-git task-spooler vidir zsh-fast-syntax-highlighting```
+```ant-theme-git gotop lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata simple-mtpfs task-spooler vidir zsh-fast-syntax-highlighting```

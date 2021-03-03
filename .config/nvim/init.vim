@@ -48,9 +48,10 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Telescope
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Git
 Plug 'jreybert/vimagit'
@@ -97,52 +98,18 @@ let g:UltiSnipsExpandTrigger="<c-s>"
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_matching_ignore_case = 1
 
-" Bujo
-let g:bujo#todo_file_path = $HOME . "/.cache/bujo"
-let g:bujo#window_width = 50
-
 " Vim.cpp
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
 " Basic Remaps
-nnoremap <silent><leader>ts :split term://zsh<CR>
-nnoremap <silent><leader>tv :vsplit term://zsh<CR>
-nnoremap <silent><leader>rj :resize 15<CR>
-nnoremap <silent><leader>rk :resize 100<CR>
-nnoremap <silent><leader>r+ :resize +5<CR>
-nnoremap <silent><leader>r- :resize -5<CR>
-nnoremap <silent><leader>r= <C-w>=
 nnoremap <silent><leader>m :Make -j6<CR>
 nnoremap <silent><leader>ms :Make!<CR>
 nnoremap <silent><leader>mc :Make! clean<CR>
 nnoremap <silent><leader>mp :Make! mrproper<CR>
-nnoremap <silent><F5> :edit<CR>
 nnoremap <silent><leader>pi :PlugInstall<CR>
 nnoremap <silent><leader>pu :PlugUpdate<CR>
-nnoremap <leader>fw :Rg <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>fhw :h <C-R>=expand("<cword>")<CR><CR>
-nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><leader>u :UndotreeShow<CR>
-nnoremap <silent><leader><F5> :so ~/.config/nvim/init.vim<CR>
-nnoremap <silent><leader>+ :vertical resize +5<CR>
-nnoremap <silent><leader>- :vertical resize -5<CR>
 nnoremap <leader>cP :lua require("contextprint").add_statement()<CR>
 nnoremap <leader>cp :lua require("contextprint").add_statement(true)<CR>
-vnoremap <silent>J :m '>+1<CR>gv=gv
-vnoremap <silent>K :m '<-2<CR>gv=gv
-vnoremap <leader>s :sort<CR>
-vnoremap <leader>S :sort!<CR>
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nnoremap <leader>Y gg"+yG
-inoremap <esc> <C-c>
-vnoremap <c-p> "_dP
-vnoremap <c-x> "_d
-
-" Ignore case for the write command
-com! W w
-
-" Use alt-w for managing buffers for the dvorak layout
-map <A-w> <C-w>

@@ -1,10 +1,11 @@
 " Vim fugitive
-nmap <leader>gu :diffget //2<CR>
-nmap <leader>gh :diffget //3<CR>
-nmap <leader>gl :GlLog<CR>
-nmap <leader>gs :G<CR>
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gch :GCheckout<CR>
-nmap <leader>gps :Gpush<CR>
-nmap <leader>gpl :Gpull<CR>
-nmap <leader>gt :GCheckoutTag<CR>
+nnoremap <leader>ga :Git fetch --all<CR>
+nnoremap <leader>gu :diffget //2<CR>
+nnoremap <leader>gh :diffget //3<CR>
+nnoremap <leader>gl :GlLog<CR>
+nnoremap <leader>gs :G<CR>
+nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>gch :GBranches<CR>
+nnoremap <leader>gps :Git push<CR>
+nnoremap <leader>gpl :Git pull<CR>
+nnoremap <leader>gt :GTags<CR>

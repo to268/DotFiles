@@ -79,6 +79,9 @@ void replace(char *old, char *new) {
 
 void setbar(void) {
     char stripped_bar[(LENGTH(widgets)*CMDLENGTH)];
+    // Add a space to the beginning of the buffer to avoid random weired characters
+    strcpy(stripped_bar, " ");
+
     for (int i = 0; i < LENGTH(widgets); i++) {
         if (!strstr(bar[i], "NULL"))
             strcat(stripped_bar, bar[i]);

@@ -12,8 +12,6 @@
 "       used for the uncategorized part and plugins
 " augroups:
 "       in ./after/plugin/augroups/*.vim
-" remaps:
-"       in ./after/plugin/augroups/*.vim
 " basic configurations:
 "       in ./plugins/*.vim
 " lua scripts:
@@ -72,6 +70,7 @@ Plug 'hoob3rt/lualine.nvim'
 
 " Utils
 Plug 'dbeniamine/cheat.sh-vim'
+Plug 'rmagatti/auto-session'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-utils/vim-man'
 Plug 'mhinz/vim-startify'
@@ -102,6 +101,11 @@ let g:completion_matching_ignore_case = 1
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
+
+" Auto-sessions
+let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
+nnoremap <silent><leader>ss :SaveSession<CR>
+nnoremap <silent><leader>rs :RestoreSession<CR>
 
 " Basic Remaps
 nnoremap <silent><leader>m :Make -j6<CR>

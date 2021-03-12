@@ -21,7 +21,7 @@ local function statusline()
         lualine_c = { 'filename' },
         lualine_x = { 'location' },
         lualine_y = {  },
-        lualine_z = {   }
+        lualine_z = {  },
     }
     lualine.extensions = { 'fzf' }
     lualine.status()

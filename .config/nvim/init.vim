@@ -28,6 +28,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-projectionist'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'jbyuki/monolithic.nvim'
 
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'
@@ -40,10 +41,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'bryall/contextprint.nvim'
-
-" Fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 
 " Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -107,6 +104,13 @@ let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
 nnoremap <silent><leader>ss :SaveSession<CR>
 nnoremap <silent><leader>rs :RestoreSession<CR>
 
+" Monolithic
+nnoremap <leader>ea :lua require"monolithic".open()<CR>
+
+" Context Print
+nnoremap <leader>cP :lua require("contextprint").add_statement()<CR>
+nnoremap <leader>cp :lua require("contextprint").add_statement(true)<CR>
+
 " Basic Remaps
 nnoremap <silent><leader>m :Make -j6<CR>
 nnoremap <silent><leader>ms :Make!<CR>
@@ -115,5 +119,3 @@ nnoremap <silent><leader>mp :Make! mrproper<CR>
 nnoremap <silent><leader>pi :PlugInstall<CR>
 nnoremap <silent><leader>pu :PlugUpdate<CR>
 nnoremap <silent><leader>u :UndotreeShow<CR>
-nnoremap <leader>cP :lua require("contextprint").add_statement()<CR>
-nnoremap <leader>cp :lua require("contextprint").add_statement(true)<CR>

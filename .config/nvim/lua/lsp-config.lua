@@ -4,7 +4,6 @@ local on_attach = require'completion'.on_attach
 local function launchServers()
     lspconfig.bashls.setup{ on_attach=on_attach  }
     lspconfig.clangd.setup{ on_attach=on_attach }
-    lspconfig.cssls.setup{ on_attach=on_attach }
     lspconfig.jsonls.setup{ on_attach=on_attach }
     lspconfig.pyls.setup{ on_attach=on_attach  }
     lspconfig.r_language_server.setup{ on_attach=on_attach  }
@@ -12,7 +11,7 @@ local function launchServers()
 
     local lua_base_dir = "/usr/share/lua-language-server/"
     lspconfig.sumneko_lua.setup{
-        cmd = {lua_base_dir .. "bin/linux/lua-language-server", "-E", lua_base_dir .. "main.lua"};
+        cmd = {lua_base_dir.."bin/Linux/lua-language-server", "-E", lua_base_dir.."main.lua"};
         settings = {
             Lua = {
                 runtime = {
@@ -37,7 +36,6 @@ local function launchServers()
         on_attach=on_attach,
     }
 
-    lspconfig.texlab.setup{ on_attach=on_attach  }
     lspconfig.tsserver.setup{ on_attach=on_attach }
     lspconfig.vimls.setup{ on_attach=on_attach  }
 end

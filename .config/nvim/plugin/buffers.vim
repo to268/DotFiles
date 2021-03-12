@@ -28,8 +28,6 @@ map <A-w> <C-w>
 nnoremap <silent><leader><F5> :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><F5> :edit<CR>
-nnoremap <C-k> :cnext<CR>
-nnoremap <C-j> :cprev<CR>
 nnoremap <leader>co :copen<CR>
 vnoremap <silent>J :m '>+1<CR>gv=gv
 vnoremap <silent>K :m '<-2<CR>gv=gv

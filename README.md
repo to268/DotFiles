@@ -2,7 +2,7 @@
 
 ## Installation
 All packages are listed in [packages.txt](.local/share/doc/packages.txt).\
-To install AUR packages go to [aur.md](.local/share/doc/aur.md).\
+To install AUR packages go to [aur.md](.local/share/doc/aur.md).
 
 ## Informations
 Configurations files are located in [.config/](.config/).\

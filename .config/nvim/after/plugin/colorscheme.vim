@@ -1,7 +1,9 @@
-" Trasparent Background 
+" Trasparent Background
 fun! Transparent()
     highlight Normal guibg=none
     highlight LineNr guibg=none
+    highlight SignColumn guibg=none
+    highlight CursorLineNR guibg=none
 endfun
 
 " Gruvbox Color Scheme

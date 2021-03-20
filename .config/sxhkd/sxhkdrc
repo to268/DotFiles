@@ -55,10 +55,10 @@ alt + shift + c
 	$TERMINAL -e genius
 
 alt + s
-	scrot -q 100 $HOME/files/Screenshots/%d-%m-%Y.png
+	scrot $HOME/files/Screenshots/%d-%m-%Y.png
 
 alt + shift + s
-	maim -m 10 -s $HOME/files/Screenshots/$(date +%s).png
+    flameshot gui
 
 alt + f
 	$TERMINAL -d ~/files

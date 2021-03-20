@@ -19,6 +19,7 @@ dunst
 exa
 fd
 firefox
+flameshot
 fzf
 genius
 gotop
@@ -32,7 +33,6 @@ libnotify
 libxft-bgra
 linux
 linux-headers
-maim
 make
 man-db
 man-pages
@@ -91,6 +91,7 @@ vim
 wget
 wireless_tools
 wpa_supplicant
+xbanish-timeout-git
 xcompmgr
 xf86-video-amdgpu
 xf86-video-fbdev

@@ -54,7 +54,6 @@ map gc cd ~/.config
 map gd cd ~/files/Dev
 map ge cd ~/files/ext
 map gf cd ~/files/
-map gf cd ~/files/Photos
 map gl cd ~/.local/
 map glb cd ~/.local/bin
 map gls cd ~/.local/share

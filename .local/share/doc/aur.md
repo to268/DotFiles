@@ -38,10 +38,13 @@ https://aur.archlinux.org/task-spooler.git
 - **vidir**
 https://aur.archlinux.org/vidir.git
 
+- **xbanish-timeout-git**
+https://aur.archlinux.org/xbanish-timeout-git.git
+
 - **zsh-fast-syntax-highlighting**
 https://aur.archlinux.org/zsh-fast-syntax-highlighting.git
 
 
 ### To install these packages using a suitable package manager
 Copy and paste the following after the installation command:
-```ant-theme-git gotop lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata simple-mtpfs task-spooler vidir zsh-fast-syntax-highlighting```
+```ant-theme-git gotop lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata simple-mtpfs task-spooler vidir xbanish-timeout-git zsh-fast-syntax-highlighting```

@@ -45,6 +45,7 @@ map <enter> shell
 map <c-n> down
 map <c-p> up
 map <c-s> :!clear && zsh
+map <c-q> quit
 map b bulkrename
 
 # Shortcuts

@@ -5,7 +5,7 @@ nnoremap <silent><leader>ch <cmd>lua require('telescope.builtin').command_histor
 nnoremap <silent><leader>of <cmd>lua require('telescope.builtin').oldfiles{}<CR>
 nnoremap <silent><leader>rg <cmd>lua require('telescope.builtin').live_grep{}<CR>
 nnoremap <silent><leader>tr <cmd>lua require('telescope.builtin').treesitter{}<CR>
-nnoremap <silent><leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
-nnoremap <silent><leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+nnoremap <silent><leader>fw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
+nnoremap <silent><leader>fg :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <silent><leader>ht :lua require('telescope.builtin').help_tags()<CR>
 nnoremap <silent><leader>gb :lua require("telescope.builtin").git_branches()<CR>

@@ -1,12 +1,12 @@
 " Loading statusline
-lua require("statusline").statusline()
+lua require("statusline")
 
 " Loading Neovim LSP
-lua require("lsp-config").launchServers()
+lua require("lsp-config")
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " Loading Telescope
-lua require("telescope-config").setup()
+lua require("telescope-config")
 
 " Loading Tree Sitter
-lua require("treesitter").launchTreeSitter()
+lua require("treesitter")

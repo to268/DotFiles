@@ -54,7 +54,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'stsewd/fzf-checkout.vim'
 
 " Comments
-Plug 'tpope/vim-commentary'
+Plug 'b3nj5m1n/kommentary'
 Plug 'tpope/vim-surround'
 
 " Colors Schemes
@@ -108,8 +108,8 @@ nnoremap <silent><leader>rs :RestoreSession<CR>
 nnoremap <leader>ea :lua require"monolithic".open()<CR>
 
 " Context Print
-nnoremap <leader>cP :lua require("contextprint").add_statement()<CR>
-nnoremap <leader>cp :lua require("contextprint").add_statement(true)<CR>
+nnoremap <silent><leader>Ps :lua require("contextprint").add_statement()<CR>
+nnoremap <silent><leader>ps :lua require("contextprint").add_statement(true)<CR>
 
 " Basic Remaps
 nnoremap <silent><leader>m :Make -j6<CR>

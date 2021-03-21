@@ -21,14 +21,18 @@ nnoremap <silent><leader>tv :vsplit term://zsh<CR>
 " Ignore case for the write command
 com! W w
 
-" Use alt-w for managing buffers for the dvorak layout
-map <A-w> <C-w>
+" Quickfix
+nnoremap <leader>co :copen<CR>
+nnoremap <leader>cp :cprev<CR>
+nnoremap <leader>cn :cnext<CR>
+nnoremap <leader>lo :lopen<CR>
+nnoremap <leader>lp :lprev<CR>
+nnoremap <leader>ln :lnext<CR>
 
 " Others things
 nnoremap <silent><leader><F5> :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><F5> :edit<CR>
-nnoremap <leader>co :copen<CR>
 vnoremap <silent>J :m '>+1<CR>gv=gv
 vnoremap <silent>K :m '<-2<CR>gv=gv
 vnoremap <leader>s :sort<CR>

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Trim supported devices in fstab
 echo "[*] Trim:"

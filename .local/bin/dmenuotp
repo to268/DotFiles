@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # The script assumes that otp creds are stored in $PASSWORD_STORE_DIR/otp/
 prefix=${PASSWORD_STORE_DIR-~/.password-store}

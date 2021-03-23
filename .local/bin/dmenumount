@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # dmenumount lets you mount Normal Drives, Encrypted Drives and Phones with the mtp protocol
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # dmenuumount lets you unmount Normal Drives, Encrypted Drives and Phones with the mtp protocol and auto find the device type
 

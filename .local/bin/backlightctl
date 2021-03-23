@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Notify backlight status (0: no, 1: yes) can be overwrite by providing this value as a second argument
 arg2=$2

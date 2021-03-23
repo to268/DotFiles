@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 getAppointementsCount(){
 	count=$(calcurse -D $CALCURSE_DIR -r | grep -w " -" | wc -l)

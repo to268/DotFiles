@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 packages=$(sudo pacman -Qtdq)
 sudo pacman -Rns $packages

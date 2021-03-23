@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 out=$(echo -e "Shutdown\nReboot\nLock\nChange-User" | dmenu -i -p "What do you want to do ?")
 

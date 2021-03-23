@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Show 🌐 for wired connexion or 📶 for wireless connexion or 🔒 when a vpn is detected or ❎ when internet is down.
 

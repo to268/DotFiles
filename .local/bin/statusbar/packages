@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Displays number of upgradeable packages.
 out=$(sudo pacman -Qu | grep -v "\[ignored\]" | wc -l | sed "s/^/📦 /;s/^📦 0$//g")

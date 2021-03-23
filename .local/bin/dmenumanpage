@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Dmenu script to choose between a specific man page to display or a random one with the choice of the category
 

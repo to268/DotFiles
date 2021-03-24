@@ -50,7 +50,7 @@ export LESS=-R
 export QT_QPA_PLATFORMTHEME="gtk2"      # Use gtk2 theme on QT
 export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm
 export LOCATION=""
-export GTK_THEME=Arc:dark
+export GTK_THEME=Ant:dark
 
 # list for lf icons:
 export LF_ICONS="di=📁:\

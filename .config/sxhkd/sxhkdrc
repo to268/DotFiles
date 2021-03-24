@@ -12,10 +12,6 @@ super + shift + l
 #super + shift + l
 #	dm-tools lock
 
-# Minimal Version
-super + shift + c
-	sudo pkill x
-
 # Lightdm Version
 #super + shift + c
 #	dm-tools switch-to-greeter

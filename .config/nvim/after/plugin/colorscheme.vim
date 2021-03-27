@@ -10,6 +10,7 @@ endfun
 fun! Gruvbox()
     let g:gruvbox_constrast_dark = 'hard'
     let g:gruvbox_invert_selection = '0'
+    highlight Todo guifg=lightwhite
     colorscheme gruvbox
     set background=dark
 endfun

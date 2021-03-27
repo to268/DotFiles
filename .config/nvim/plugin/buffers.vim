@@ -17,6 +17,7 @@ nnoremap <silent><leader>- :vertical resize -5<CR>
 " Terminals
 nnoremap <silent><leader>ts :split term://zsh<CR>
 nnoremap <silent><leader>tv :vsplit term://zsh<CR>
+nnoremap <silent><leader>tf :FTermToggle<CR>
 
 " Ignore case for the write command
 com! W w

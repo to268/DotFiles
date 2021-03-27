@@ -39,6 +39,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " Neovim Tree Sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/playground'
 Plug 'bryall/contextprint.nvim'
 
@@ -52,6 +53,7 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'jreybert/vimagit'
 Plug 'tpope/vim-fugitive'
 Plug 'stsewd/fzf-checkout.vim'
+Plug 'tveskag/nvim-blame-line'
 
 " Comments
 Plug 'b3nj5m1n/kommentary'
@@ -68,10 +70,12 @@ Plug 'hoob3rt/lualine.nvim'
 " Utils
 Plug 'dbeniamine/cheat.sh-vim'
 Plug 'rmagatti/auto-session'
+Plug 'numtostr/FTerm.nvim'
 Plug 'vimwiki/vimwiki'
 Plug 'vim-utils/vim-man'
 Plug 'mhinz/vim-startify'
 Plug 'mbbill/undotree'
+Plug 'jbyuki/nabla.nvim'
 Plug 'vuciv/vim-bujo'
 Plug 'mhinz/vim-rfc'
 call plug#end()
@@ -106,6 +110,12 @@ nnoremap <silent><leader>rs :RestoreSession<CR>
 
 " Monolithic
 nnoremap <leader>ea :lua require"monolithic".open()<CR>
+
+" BlameLine
+nnoremap <silent><leader>bl :ToggleBlameLine<CR>
+
+" Nabla
+nnoremap <F5> :lua require("nabla").replace_current()<CR>
 
 " Context Print
 nnoremap <silent><leader>Ps :lua require("contextprint").add_statement()<CR>

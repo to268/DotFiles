@@ -9,7 +9,6 @@ hi NvimTreeGitNew guifg=magenta
 hi NvimTreeGitDirty guifg=red
 hi NvimTreeFileDirty guifg=red
 hi NvimTreeFileNew guifg=lightmagenta
-hi NvimTreeFileRenamed guifg=blue
 hi NvimTreeGitStaged guifg=lightgreen
 hi NvimTreeFileStaged guifg=grey
 hi NvimTreeGitMerge guifg=yellow

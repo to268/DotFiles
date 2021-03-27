@@ -36,5 +36,20 @@ require'lspconfig'.sumneko_lua.setup {
     on_attach=on_attach,
 }
 
+require'nvim-treesitter.configs'.setup {
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+  indent = {
+    enable = true
+  }
+}
+
 lspconfig.tsserver.setup{ on_attach=on_attach }
 lspconfig.vimls.setup{ on_attach=on_attach  }

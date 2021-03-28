@@ -5,9 +5,12 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "mono:pixelsize=14:antialias=true:autohint=true";
+static char *font = "mono:antialias=true:autohint=true";
 /* Spare fonts */
-static char *font2[] = { "Noto Color Emoji:scale=0.85:antialias=true:autohint=true" };
+static char *font2[] = {
+    "Sauce Code Pro Nerd Font Complete:antialias=true:autohint=true",
+    "Noto Color Emoji:scale=0.85:antialias=true:autohint=true"
+};
 static int borderpx = 2;
 
 /*
@@ -55,8 +58,8 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 8;
-static double maxlatency = 33;
+static double minlatency = 1;
+static double maxlatency = 2;
 
 /*
  * Synchronized-Update timeout in ms

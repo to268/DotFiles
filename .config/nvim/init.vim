@@ -46,13 +46,13 @@ Plug 'bryall/contextprint.nvim'
 " Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'to268/telescope-doc.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " Git
 Plug 'jreybert/vimagit'
 Plug 'tpope/vim-fugitive'
-Plug 'stsewd/fzf-checkout.vim'
 Plug 'tveskag/nvim-blame-line'
 
 " Comments

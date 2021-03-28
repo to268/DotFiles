@@ -29,6 +29,9 @@ https://aur.archlinux.org/pipe-viewer-git.git
 - **nerd-fonts-inconsolata**
 https://aur.archlinux.org/packages/nerd-fonts-inconsolata/
 
+- **nerd-fonts-source-code-pro**
+https://aur.archlinux.org/nerd-fonts-source-code-pro.git
+
 - **simple-mtpfs**
 https://aur.archlinux.org/simple-mtpfs.git
 
@@ -44,7 +47,6 @@ https://aur.archlinux.org/xbanish-timeout-git.git
 - **zsh-fast-syntax-highlighting**
 https://aur.archlinux.org/zsh-fast-syntax-highlighting.git
 
-
 ### To install these packages using a suitable package manager
 Copy and paste the following after the installation command:
-```ant-theme-git gotop lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata simple-mtpfs task-spooler vidir xbanish-timeout-git zsh-fast-syntax-highlighting```
+```ant-theme-git gotop lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata nerd-fonts-source-code-pro simple-mtpfs task-spooler vidir xbanish-timeout-git zsh-fast-syntax-highlighting```

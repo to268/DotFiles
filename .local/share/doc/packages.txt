@@ -46,6 +46,7 @@ neofetch
 neomutt
 neovim
 nerd-fonts-inconsolata
+nerd-fonts-source-code-pro
 netcat
 newsboat
 ngrep

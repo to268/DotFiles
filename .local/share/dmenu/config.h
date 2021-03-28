@@ -6,7 +6,7 @@ static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't us
 static int incremental = 0;                 /* -r  option; if 1, outputs text each time a key is pressed */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"mono:pixelsize=13;1:antialias=true:autohint=true",
+	"mono:pixelsize=13:antialias=true:autohint=true",
 	"Noto Color Emoji:scale=0.85:style=Regular;2:antialias=true:autohint=true"
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */

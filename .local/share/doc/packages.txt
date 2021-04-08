@@ -84,7 +84,6 @@ tmux
 tree
 ttf-inconsolata
 ttf-liberation
-ttf-linux-libertine
 unzip
 urlscan
 vidir

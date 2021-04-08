@@ -19,9 +19,8 @@ source $XDG_CONFIG_HOME/files
 # Adds servals directories to $PATH
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
 export PATH="$PATH:$(du "$HOME/.local/bin/statusbar/" | cut -f2 | paste -sd ':' -)"
-# OS dev stuff
-#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/i686-elf/bin" | cut -f2 | paste -sd ':' -)"
-#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/x86_64-elf/bin" | cut -f2 | paste -sd ':' -)"
+# OS dev toolchain
+#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/phoenix/utils/toolchain/bin" | cut -f2 | paste -sd ':' -)"
 
 # Default programs:
 export EDITOR="nvim"

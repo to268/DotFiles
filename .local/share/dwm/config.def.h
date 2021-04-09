@@ -46,6 +46,7 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 #include "tcl.c"
+#include "fibonacci.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -54,6 +55,8 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 	{ "HHH",      grid },
 	{ "|||",      tcl },
+ 	{ "[@]",      spiral },
+ 	{ "[\\]",      dwindle },
 	{ NULL,       NULL },
 };
 
@@ -95,6 +98,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[6]} },
 	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },

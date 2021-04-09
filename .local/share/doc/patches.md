@@ -3,18 +3,19 @@ My Suckless custom builds of dwm, dmenu and st are located in .local/share/
 
 dwm patches:
 ```
-systray
-fullscreen
 attachaside
-gridmode
 cyclelayouts
+fibonacci
+fullgaps
+fullscreen
+gridmode
 mpdcontrol
 notitle
 rotatestack
 setborderpx
-three-column
-fullgaps
 swallow
+systray
+three-column
 ```
 
 dmenu patches:

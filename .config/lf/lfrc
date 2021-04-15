@@ -56,8 +56,6 @@ map gd cd ~/files/Dev
 map ge cd ~/files/ext
 map gf cd ~/files/
 map gl cd ~/.local/
-map glb cd ~/.local/bin
-map gls cd ~/.local/share
 map gm cd ~/files/Music
 map gnv cd ~/.config/nvim
 map gs cd ~/files/Screenshots

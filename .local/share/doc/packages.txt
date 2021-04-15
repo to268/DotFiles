@@ -1,7 +1,7 @@
-alsa-oss
 alsa-utils
 ant-theme-git
 arc-gtk-theme
+alsa-oss
 arc-icon-theme
 autoconf
 automake
@@ -80,6 +80,8 @@ sxhkd
 sxiv
 task-spooler
 texinfo
+texlab
+texlive-bin
 tmux
 tree
 ttf-inconsolata

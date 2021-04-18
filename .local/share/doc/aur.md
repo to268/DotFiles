@@ -11,8 +11,8 @@ However, yay itself is not an official package. Hence it has to be built using P
 https://aur.archlinux.org/yay.git
 
 *List of AUR packages required:*
-- **ant-theme-git**
-https://aur.archlinux.org/ant-theme-git.git
+- **ant-gtk-theme**
+https://aur.archlinux.org/ant-gtk-theme.git
 
 - **gotop**
 https://aur.archlinux.org/gotop.git
@@ -49,4 +49,4 @@ https://aur.archlinux.org/zsh-fast-syntax-highlighting.git
 
 ### To install these packages using a suitable package manager
 Copy and paste the following after the installation command:
-```ant-theme-git gotop lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata nerd-fonts-source-code-pro simple-mtpfs task-spooler vidir xbanish-timeout-git zsh-fast-syntax-highlighting```
+```ant-gtk-theme gotop lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata nerd-fonts-source-code-pro simple-mtpfs task-spooler vidir xbanish-timeout-git zsh-fast-syntax-highlighting```

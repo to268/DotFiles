@@ -1,7 +1,7 @@
-alsa-utils
-ant-theme-git
-arc-gtk-theme
 alsa-oss
+alsa-utils
+ant-gtk-theme
+arc-gtk-theme
 arc-icon-theme
 autoconf
 automake

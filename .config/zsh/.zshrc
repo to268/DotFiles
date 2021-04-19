@@ -95,6 +95,8 @@ bindkey "^r" history-incremental-search-backward
 bindkey "^x" delete-char
 bindkey "^d" delete-word
 bindkey "^H" backward-kill-word
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
 
 # Load fzf-tab
 source /usr/share/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh 2>/dev/null

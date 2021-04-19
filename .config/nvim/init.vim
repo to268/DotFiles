@@ -22,13 +22,14 @@ call plug#begin('~/.config/nvim/plugged')
 " Dev stuff
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'ap/vim-css-color'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'rust-lang/rust.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-projectionist'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jbyuki/monolithic.nvim'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'

@@ -9,4 +9,5 @@ nnoremap <silent><leader>fw :lua require('telescope.builtin').grep_string { sear
 nnoremap <silent><leader>fg :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <silent><leader>ht :lua require('telescope.builtin').help_tags()<CR>
 nnoremap <silent><leader>gb :lua require("telescope.builtin").git_branches()<CR>
+nnoremap <silent><leader>gw :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
 nnoremap <silent><leader>d :lua require("telescope-doc").open_path({cwd = "$HOME/files/ext/shared/pdf/"})<CR>

@@ -13,3 +13,4 @@ nnoremap <silent><leader>vt <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent><leader>vr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent><leader>vf <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent><leader>va <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent><leader>vl <cmd>LspTroubleToggle<cr>

@@ -5,7 +5,7 @@ require('lualine').setup{
         component_separators = {'|', '|'},
         sources = {'nvim_lsp'},
         sections = {'error', 'warn', 'info', 'hint'},
-        symbols = {error = '❌ ', warn = '⚠  ', info = ' ', hint = '💡 '},
+        symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
         icons_enabled = true,
     },
     sections = {

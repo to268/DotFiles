@@ -42,6 +42,8 @@ void executecmd(int position, char *out) {
     pclose(cmdfd);
     // removes all new lines
     strtok(out, "\n");
+    if (strlen(out) < CMDLENGTH)
+        out[strlen(out)] = '\0';
 }
 
 void sighandler(int signum) {

@@ -29,6 +29,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-projectionist'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jbyuki/monolithic.nvim'
+Plug 'folke/lsp-trouble.nvim'
 Plug 'ThePrimeagen/git-worktree.nvim'
 
 " Neovim LSP

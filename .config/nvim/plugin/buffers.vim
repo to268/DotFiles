@@ -18,7 +18,7 @@ nnoremap <silent><leader>- :vertical resize -5<CR>
 nnoremap <silent><leader>ts :split term://zsh<CR>
 nnoremap <silent><leader>tv :vsplit term://zsh<CR>
 nnoremap <silent><leader>tt :tabnew term://zsh<CR>
-nnoremap <silent><leader>tf :FTermToggle<CR>
+nnoremap <silent><leader>tf :lua require('FTerm').open()<CR>
 
 " Ignore case for the write command
 com! W w

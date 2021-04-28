@@ -32,6 +32,8 @@ void getContent(const char *cmd, char *out) {
         return;
     fgets(out, MAX_CONTENT_LENGTH, cmdfd);
     pclose(cmdfd);
+    if (strlen(out) < MAX_CONTENT_LENGTH)
+        out[strlen(out)] = '\0';
     return;
 }
 

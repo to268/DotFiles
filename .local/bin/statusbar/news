@@ -5,4 +5,5 @@
 echo -n "📰 "
 msg=$(newsboat -x print-unread | sed "s/ .*//g")
 [ -z $msg ] && echo "0" && exit;
+[ $msg == "Error:" ] && echo "0" && exit;
 echo $msg

@@ -13,5 +13,5 @@ case "$(printf "copy url\\nmpv\\nmpv (loop)\\nqueue download\\n\\nqueue youtube-
 	browser) setsid -f "$BROWSER" "$1" >/dev/null 2>&1 ;;
 	sxiv) sxiv "$1" >/dev/null 2>&1 ;;
 	"mpv (float)") mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$1" >/dev/null 2>&1 ;;
-	ytv) pipe-viewer --player=mpv -4 "$1" >/dev/null 2>&1 ;;
+	ytv) pipe-viewer --player=mpv "$1" >/dev/null 2>&1 ;;
 esac

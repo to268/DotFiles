@@ -4,7 +4,7 @@ augroup automations
 	" Update Xresources
 	autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 	" Update sxhkdrc
-	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd -m -1
+	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 	" Sort packages.txt
 	autocmd BufWritePost packages.txt sort
 augroup END

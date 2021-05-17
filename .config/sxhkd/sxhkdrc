@@ -170,3 +170,11 @@ alt + shift + 4
 
 alt + shift + 5
 	notify-send --urgency=low "Changed Notification Apparence" "Notifications will be hidden or showed" && sleep 2 && notify-send "DUNST_COMMAND_TOGGLE"
+
+# Mecc Shortcuts
+
+ctrl + F11
+    doas mecc cooler-boost toggle
+
+ctrl + F12
+    doas mecc backlight toggle

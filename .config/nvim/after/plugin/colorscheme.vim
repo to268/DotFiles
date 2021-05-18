@@ -8,18 +8,16 @@ endfun
 
 " Gruvbox Color Scheme
 fun! Gruvbox()
-    let g:gruvbox_constrast_dark = 'hard'
-    let g:gruvbox_invert_selection = '0'
-    highlight Todo guifg=lightwhite
-    colorscheme gruvbox
     set background=dark
+    lua for k in pairs(package.loaded) do if k:match("^colorscheme") then package.loaded[k] = nil end end
+    lua require("colorscheme")
 endfun
 
 " OneDark Color Scheme
 fun! OneDark()
-    colorscheme onedark
     set background=dark
+    lua require('base16-colorscheme').setup("onedark")
 endfun
 
 " Load Gruvbox by default
-colorscheme gruvbox
+lua require("colorscheme")

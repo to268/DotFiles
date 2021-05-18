@@ -38,6 +38,7 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'tjdevries/nlua.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'onsails/lspkind-nvim'
 
 " Neovim Tree Sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -62,9 +63,7 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'tpope/vim-surround'
 
 " Colors Schemes
-Plug 'gruvbox-community/gruvbox'
-Plug 'joshdick/onedark.vim'
-Plug 'chriskempson/base16-vim'
+Plug 'RRethy/nvim-base16'
 
 " Status Line
 Plug 'hoob3rt/lualine.nvim'

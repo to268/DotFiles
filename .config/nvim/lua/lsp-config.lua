@@ -1,12 +1,13 @@
 local lspconfig = require("lspconfig")
 local on_attach = require("completion").on_attach
+local lspkind = require('lspkind').init({symbol_map = {Enum = ''}})
 
-lspconfig.bashls.setup{ on_attach=on_attach  }
-lspconfig.clangd.setup{ on_attach=on_attach }
+lspconfig.bashls.setup{ on_attach=on_attach, lspkind }
+lspconfig.clangd.setup{ on_attach=on_attach, lspkind }
 lspconfig.jsonls.setup{ on_attach=on_attach }
-lspconfig.pyls.setup{ on_attach=on_attach  }
-lspconfig.r_language_server.setup{ on_attach=on_attach  }
-lspconfig.rust_analyzer.setup{ on_attach=on_attach  }
+lspconfig.pyls.setup{ on_attach=on_attach, lspkind, }
+lspconfig.r_language_server.setup{ on_attach=on_attach, lspkind }
+lspconfig.rust_analyzer.setup{ on_attach=on_attach, lspkind }
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
@@ -34,6 +35,7 @@ require'lspconfig'.sumneko_lua.setup {
         },
     },
     on_attach=on_attach,
+    lspkind
 }
 
 lspconfig.texlab.setup{
@@ -52,8 +54,8 @@ lspconfig.texlab.setup{
     on_attach=on_attach
 }
 
-lspconfig.tsserver.setup{ on_attach=on_attach }
-lspconfig.vimls.setup{ on_attach=on_attach  }
+lspconfig.tsserver.setup{ on_attach=on_attach, lspkind }
+lspconfig.vimls.setup{ on_attach=on_attach, lspkind  }
 
 require'nvim-treesitter.configs'.setup {
     incremental_selection = {

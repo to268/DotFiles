@@ -17,4 +17,4 @@ bar-widgets &                                               # Status bar
 notify-manager &                                            # Notify service
 setxkbmap us -variant true-dvorak -option ctrl:nocaps       # Set the True-Dvorak keymap
 wificonnect &                                               # Connect to the configured wifi
-xbanish -t 5000 &                                           # Remove cursor automaticly
+xbanish &                                                   # Remove cursor automaticly

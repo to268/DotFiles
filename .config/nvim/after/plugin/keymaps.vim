@@ -1,3 +1,12 @@
+" Basic
+nnoremap <silent><leader>m :Make -j6<CR>
+nnoremap <silent><leader>ms :Make! -j6<CR>
+nnoremap <silent><leader>mc :Make! clean<CR>
+nnoremap <silent><leader>mp :Make! mrproper<CR>
+nnoremap <silent><leader>pi :PackerInstall<CR>
+nnoremap <silent><leader>ps :PackerSync<CR>
+nnoremap <silent><leader>u :UndotreeShow<CR>
+
 " Shortcutting split navigation
 nnoremap <silent><C-h> :wincmd h<CR>
 nnoremap <silent><C-j> :wincmd j<CR>
@@ -20,6 +29,9 @@ nnoremap <silent><leader>tv :vsplit term://zsh<CR>
 nnoremap <silent><leader>tt :tabnew term://zsh<CR>
 nnoremap <silent><leader>tf :lua require('FTerm').open()<CR>
 
+" Terminal navigation
+tnoremap <leader><Esc> <C-\><C-n>
+
 " Ignore case for the write command
 com! W w
 
@@ -31,8 +43,16 @@ nnoremap <leader>lo :lopen<CR>
 nnoremap <leader>lp :lprev<CR>
 nnoremap <leader>ln :lnext<CR>
 
+" Lsp
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+imap <silent><c-space> <Plug>(completion_trigger)
+
+" Spell check
+map <leader>se :setlocal spell! spelllang=en_us<CR>
+map <leader>sf :setlocal spell! spelllang=fr_fr<CR>
+
 " Others things
-nnoremap <silent><leader><F5> :so ~/.config/nvim/init.vim<CR>
 nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><F5> :edit<CR>
 vnoremap <silent>J :m '>+1<CR>gv=gv

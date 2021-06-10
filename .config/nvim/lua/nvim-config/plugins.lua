@@ -149,6 +149,16 @@ return require("packer").startup {
         use 'dbeniamine/cheat.sh-vim'
         use 'rmagatti/auto-session'
         use {
+            'rmagatti/session-lens',
+            requires = { 'rmagatti/auto-session' },
+            config = function() require('session-lens').setup({
+                shorten_path = false,
+                previewer = false,
+                prompt_title = 'Sessions',
+            }) end
+        }
+
+        use {
             'numtostr/FTerm.nvim',
             config = function() require('FTerm').setup() end
         }

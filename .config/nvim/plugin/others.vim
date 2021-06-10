@@ -11,10 +11,10 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
-" Auto-sessions
+" Sessions
 let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
 nnoremap <silent><leader>ss :SaveSession<CR>
-nnoremap <silent><leader>rs :RestoreSession<CR>
+nnoremap <silent><leader>sr :RestoreSession<CR>
 
 " Monolithic
 nnoremap <leader>ea :lua require"monolithic".open()<CR>

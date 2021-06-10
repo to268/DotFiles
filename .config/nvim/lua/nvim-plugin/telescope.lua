@@ -27,6 +27,7 @@ require('telescope').setup {
     }
 }
 require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('session-lens')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('cheat')
@@ -60,4 +61,5 @@ map("n", "<leader>gb", ":lua require('telescope.builtin').git_branches()<CR>", o
 map("n", "<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", opts)
 map("n", "<leader>pl", ":lua require('telescope').extensions.packer.plugins()<CR>", opts)
 map("n", "<leader>p", ":lua require('telescope').extensions.frecency.frecency()<CR>", opts)
+map("n", "<leader>sl", ":lua require('session-lens').search_session()<CR>", opts)
 map("n", "<leader>d", ":lua require('telescope-doc').open_path({cwd = '$HOME/files/ext/shared/pdf/'})<CR>", opts)

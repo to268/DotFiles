@@ -24,7 +24,6 @@ return require("packer").startup {
         use 'tpope/vim-dispatch'
         use 'octol/vim-cpp-enhanced-highlight'
         use 'tpope/vim-projectionist'
-        use 'cohama/lexima.vim'
 
         use {
             'kyazdani42/nvim-tree.lua',

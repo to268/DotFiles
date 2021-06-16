@@ -112,12 +112,8 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/kommentary"
   },
-  ["lexima.vim"] = {
-    loaded = true,
-    path = "/home/tony/.local/share/nvim/site/pack/packer/start/lexima.vim"
-  },
   ["lsp-trouble.nvim"] = {
-    config = { "\27LJ\2\n~\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\nsigns\1\0\0\1\0\4\16information\b\thint\t💡\nerror\b❌\fwarning\t⚠ \nsetup\ftrouble\frequire\0" },
+    config = { "\27LJ\2\n~\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\nsigns\1\0\0\1\0\4\nerror\b❌\thint\t💡\fwarning\t⚠ \16information\b\nsetup\ftrouble\frequire\0" },
     loaded = true,
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/lsp-trouble.nvim"
   },
@@ -183,7 +179,7 @@ _G.packer_plugins = {
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
-    config = { "\27LJ\2\n�\1\0\0\5\0\f\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0005\4\t\0=\4\n\3=\3\v\2B\0\2\1K\0\1\0\17query_linter\16lint_events\1\3\0\0\rBufWrite\15CursorHold\1\0\2\venable\2\21use_virtual_text\2\vindent\1\0\1\venable\2\14highlight\1\0\1\venable\2\1\0\1\21ensure_installed\ball\nsetup\28nvim-treesitter.configs\frequire\0" },
+    config = { "\27LJ\2\n�\1\0\0\5\0\f\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0005\4\t\0=\4\n\3=\3\v\2B\0\2\1K\0\1\0\17query_linter\16lint_events\1\3\0\0\rBufWrite\15CursorHold\1\0\2\21use_virtual_text\2\venable\2\vindent\1\0\1\venable\2\14highlight\1\0\1\venable\2\1\0\1\21ensure_installed\ball\nsetup\28nvim-treesitter.configs\frequire\0" },
     loaded = true,
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
@@ -318,9 +314,37 @@ time([[Defining packer_plugins]], false)
 time([[Config for vim-bujo]], true)
 try_loadstring("\27LJ\2\n0\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\21nvim-plugin.bujo\frequire\0", "config", "vim-bujo")
 time([[Config for vim-bujo]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26nvim-plugin.telescope\frequire\0", "config", "telescope.nvim")
+time([[Config for telescope.nvim]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20nvim-plugin.lsp\frequire\0", "config", "nvim-lspconfig")
+time([[Config for nvim-lspconfig]], false)
+-- Config for: instant.nvim
+time([[Config for instant.nvim]], true)
+try_loadstring("\27LJ\2\n8\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\nto268\21instant_username\6g\bvim\0", "config", "instant.nvim")
+time([[Config for instant.nvim]], false)
+-- Config for: lsp-trouble.nvim
+time([[Config for lsp-trouble.nvim]], true)
+try_loadstring("\27LJ\2\n~\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\nsigns\1\0\0\1\0\4\nerror\b❌\thint\t💡\fwarning\t⚠ \16information\b\nsetup\ftrouble\frequire\0", "config", "lsp-trouble.nvim")
+time([[Config for lsp-trouble.nvim]], false)
+-- Config for: nvim-tree.lua
+time([[Config for nvim-tree.lua]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26nvim-plugin.nvim_tree\frequire\0", "config", "nvim-tree.lua")
+time([[Config for nvim-tree.lua]], false)
+-- Config for: vim-fugitive
+time([[Config for vim-fugitive]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25nvim-plugin.fugitive\frequire\0", "config", "vim-fugitive")
+time([[Config for vim-fugitive]], false)
+-- Config for: nvim-base16
+time([[Config for nvim-base16]], true)
+try_loadstring("\27LJ\2\nE\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\28nvim-plugin.colorscheme\frequire\0", "config", "nvim-base16")
+time([[Config for nvim-base16]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
-try_loadstring("\27LJ\2\n�\1\0\0\5\0\f\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0005\4\t\0=\4\n\3=\3\v\2B\0\2\1K\0\1\0\17query_linter\16lint_events\1\3\0\0\rBufWrite\15CursorHold\1\0\2\venable\2\21use_virtual_text\2\vindent\1\0\1\venable\2\14highlight\1\0\1\venable\2\1\0\1\21ensure_installed\ball\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
+try_loadstring("\27LJ\2\n�\1\0\0\5\0\f\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0005\4\t\0=\4\n\3=\3\v\2B\0\2\1K\0\1\0\17query_linter\16lint_events\1\3\0\0\rBufWrite\15CursorHold\1\0\2\21use_virtual_text\2\venable\2\vindent\1\0\1\venable\2\14highlight\1\0\1\venable\2\1\0\1\21ensure_installed\ball\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
 -- Config for: nvim-colorizer.lua
 time([[Config for nvim-colorizer.lua]], true)
@@ -338,42 +362,14 @@ time([[Config for lualine.nvim]], false)
 time([[Config for DAPInstall.nvim]], true)
 try_loadstring("\27LJ\2\n�\1\0\0\5\0\b\0\0226\0\0\0'\2\1\0B\0\2\0029\1\2\0B\1\1\0019\1\3\0'\3\4\0004\4\0\0B\1\3\0019\1\3\0'\3\5\0004\4\0\0B\1\3\0019\1\3\0'\3\6\0004\4\0\0B\1\3\0019\1\3\0'\3\a\0004\4\0\0B\1\3\1K\0\1\0\15python_dbg\flua_dbg\15jsnode_dbg\19ccppr_lldb_dbg\vconfig\nsetup\16dap-install\frequire\0", "config", "DAPInstall.nvim")
 time([[Config for DAPInstall.nvim]], false)
--- Config for: vim-fugitive
-time([[Config for vim-fugitive]], true)
-try_loadstring("\27LJ\2\n4\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\25nvim-plugin.fugitive\frequire\0", "config", "vim-fugitive")
-time([[Config for vim-fugitive]], false)
--- Config for: nvim-base16
-time([[Config for nvim-base16]], true)
-try_loadstring("\27LJ\2\nE\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\28nvim-plugin.colorscheme\frequire\0", "config", "nvim-base16")
-time([[Config for nvim-base16]], false)
--- Config for: FTerm.nvim
-time([[Config for FTerm.nvim]], true)
-try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nFTerm\frequire\0", "config", "FTerm.nvim")
-time([[Config for FTerm.nvim]], false)
--- Config for: lsp-trouble.nvim
-time([[Config for lsp-trouble.nvim]], true)
-try_loadstring("\27LJ\2\n~\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\nsigns\1\0\0\1\0\4\16information\b\thint\t💡\nerror\b❌\fwarning\t⚠ \nsetup\ftrouble\frequire\0", "config", "lsp-trouble.nvim")
-time([[Config for lsp-trouble.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26nvim-plugin.telescope\frequire\0", "config", "telescope.nvim")
-time([[Config for telescope.nvim]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20nvim-plugin.lsp\frequire\0", "config", "nvim-lspconfig")
-time([[Config for nvim-lspconfig]], false)
--- Config for: instant.nvim
-time([[Config for instant.nvim]], true)
-try_loadstring("\27LJ\2\n8\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\nto268\21instant_username\6g\bvim\0", "config", "instant.nvim")
-time([[Config for instant.nvim]], false)
 -- Config for: session-lens
 time([[Config for session-lens]], true)
 try_loadstring("\27LJ\2\np\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\3\17shorten_path\1\17prompt_title\rSessions\14previewer\1\nsetup\17session-lens\frequire\0", "config", "session-lens")
 time([[Config for session-lens]], false)
--- Config for: nvim-tree.lua
-time([[Config for nvim-tree.lua]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\26nvim-plugin.nvim_tree\frequire\0", "config", "nvim-tree.lua")
-time([[Config for nvim-tree.lua]], false)
+-- Config for: FTerm.nvim
+time([[Config for FTerm.nvim]], true)
+try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nFTerm\frequire\0", "config", "FTerm.nvim")
+time([[Config for FTerm.nvim]], false)
 if should_profile then save_profiles() end
 
 END

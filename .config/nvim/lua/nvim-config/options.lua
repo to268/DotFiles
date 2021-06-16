@@ -12,6 +12,7 @@ opt.shortmess = opt.shortmess - "c"
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.termguicolors = true
+opt.timeoutlen = 400
 opt.updatetime = 50
 
 -- Always off

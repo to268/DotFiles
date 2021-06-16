@@ -34,9 +34,9 @@ cmd bulkrename $vidir
 # Bindings
 map gg top
 map D delete
-map N push :!mkdir<space>
-map F push :!touch<space>
+map a push :!touch<space>
 map c push :!chmod<space>
+map <c-n> push :!mkdir<space>
 map b bulkrename
 map <c-r> reload
 map <c-x> $$f

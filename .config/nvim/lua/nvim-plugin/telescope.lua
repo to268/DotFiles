@@ -31,6 +31,7 @@ require('telescope').load_extension('session-lens')
 require('telescope').load_extension('git_worktree')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('cheat')
+require('telescope').load_extension('dap')
 
 local opts = { noremap = true, silent = true }
 

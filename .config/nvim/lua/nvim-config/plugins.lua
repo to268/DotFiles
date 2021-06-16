@@ -24,6 +24,7 @@ return require("packer").startup {
         use 'tpope/vim-dispatch'
         use 'octol/vim-cpp-enhanced-highlight'
         use 'tpope/vim-projectionist'
+        use 'cohama/lexima.vim'
 
         use {
             'kyazdani42/nvim-tree.lua',
@@ -39,6 +40,8 @@ return require("packer").startup {
         }
 
         -- DAP
+        use "theHamsta/nvim-dap-virtual-text"
+        use "nvim-telescope/telescope-dap.nvim"
         use {
             'rcarriga/nvim-dap-ui',
             requires = { 'mfussenegger/nvim-dap'}
@@ -122,7 +125,7 @@ return require("packer").startup {
 
         use {
             'to268/telescope-doc.nvim',
-            requires = {{ 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' }}
+            requires = { 'nvim-lua/popup.nvim' }
         }
 
         -- Git
@@ -170,9 +173,17 @@ return require("packer").startup {
         use "dstein64/vim-startuptime"
         use 'jbyuki/venn.nvim'
         use {
+            'jbyuki/instant.nvim',
+            config = function()
+                vim.g["instant_username"] = "to268"
+            end
+        }
+
+        use {
             'vuciv/vim-bujo',
             config = function() require('nvim-plugin.bujo') end
         }
+
         use 'mhinz/vim-rfc'
 
     end

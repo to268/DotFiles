@@ -47,6 +47,7 @@ nnoremap <leader>ln :lnext<CR>
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 imap <silent><c-space> <Plug>(completion_trigger)
+nnoremap <silent><leader>h :ClangdSwitchSourceHeader<CR>
 
 " Spell check
 map <leader>se :setlocal spell! spelllang=en_us<CR>

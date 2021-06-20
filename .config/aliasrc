@@ -2,6 +2,7 @@
 
 # Aliases
 alias ccat="bat"
+alias cleanpackages="doas pacman -Rns $(doas pacman -Qtdq)"
 alias dmenu_run="dmenu_run -nb '#393535' -nf '#cccccc' -sb '#ef4e4e' -sf '#feeeee'"
 alias ffmpeg="ffmpeg -hide_banner"
 alias fhop="hfzf --bind 'enter:execute(smartopen {})'"
@@ -18,8 +19,10 @@ alias rsm="doas rsm"
 alias nv="nvim"
 alias p="doas pacman"
 alias pamu="passmenu -l 20"
+alias pwndbg="exec gdb -ex init-pwndbg \"$@\""
 alias r2="radare2"
 alias rbin="rabin2"
+alias refreshupdates="doas pacman -Syy"
 alias snv="doas nvim"
 alias sv="doas sv"
 alias tm="tmux"

@@ -1,14 +1,28 @@
 local lspconfig = require("lspconfig")
-local on_attach = require("completion").on_attach
+local completion = require("completion").on_attach
 local lspkind = require('lspkind').init({symbol_map = {Enum = ''}})
+local aerial = require("aerial")
+local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
-lspconfig.bashls.setup{ on_attach=on_attach, lspkind }
-lspconfig.clangd.setup{ on_attach=on_attach, lspkind }
-lspconfig.jsonls.setup{ on_attach=on_attach }
-lspconfig.pyls.setup{ on_attach=on_attach, lspkind, }
-lspconfig.r_language_server.setup{ on_attach=on_attach, lspkind }
-lspconfig.rust_analyzer.setup{ on_attach=on_attach, lspkind }
+local custom_attach = function(client)
+    -- Enable completion.nvim
+    completion()
+
+    aerial.on_attach(client)
+
+    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>val', '<cmd>AerialToggle!<CR>', opts)
+    -- Jump forwards/backwards
+    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vdp', '<cmd>AerialPrev<CR>', opts)
+    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
+end
+
+lspconfig.bashls.setup{ on_attach=custom_attach, lspkind }
+lspconfig.clangd.setup{ on_attach=custom_attach, lspkind }
+lspconfig.jsonls.setup{ on_attach=custom_attach }
+lspconfig.pyls.setup{ on_attach=custom_attach, lspkind, }
+lspconfig.r_language_server.setup{ on_attach=custom_attach, lspkind }
+lspconfig.rust_analyzer.setup{ on_attach=custom_attach, lspkind }
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
@@ -35,7 +49,7 @@ require'lspconfig'.sumneko_lua.setup {
             },
         },
     },
-    on_attach=on_attach,
+    on_attach=custom_attach,
     lspkind
 }
 
@@ -52,11 +66,11 @@ lspconfig.texlab.setup{
             }
         }
     },
-    on_attach=on_attach
+    on_attach=custom_attach
 }
 
-lspconfig.tsserver.setup{ on_attach=on_attach, lspkind }
-lspconfig.vimls.setup{ on_attach=on_attach, lspkind }
+lspconfig.tsserver.setup{ on_attach=custom_attach, lspkind }
+lspconfig.vimls.setup{ on_attach=custom_attach, lspkind }
 
 require'nvim-treesitter.configs'.setup {
     incremental_selection = {
@@ -80,8 +94,6 @@ vim.g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
 vim.g.completion_sorting = "none"
 vim.g.completion_matching_ignore_case = 1
 vim.g.completion_enable_snippet = 'UltiSnips'
-
-local opts = { noremap = true, silent = true }
 
 -- Remaps
 map("n", "<leader>vds", ":lua require('telescope.builtin').lsp_document_symbols{}<CR>", opts)

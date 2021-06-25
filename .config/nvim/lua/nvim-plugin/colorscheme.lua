@@ -99,7 +99,7 @@ M.Gruvbox = function()
     hi.TSField              = { guifg = colors.base0D, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSFloat              = { guifg = colors.base09, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSFunction           = { guifg = colors.base0B, guibg = nil, gui = 'bold',          guisp = nil }
-    hi.TSFuncBuiltin        = { guifg = colors.base0C, guibg = nil, gui = 'italic',        guisp = nil }
+    hi.TSFuncBuiltin        = { guifg = colors.base0C, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSFuncMacro          = { guifg = colors.base09, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSInclude            = { guifg = colors.base0C, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSKeyword            = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }

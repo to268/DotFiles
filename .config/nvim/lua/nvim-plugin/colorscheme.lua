@@ -69,7 +69,7 @@ M.Gruvbox = function()
     hi.Typedef        = { guifg = colors.base08, guibg = nil,             gui = NONE,             guisp = nil }
     hi.Special        = { guifg = colors.base09, guibg = nil,             gui = NONE,             guisp = nil }
     hi.SpecialChar    = { guifg = colors.base09, guibg = nil,             gui = NONE,             guisp = nil }
-    hi.Tag            = { guifg = colors.base0A, guibg = nil,             gui = 'underline',      guisp = nil }
+    hi.Tag            = { guifg = colors.base0A, guibg = nil,             gui = NONE,             guisp = nil }
     hi.Delimiter      = { guifg = colors.base0F, guibg = nil,             gui = NONE,             guisp = nil }
     hi.SpecialComment = { guifg = colors.base0C, guibg = nil,             gui = NONE,             guisp = nil }
     hi.Debug          = { guifg = colors.base08, guibg = nil,             gui = NONE,             guisp = nil }

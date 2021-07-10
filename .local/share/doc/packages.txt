@@ -26,7 +26,7 @@ gotop
 gtk2
 hexyl
 highlight
-htop
+htim
 inetutils
 lf
 libnotify

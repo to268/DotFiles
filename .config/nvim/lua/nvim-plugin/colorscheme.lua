@@ -94,7 +94,7 @@ M.Gruvbox = function()
     hi.TSConstant           = { guifg = colors.base0E, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSConstBuiltin       = { guifg = colors.base09, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSConstMacro         = { guifg = colors.base09, guibg = nil, gui = NONE,            guisp = nil }
-    hi.TSError              = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
+    hi.TSError              = { guifg = colors.base05, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSException          = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSField              = { guifg = colors.base0D, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSFloat              = { guifg = colors.base09, guibg = nil, gui = NONE,            guisp = nil }

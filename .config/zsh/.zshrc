@@ -64,7 +64,10 @@ git_info() {
 
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
+# Complete prompt
 PROMPT='%B%{$fg[blue]%}[%{$fg[red]%}%n%{$fg[yellow]%}@%{$fg[green]%}%M %{$fg[magenta]%}%~$(git_info)%{$fg[blue]%}]%{$fg[magenta]%}%(!.#.$)%{$reset_color%} '
+# Minimal prompt
+#PROMPT='%B%{$fg[red]%}%n %{$fg[magenta]%}%~$(git_info)%{$fg[green]%} >%{$reset_color%} '
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 

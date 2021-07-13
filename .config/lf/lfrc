@@ -42,8 +42,6 @@ map <c-r> reload
 map <c-x> $$f
 map <c-X> !$f
 map <enter> shell
-map <c-n> down
-map <c-p> up
 map <c-o> open
 map <c-s> :!clear && zsh
 map <c-q> quit

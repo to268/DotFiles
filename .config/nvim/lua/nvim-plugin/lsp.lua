@@ -20,7 +20,7 @@ end
 lspconfig.bashls.setup{ on_attach=custom_attach, lspkind }
 lspconfig.clangd.setup{ on_attach=custom_attach, lspkind }
 lspconfig.jsonls.setup{ on_attach=custom_attach }
-lspconfig.pyls.setup{ on_attach=custom_attach, lspkind, }
+lspconfig.pylsp.setup{ on_attach=custom_attach, lspkind }
 lspconfig.r_language_server.setup{ on_attach=custom_attach, lspkind }
 lspconfig.rust_analyzer.setup{ on_attach=custom_attach, lspkind }
 

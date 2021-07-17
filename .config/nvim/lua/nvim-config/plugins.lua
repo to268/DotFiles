@@ -49,13 +49,13 @@ return require("packer").startup {
         use {
             'Pocco81/DAPInstall.nvim',
             config = function()
-                local dap_install = require("dap-install")
+                --[[ local dap_install = require("dap-install")
                 dap_install.setup()
 
                 dap_install.config("ccppr_lldb_dbg", {})
                 dap_install.config("jsnode_dbg", {})
                 dap_install.config("lua_dbg", {})
-                dap_install.config("python_dbg", {})
+                dap_install.config("python_dbg", {}) ]]
             end
         }
 

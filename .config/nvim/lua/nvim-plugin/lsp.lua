@@ -1,7 +1,6 @@
 local lspconfig = require("lspconfig")
 local completion = require("completion").on_attach
 local lspkind = require('lspkind').init({symbol_map = {Enum = ''}})
-local aerial = require("aerial")
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
@@ -9,12 +8,7 @@ local custom_attach = function(client)
     -- Enable completion.nvim
     completion()
 
-    aerial.on_attach(client)
-
-    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>val', '<cmd>AerialToggle!<CR>', opts)
-    -- Jump forwards/backwards
-    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vdp', '<cmd>AerialPrev<CR>', opts)
-    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
+    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vsl', '<cmd>SymbolsOutline<CR>', opts)
 end
 
 lspconfig.bashls.setup{ on_attach=custom_attach, lspkind }
@@ -85,6 +79,7 @@ require'nvim-treesitter.configs'.setup {
     indent = {
         enable = true
     },
+    textobjects = { enable = true },
 }
 
 vim.g.completion_trigger_keyword_length = 2

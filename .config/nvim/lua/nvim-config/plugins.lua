@@ -13,6 +13,7 @@ return require("packer").startup {
         -- Dev Stuff
         use 'SirVer/ultisnips'
         use 'honza/vim-snippets'
+        use 'babaybus/DoxygenToolkit.vim'
 
         use {
             'norcalli/nvim-colorizer.lua',
@@ -32,6 +33,7 @@ return require("packer").startup {
         }
 
         use 'jbyuki/monolithic.nvim'
+        use 'ThePrimeagen/refactoring.nvim'
 
         use {
             'ThePrimeagen/git-worktree.nvim',
@@ -82,27 +84,24 @@ return require("packer").startup {
 
         use 'onsails/lspkind-nvim'
         use {
-            'stevearc/aerial.nvim',
+            'simrat39/symbols-outline.nvim',
             config = function()
-                vim.g.aerial = {
-                    close_behavior = 'auto',
-                    default_bindings = true,
-                    default_direction = 'prefer_left',
-                    diagnostics_trigger_update = true,
-                    highlight_mode = 'split_width',
-                    highlight_on_jump = 50,
-                    link_tree_to_folds = true,
-                    link_folds_to_tree = false,
-                    manage_folds = 'manual',
-                    min_width = 40,
-                    max_width = 40,
-                    nerd_font = 'auto',
-                    open_automatic = false,
-                    open_automatic_min_lines = 0,
-                    open_automatic_min_symbols = 0,
-                    post_jump_cmd = 'normal! zz',
-                    update_when_errors = true,
-                    filter_kind = false,
+                vim.g.symbols_outline = {
+                    highlight_hovered_item = true,
+                    show_guides = true,
+                    auto_preview = true,
+                    position = 'right',
+                    show_numbers = false,
+                    show_relative_numbers = false,
+                    show_symbol_details = true,
+                    keymaps = {
+                        close = "q",
+                        goto_location = "<Cr>",
+                        focus_location = "o",
+                        hover_symbol = "<C-space>",
+                        rename_symbol = "r",
+                        code_actions = "a",
+                    },
                 }
             end
         }
@@ -127,7 +126,6 @@ return require("packer").startup {
         }
         use 'nvim-treesitter/nvim-treesitter-textobjects'
         use 'nvim-treesitter/playground'
-        use 'bryall/contextprint.nvim'
 
         -- Telescope
         use {

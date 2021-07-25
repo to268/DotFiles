@@ -35,6 +35,9 @@ tnoremap <leader><Esc> <C-\><C-n>
 " Ignore case for the write command
 com! W w
 
+" Disable ex mode
+nnoremap <silent> Q <nop>
+
 " Quickfix
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>cp :cprev<CR>

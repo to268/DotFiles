@@ -25,6 +25,5 @@ nnoremap <silent><leader>bl :ToggleBlameLine<CR>
 " Nabla
 nnoremap <F5> :lua require("nabla").replace_current()<CR>
 
-" Context Print
-nnoremap <silent><leader>Ps :lua require("contextprint").add_statement()<CR>
-nnoremap <silent><leader>ps :lua require("contextprint").add_statement(true)<CR>
+" Refactoring
+vnoremap <leader>re :lua require('refactoring.106').extract()<CR>

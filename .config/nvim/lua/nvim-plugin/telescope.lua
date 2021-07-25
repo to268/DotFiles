@@ -51,15 +51,25 @@ end
 set_fuzzy()
 
 M.dot_files = function()
-    require("telescope.builtin").find_files {
+    require("telescope.builtin").find_files({
         shorten_path = false,
         cwd = "~/.config/nvim",
         prompt = "DotFiles",
-    }
+    })
+end
+
+M.buffers_list = function()
+    require("telescope.builtin").buffers({
+        attach_mappings = function(_, map)
+            map('i', '<c-d>', actions.delete_buffer)
+            map('n', '<c-d>', actions.delete_buffer)
+            return true
+        end
+    })
 end
 
 map("n", "<leader>tl", ":Telescope<CR>", opts)
-map("n", "<leader>bf", ":lua require('telescope.builtin').buffers{}<CR>", opts)
+map("n", "<leader>bf", ":lua require('nvim-plugin.telescope').buffers_list()<CR>", opts)
 map("n", "<leader>ch", ":lua require('telescope.builtin').command_history{}<CR>", opts)
 map("n", "<leader>of", ":lua require('telescope.builtin').oldfiles{}<CR>", opts)
 map("n", "<leader>rg", ":lua require('telescope.builtin').live_grep{}<CR>", opts)

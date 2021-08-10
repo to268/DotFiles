@@ -83,6 +83,7 @@ map("n", "<leader>pl", ":lua require('telescope').extensions.packer.plugins()<CR
 map("n", "<leader>p", ":lua require('telescope').extensions.frecency.frecency()<CR>", opts)
 map("n", "<leader>df", ":lua require('nvim-plugin.telescope').dot_files()<CR>", opts)
 map("n", "<leader>sl", ":lua require('session-lens').search_session()<CR>", opts)
+map("n", "<leader>m", ":lua require('telescope').extensions.telescope_makefile.telescope_makefile()<CR>", opts)
 map("n", "<leader>d", ":lua require('telescope-doc').open_path({cwd = '$HOME/files/ext/shared/pdf/'})<CR>", opts)
 
 return M

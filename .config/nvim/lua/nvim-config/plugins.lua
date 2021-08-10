@@ -82,7 +82,7 @@ return require("packer").startup {
             }) end
         }
 
-        use 'onsails/lspkind-nvim'
+       -- use 'onsails/lspkind-nvim'
         use {
             'simrat39/symbols-outline.nvim',
             config = function()
@@ -148,6 +148,11 @@ return require("packer").startup {
         use {
             'to268/telescope-doc.nvim',
             requires = { 'nvim-lua/popup.nvim' }
+        }
+
+        use {
+            'ptethng/telescope-makefile',
+            requires = { 'akinsho/nvim-toggleterm.lua' }
         }
 
         -- Git

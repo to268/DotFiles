@@ -1,8 +1,4 @@
 " Basic
-nnoremap <silent><leader>m :Make -j6<CR>
-nnoremap <silent><leader>ms :Make! -j6<CR>
-nnoremap <silent><leader>mc :Make! clean<CR>
-nnoremap <silent><leader>mp :Make! mrproper<CR>
 nnoremap <silent><leader>pi :PackerInstall<CR>
 nnoremap <silent><leader>ps :PackerSync<CR>
 nnoremap <silent><leader>u :UndotreeShow<CR>

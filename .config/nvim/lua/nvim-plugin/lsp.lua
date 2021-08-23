@@ -1,6 +1,6 @@
 local lspconfig = require("lspconfig")
 local completion = require("completion").on_attach
---local lspkind = require('').init({symbol_map = {Enum = ''}})
+local lspkind = require('lspkind').init({symbol_map = {Field = ''}})
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
@@ -14,13 +14,12 @@ local custom_attach = function(client)
     vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
 end
 
-lspconfig.bashls.setup{ on_attach=custom_attach  }
---lspconfig.clangd.setup{ on_attach=custom_attach,  lspkind}
-lspconfig.clangd.setup{ on_attach=custom_attach }
+lspconfig.bashls.setup{ on_attach=custom_attach }
+lspconfig.clangd.setup{ on_attach=custom_attach, lspkind }
 lspconfig.jsonls.setup{ on_attach=custom_attach }
-lspconfig.pylsp.setup{ on_attach=custom_attach  }
-lspconfig.r_language_server.setup{ on_attach=custom_attach  }
-lspconfig.rust_analyzer.setup{ on_attach=custom_attach  }
+lspconfig.pylsp.setup{ on_attach=custom_attach, lspkind }
+lspconfig.r_language_server.setup{ on_attach=custom_attach }
+lspconfig.rust_analyzer.setup{ on_attach=custom_attach, lspkind }
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"

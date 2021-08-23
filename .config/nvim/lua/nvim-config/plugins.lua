@@ -82,7 +82,7 @@ return require("packer").startup {
             }) end
         }
 
-       -- use 'onsails/lspkind-nvim'
+        use 'onsails/lspkind-nvim'
         use {
             'simrat39/symbols-outline.nvim',
             config = function()
@@ -212,6 +212,10 @@ return require("packer").startup {
         }
 
         use 'mhinz/vim-rfc'
+        use {
+            'soywod/himalaya',
+            rtp = "vim"
+        }
 
     end
 }

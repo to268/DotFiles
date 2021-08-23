@@ -45,7 +45,6 @@ ncmpcpp
 neofetch
 neomutt
 neovim
-nerd-fonts-inconsolata
 nerd-fonts-source-code-pro
 netcat
 newsboat
@@ -82,6 +81,7 @@ task-spooler
 texinfo
 texlab
 texlive-bin
+texlive-core
 tmux
 tree
 ttf-inconsolata

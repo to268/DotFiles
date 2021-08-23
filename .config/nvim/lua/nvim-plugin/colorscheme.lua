@@ -134,6 +134,10 @@ M.Gruvbox = function()
     hi.TSTypeBuiltin        = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSVariable           = { guifg = colors.base0D, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSVariableBuiltin    = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
+
+    -- Himalaya
+    hi.hym_unseen           = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
+    hi.hym_head             = { guifg = colors.base06, guibg = nil, gui = NONE,            guisp = nil }
 end
 
 M.Transparent = function()

@@ -25,5 +25,9 @@ nnoremap <silent><leader>bl :ToggleBlameLine<CR>
 " Nabla
 nnoremap <F5> :lua require("nabla").replace_current()<CR>
 
+" Himalaya
+let g:himalaya_mailbox_picker = 'telescope'
+command! -nargs=* Himalaya call himalaya#msg#list(<f-args>)
+
 " Refactoring
 vnoremap <leader>re :lua require('refactoring.106').extract()<CR>

@@ -1,17 +1,48 @@
 local lspconfig = require("lspconfig")
-local completion = require("completion").on_attach
 local lspkind = require('lspkind').init({symbol_map = {Field = ''}})
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
 local custom_attach = function(client)
-    -- Enable completion.nvim
-    completion()
+    -- Enable nvim-compe
+    require'compe'.setup {
+        enabled = true;
+        autocomplete = true;
+        debug = false;
+        min_length = 1;
+        preselect = 'enable';
+        throttle_time = 80;
+        source_timeout = 200;
+        resolve_timeout = 800;
+        incomplete_delay = 400;
+        max_abbr_width = 100;
+        max_kind_width = 100;
+        max_menu_width = 100;
+        source = {
+            path = true;
+            buffer = true;
+            calc = true;
+            nvim_lsp = true;
+            nvim_lua = true;
+            vsnip = false;
+            ultisnips = true;
+            luasnip = true;
+        };
+    }
 
-    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>val', '<cmd>SymbolsOutline<CR>', opts)
+    -- Enable lspsaga
+    require('lspsaga').init_lsp_saga()
+    map("n", "<leader>vls", ":Lspsaga lsp_finder<CR>", opts)
+    map("n", "<leader>va", ":Lspsaga code_action<CR>", opts)
+    map("n", "<leader>vf", ":Lspsaga lsp_finder<CR>", opts)
+    map("n", "<leader>vdc", ":Lspsaga hover_doc<CR>", opts)
+    map("n", "<leader>vrn", ":Lspsaga rename<CR>", opts)
+    map("n", "<leader>vpd", ":Lspsaga preview_definition<CR>", opts)
+
+    map('n', '<leader>val', '<cmd>SymbolsOutline<CR>', opts)
     -- Jump forwards/backwards
-    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vdp', '<cmd>AerialPrev<CR>', opts)
-    vim.api.nvim_buf_set_keymap(0, 'n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
+    map('n', '<leader>vdp', '<cmd>AerialPrev<CR>', opts)
+    map('n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
 end
 
 lspconfig.bashls.setup{ on_attach=custom_attach }
@@ -96,13 +127,10 @@ vim.g.completion_enable_snippet = 'UltiSnips'
 -- Remaps
 map("n", "<leader>vds", ":lua require('telescope.builtin').lsp_document_symbols{}<CR>", opts)
 map("n", "<leader>vws", ":lua require('telescope.builtin').lsp_workspace_symbols{}<CR>", opts)
-map("n", "<leader>vrn", ":lua vim.lsp.buf.rename()<CR>", opts)
 map("n", "<leader>vi", ":lua vim.lsp.buf.implementations()<CR>", opts)
 map("n", "<leader>vd", ":lua vim.lsp.buf.definition()<CR>", opts)
 map("n", "<leader>vh", ":lua vim.lsp.buf.hover()<CR>", opts)
 map("n", "<leader>vs", ":lua vim.lsp.buf.signature_help()<CR>", opts)
 map("n", "<leader>vt", ":lua vim.lsp.buf.type_definition()<CR>", opts)
 map("n", "<leader>vr", ":lua vim.lsp.buf.references()<CR>", opts)
-map("n", "<leader>vf", ":lua vim.lsp.buf.workspace_symbol()<CR>", opts)
-map("n", "<leader>va", ":lua vim.lsp.buf.code_action()<CR>", opts)
 map("n", "<leader>vl", "<cmd>LspTroubleToggle<CR>", opts)

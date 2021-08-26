@@ -14,6 +14,18 @@ return require("packer").startup {
         use 'SirVer/ultisnips'
         use 'honza/vim-snippets'
         use 'babaybus/DoxygenToolkit.vim'
+        use {
+            'sindrets/diffview.nvim',
+            config = function() require("diffview").setup({
+                diff_binaries = true,
+                file_panel = {
+                    position = "left",
+                    width = 35,
+                    height = 10,
+                    use_icons = true,
+                }})
+            end
+        }
 
         use {
             'norcalli/nvim-colorizer.lua',
@@ -67,7 +79,8 @@ return require("packer").startup {
             config = function() require('nvim-plugin.lsp') end
         }
 
-        use 'nvim-lua/completion-nvim'
+        use 'hrsh7th/nvim-compe'
+        use 'glepnir/lspsaga.nvim'
         use 'tjdevries/nlua.nvim'
         use 'tjdevries/lsp_extensions.nvim'
 

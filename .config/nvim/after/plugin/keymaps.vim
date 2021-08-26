@@ -36,25 +36,42 @@ nnoremap <silent> Q <nop>
 
 " Quickfix
 nnoremap <leader>co :copen<CR>
-nnoremap <leader>cp :cprev<CR>
-nnoremap <leader>cn :cnext<CR>
+nnoremap <leader>cp :cprev<CR>zzzv
+nnoremap <leader>cn :cnext<CR>zzzv
 nnoremap <leader>lo :lopen<CR>
-nnoremap <leader>lp :lprev<CR>
-nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprev<CR>zzzv
+nnoremap <leader>ln :lnext<CR>zzzv
 
 " Lsp
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-imap <silent><c-space> <Plug>(completion_trigger)
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-n>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-p>     compe#scroll({ 'delta': -4 })
 nnoremap <silent><leader>h :ClangdSwitchSourceHeader<CR>
 
 " Spell check
 map <leader>se :setlocal spell! spelllang=en_us<CR>
 map <leader>sf :setlocal spell! spelllang=fr_fr<CR>
 
+" Auto breakpoint for undo
+inoremap , ,<c-g>u
+inoremap ; ;<c-g>u
+inoremap . .<c-g>u
+inoremap ( (<c-g>u
+inoremap ) )<c-g>u
+inoremap ? ?<c-g>u
+inoremap ! !<c-g>u
+
+" Fix jumplist
+nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
+
 " Others things
 nnoremap <leader>ra :%s/<C-R>=expand("<cword>")<CR>/
 nnoremap <silent><F5> :edit<CR>
+nnoremap <silent><leader>j :m .+1<CR>==
+nnoremap <silent><leader>k :m .-2<CR>==
 vnoremap <silent>J :m '>+1<CR>gv=gv
 vnoremap <silent>K :m '<-2<CR>gv=gv
 vnoremap <leader>s :sort<CR>
@@ -65,3 +82,7 @@ nnoremap <leader>Y gg"+yG
 inoremap <esc> <C-c>
 vnoremap <c-p> "_dP
 vnoremap <c-x> "_d
+nnoremap Y y$
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z

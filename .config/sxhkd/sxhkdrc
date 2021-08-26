@@ -2,7 +2,7 @@
 
 # Launch tmux
 super + shift + Return
-    $TERMINAL -e tmux
+    $TERMINAL -e bash -c "tmux attach || tmux"
 
 # Minimal Version
 super + shift + l

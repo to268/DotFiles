@@ -56,13 +56,13 @@ git_info() {
   local -a GIT_INFO
   GIT_INFO+=( "%F{011} $GIT_LOCATION%b%f" )
   [ -n "$GIT_STATUS" ] && GIT_INFO+=( "$GIT_STATUS" )
-  [[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)DIVERGENCES}" )
-  [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)FLAGS}" )
-  echo "${(j: :)GIT_INFO}"
+  [[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( ${(j::)DIVERGENCES} )
+  [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( ${(j::)FLAGS} )
+  echo ${(j: :)GIT_INFO}
 
 }
 
-# Enable colors and change prompt:
+# Enable colors and change prompt
 autoload -U colors && colors	# Load colors
 # Complete prompt
 PROMPT='%B%{$fg[blue]%}[%{$fg[red]%}%n%{$fg[yellow]%}@%{$fg[green]%}%M %{$fg[magenta]%}%~$(git_info)%{$fg[blue]%}]%{$fg[magenta]%}%(!.#.$)%{$reset_color%} '
@@ -71,23 +71,45 @@ PROMPT='%B%{$fg[blue]%}[%{$fg[red]%}%n%{$fg[yellow]%}@%{$fg[green]%}%M %{$fg[mag
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 
-# History in cache directory:
+# History in cache directory
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zshhistory
 
-# Basic auto/tab complete:
+# Basic auto/tab complete
 autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
+export KEYTIMEOUT=1
 
+# Change cursor shape if vim mode is used
+function zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[1 q';;      # block
+        viins|main) echo -ne '\e[5 q';; # beam
+    esac
+}
+
+zle -N zle-keymap-select
 precmd() { echo -ne '\e[5 q' }; # Set beam cursor shape
 
-# Edit line in vim with ctrl-e:
+# Edit line in vim
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^v' edit-command-line
+
+# Switch dirs with lf
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp" >/dev/null
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^s' 'lfcd\n'
 
 # Usefull Shortcuts
 bindkey "^a" beginning-of-line
@@ -97,9 +119,9 @@ bindkey "^b" backward-word
 bindkey "^r" history-incremental-search-backward
 bindkey "^x" delete-char
 bindkey "^d" delete-word
-bindkey "^H" backward-kill-word
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
+bindkey "^h" backward-kill-word
+bindkey "^p" up-line-or-search
+bindkey "^n" down-line-or-search
 
 # Load fzf-tab
 source /usr/share/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh 2>/dev/null

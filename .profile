@@ -9,18 +9,10 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 # Load aliases
 source $XDG_CONFIG_HOME/aliasrc
-# Load shortcuts
-source $XDG_CONFIG_HOME/shortcuts
-# Load directories
-source $XDG_CONFIG_HOME/directories
-# Load Files env vars
-source $XDG_CONFIG_HOME/files
 
 # Adds servals directories to $PATH
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':' -)"
-export PATH="$PATH:$(du "$HOME/.local/bin/statusbar/" | cut -f2 | paste -sd ':' -)"
-# OS dev toolchain
-#export PATH="$PATH:$(du "$HOME/files/Dev/osdev/phoenix/utils/toolchain/bin" | cut -f2 | paste -sd ':' -)"
+export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+export PATH="$PATH:${$(find ~/.local/bin/statusbar -type d -printf %p:)%%:}"
 
 # Default programs:
 export EDITOR="nvim"

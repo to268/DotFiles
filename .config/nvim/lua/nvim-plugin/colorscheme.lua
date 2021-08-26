@@ -140,12 +140,13 @@ M.Gruvbox = function()
 end
 
 M.Transparent = function()
-    hi.Normal       = { guibg = NONE }
-    hi.NormalNC     = { guibg = NONE }
-    hi.LineNr       = { guibg = NONE }
-    hi.SignColumn   = { guibg = NONE }
-    hi.CursorLineNr = { guibg = NONE }
-    hi.ColorColumn  = { guibg = NONE }
+    hi.Normal               = { guibg = NONE }
+    hi.NormalNC             = { guibg = NONE }
+    hi.LineNr               = { guibg = NONE }
+    hi.SignColumn           = { guibg = NONE }
+    hi.CursorLineNr         = { guibg = NONE }
+    hi.ColorColumn          = { guibg = NONE }
+    hi.LspFloatWinNormal    = { guibg = NONE }
 end
 
 M.setup = function()

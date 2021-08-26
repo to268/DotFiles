@@ -1,7 +1,0 @@
-#!/bin/sh
-
-export FR="/home/to268/files"
-export DEV="/home/to268/files/Dev"
-export VIDS="/home/to268/files/Videos"
-export PICS="/home/to268/files/Photos"
-export MUSIC="/home/to268/files/Music"

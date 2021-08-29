@@ -5,8 +5,8 @@
 if [[ $# -eq 2 ]]; then
     selected=$2
 else
-    items=$(find ~/files/Dev -maxdepth 2 -mindepth 2 -type d | sed "s/.*src-packages.*$//;s/.*website.*$//")
-    items+=$(find ~/files/Dev -maxdepth 1 -mindepth 1 -type d | grep "website/")
+    items=$(find ~/files/Dev -maxdepth 2 -mindepth 2 -type d | sed "/.*src-packages.*$/d;/.*website.*$/d")
+    items+=$(find ~/files/Dev -maxdepth 1 -mindepth 1 -type d | grep "website" | sed "s/\(.*\)/\n\1/")
     selected=$(echo "$items" | fzf)
 fi
 

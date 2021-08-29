@@ -8,7 +8,7 @@ opt.mouse = "n"
 opt.number = true
 opt.relativenumber = true
 opt.scrolloff = 6
-opt.shortmess = opt.shortmess - "c"
+opt.shortmess:append "c"
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.termguicolors = true
@@ -50,4 +50,8 @@ opt.joinspaces = false
 -- Completion and wild option
 opt.completeopt = { "menuone", "noinsert", "noselect" }
 opt.wildmode = { "longest", "list", "full" }
-opt.wildignore = { "*.o", "*.obj", "*.a", "*.bin", "*.elf", "*.iso", ".git", "*.rbc", "*.pyc", "*pycache", "__pycache__" }
+opt.wildignore = { "*.o", "*.obj", "*.a", "*.bin", "*.elf", "*.iso", ".git",
+                "*.rbc", "*.pyc", "*pycache", "__pycache__" }
+
+-- Disable builtin plugins
+require("nvim-plugin.disable_builtin")

@@ -11,8 +11,11 @@ return require("packer").startup {
         }
 
         -- Dev Stuff
-        use 'SirVer/ultisnips'
-        use 'honza/vim-snippets'
+        use {
+            'L3MON4D3/LuaSnip',
+            requires = { 'rafamadriz/friendly-snippets' },
+            config = function() require("nvim-plugin.snippets") end
+        }
         use 'babaybus/DoxygenToolkit.vim'
         use {
             'sindrets/diffview.nvim',
@@ -79,7 +82,37 @@ return require("packer").startup {
             config = function() require('nvim-plugin.lsp') end
         }
 
-        use 'hrsh7th/nvim-compe'
+        use {
+            "hrsh7th/nvim-cmp",
+            requires = {
+                "hrsh7th/cmp-buffer",
+                "hrsh7th/cmp-calc",
+                "kdheepak/cmp-latex-symbols",
+                "saadparwaiz1/cmp_luasnip",
+                "hrsh7th/cmp-nvim-lsp",
+                {
+                    'quangnguyen30192/cmp-nvim-tags',
+                    ft = {
+                        'kotlin',
+                        'java'
+                    }
+                },
+                "hrsh7th/cmp-path",
+                {
+                    'tzachar/cmp-tabnine',
+                    run='./install.sh',
+                    config = function()
+                        local tabnine = require('cmp_tabnine.config')
+                        tabnine:setup({
+                            max_lines = 1000;
+                            max_num_results = 20;
+                            sort = true;
+                        })
+                    end
+                },
+                "f3fora/cmp-spell"
+            }
+        }
         use 'glepnir/lspsaga.nvim'
         use 'tjdevries/nlua.nvim'
         use 'tjdevries/lsp_extensions.nvim'

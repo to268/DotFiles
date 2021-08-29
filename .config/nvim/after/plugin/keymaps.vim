@@ -42,14 +42,7 @@ nnoremap <leader>lo :lopen<CR>
 nnoremap <leader>lp :lprev<CR>zzzv
 nnoremap <leader>ln :lnext<CR>zzzv
 
-" Lsp
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-n>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-p>     compe#scroll({ 'delta': -4 })
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Lsp (clangd)
 nnoremap <silent><leader>h :ClangdSwitchSourceHeader<CR>
 
 " Spell check

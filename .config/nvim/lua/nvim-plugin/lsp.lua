@@ -1,34 +1,12 @@
+local cmp = require("nvim-plugin.cmp")
 local lspconfig = require("lspconfig")
-local lspkind = require('lspkind').init({symbol_map = {Field = ''}})
+local lspkind = require('lspkind').init({symbol_map = {Field = '', Property = ''}})
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
 local custom_attach = function(client)
-    -- Enable nvim-compe
-    require'compe'.setup {
-        enabled = true;
-        autocomplete = true;
-        debug = false;
-        min_length = 1;
-        preselect = 'enable';
-        throttle_time = 80;
-        source_timeout = 200;
-        resolve_timeout = 800;
-        incomplete_delay = 400;
-        max_abbr_width = 100;
-        max_kind_width = 100;
-        max_menu_width = 100;
-        source = {
-            path = true;
-            buffer = true;
-            calc = true;
-            nvim_lsp = true;
-            nvim_lua = true;
-            vsnip = false;
-            ultisnips = true;
-            luasnip = true;
-        };
-    }
+    -- Enable cmp
+    cmp.setup()
 
     -- Enable lspsaga
     require('lspsaga').init_lsp_saga()
@@ -97,8 +75,8 @@ lspconfig.texlab.setup{
     on_attach=custom_attach
 }
 
-lspconfig.tsserver.setup{ on_attach=custom_attach,  }
-lspconfig.vimls.setup{ on_attach=custom_attach,  }
+lspconfig.tsserver.setup{ on_attach=custom_attach, lspkind }
+lspconfig.vimls.setup{ on_attach=custom_attach }
 
 require'nvim-treesitter.configs'.setup {
     incremental_selection = {
@@ -115,14 +93,6 @@ require'nvim-treesitter.configs'.setup {
     },
     textobjects = { enable = true },
 }
-
-vim.g.completion_trigger_keyword_length = 2
-vim.g.completion_matching_smart_case = 1
-vim.g.completion_matching_ignore_case = 1
-vim.g.completion_matching_strategy_list = { "exact", "substring", "fuzzy" }
-vim.g.completion_sorting = "none"
-vim.g.completion_matching_ignore_case = 1
-vim.g.completion_enable_snippet = 'UltiSnips'
 
 -- Remaps
 map("n", "<leader>vds", ":lua require('telescope.builtin').lsp_document_symbols{}<CR>", opts)

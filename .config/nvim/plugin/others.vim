@@ -3,9 +3,6 @@ if executable('rg')
     let g:rg_derive_root='true'
 endif
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<c-s>"
-
 " Vim.cpp
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1

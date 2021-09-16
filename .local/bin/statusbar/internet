@@ -3,7 +3,7 @@
 # Show 🌐 for wired connexion or 📶 for wireless connexion or 🔒 when a vpn is detected or ❎ when internet is down.
 
 # Interface name to get the ip in first (if is true vpn will appear before this interface) (set nothing in quotes to auto find it)
-interface="enp0s3"
+interface="eth0"
 
 # Use auto_find_interface function to find another interface when the interface to focus is not found or down (0 = false, 1 = true)
 use_fallback_method=1

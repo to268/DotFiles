@@ -31,9 +31,6 @@ require('telescope').setup {
 require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('session-lens')
 require('telescope').load_extension('git_worktree')
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('cheat')
-require('telescope').load_extension('dap')
 
 local opts = { noremap = true, silent = true }
 
@@ -104,8 +101,6 @@ map("n", "<leader>fg", ":lua require('telescope.builtin').grep_string({ search =
 map("n", "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>", opts)
 map("n", "<leader>gb", ":lua require('telescope.builtin').git_branches()<CR>", opts)
 map("n", "<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", opts)
-map("n", "<leader>pl", ":lua require('telescope').extensions.packer.plugins()<CR>", opts)
-map("n", "<leader>p", ":lua require('telescope').extensions.frecency.frecency()<CR>", opts)
 map("n", "<leader>df", ":lua require('nvim-plugin.telescope').dot_files()<CR>", opts)
 map("n", "<leader>sl", ":lua require('session-lens').search_session()<CR>", opts)
 map("n", "<leader>m", ":lua require('telescope').extensions.telescope_makefile.telescope_makefile()<CR>", opts)

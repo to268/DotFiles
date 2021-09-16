@@ -23,7 +23,7 @@ M.setup = function()
             { name = 'spell' },
             { name = 'vsnip' },
             { name = 'tags' },
-            { name = 'latex_symbols' },
+            -- { name = 'latex_symbols' },
             -- { name = 'treesitter' },
             -- { name = 'buffer' },
         },

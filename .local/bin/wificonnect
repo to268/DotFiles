@@ -3,7 +3,7 @@
 # Script to connect to the network configured in /etc/wpa_supplicant/wpa_supplicant.conf
 
 # Wireless interface to use
-interface="wlo1"
+interface="wlan0"
 
 # Make sure to kill wpa_supplicant if is already running
 sudo pkill -e wpa_supplicant

@@ -21,12 +21,13 @@ return require("packer").startup {
             'sindrets/diffview.nvim',
             config = function() require("diffview").setup({
                 diff_binaries = true,
+                use_icons = true,
                 file_panel = {
                     position = "left",
                     width = 35,
                     height = 10,
-                    use_icons = true,
-                }})
+                },
+            })
             end
         }
 
@@ -53,27 +54,6 @@ return require("packer").startup {
         use {
             'ThePrimeagen/git-worktree.nvim',
             config = function() require('git-worktree').setup() end
-        }
-
-        -- DAP
-        use "theHamsta/nvim-dap-virtual-text"
-        use "nvim-telescope/telescope-dap.nvim"
-        use {
-            'rcarriga/nvim-dap-ui',
-            requires = { 'mfussenegger/nvim-dap'}
-        }
-
-        use {
-            'Pocco81/DAPInstall.nvim',
-            config = function()
-                --[[ local dap_install = require("dap-install")
-                dap_install.setup()
-
-                dap_install.config("ccppr_lldb_dbg", {})
-                dap_install.config("jsnode_dbg", {})
-                dap_install.config("lua_dbg", {})
-                dap_install.config("python_dbg", {}) ]]
-            end
         }
 
         -- Neovim LSP
@@ -181,15 +161,6 @@ return require("packer").startup {
         }
 
         use 'nvim-telescope/telescope-fzy-native.nvim'
-        use 'nvim-telescope/telescope-packer.nvim'
-        use {
-            'nvim-telescope/telescope-cheat.nvim',
-            requires = { 'tami5/sql.nvim' }
-        }
-        use {
-            'nvim-telescope/telescope-frecency.nvim',
-            requires = { 'tami5/sql.nvim' }
-        }
 
         use {
             'to268/telescope-doc.nvim',
@@ -202,8 +173,6 @@ return require("packer").startup {
         }
 
         -- Git
-        use 'jreybert/vimagit'
-
         use {
             'tpope/vim-fugitive',
             config = function() require('nvim-plugin.fugitive') end
@@ -222,13 +191,11 @@ return require("packer").startup {
         }
 
         -- Utils
-        use 'dbeniamine/cheat.sh-vim'
         use 'rmagatti/auto-session'
         use {
             'rmagatti/session-lens',
             requires = { 'rmagatti/auto-session' },
             config = function() require('session-lens').setup({
-                shorten_path = false,
                 previewer = false,
                 prompt_title = 'Sessions',
             }) end
@@ -236,7 +203,7 @@ return require("packer").startup {
 
         use {
             'numtostr/FTerm.nvim',
-            config = function() require('FTerm').setup() end
+            config = function() require('FTerm') end
         }
 
         use 'vimwiki/vimwiki'
@@ -250,11 +217,6 @@ return require("packer").startup {
             config = function()
                 vim.g["instant_username"] = "to268"
             end
-        }
-
-        use {
-            'vuciv/vim-bujo',
-            config = function() require('nvim-plugin.bujo') end
         }
 
         use 'mhinz/vim-rfc'

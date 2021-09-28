@@ -212,6 +212,7 @@ return require("packer").startup {
         use 'jbyuki/nabla.nvim'
         use "dstein64/vim-startuptime"
         use 'jbyuki/venn.nvim'
+        use 'nathom/filetype.nvim'
         use {
             'jbyuki/instant.nvim',
             config = function()

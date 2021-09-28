@@ -131,6 +131,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/diffview.nvim"
   },
+  ["filetype.nvim"] = {
+    loaded = true,
+    path = "/home/tony/.local/share/nvim/site/pack/packer/start/filetype.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/friendly-snippets"

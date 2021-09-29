@@ -23,12 +23,15 @@ local custom_attach = function(client)
     map('n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
 end
 
-lspconfig.bashls.setup{ on_attach=custom_attach }
-lspconfig.clangd.setup{ on_attach=custom_attach, lspkind }
-lspconfig.jsonls.setup{ on_attach=custom_attach }
-lspconfig.pylsp.setup{ on_attach=custom_attach, lspkind }
-lspconfig.r_language_server.setup{ on_attach=custom_attach }
-lspconfig.rust_analyzer.setup{ on_attach=custom_attach, lspkind }
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.rust_analyzer.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
@@ -55,7 +58,7 @@ require'lspconfig'.sumneko_lua.setup {
             },
         },
     },
-    on_attach=custom_attach,
+    on_attach=custom_attach, capabilities=capabilities, lspkind
 
 }
 
@@ -72,11 +75,11 @@ lspconfig.texlab.setup{
             }
         }
     },
-    on_attach=custom_attach
+    on_attach=custom_attach, capabilities=capabilities, lspkind
 }
 
-lspconfig.tsserver.setup{ on_attach=custom_attach, lspkind }
-lspconfig.vimls.setup{ on_attach=custom_attach }
+lspconfig.tsserver.setup{ on_attach=custom_attach,capabilities=capabilities, lspkind }
+lspconfig.vimls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 
 require'nvim-treesitter.configs'.setup {
     incremental_selection = {

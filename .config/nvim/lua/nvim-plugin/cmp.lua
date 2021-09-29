@@ -23,7 +23,7 @@ M.setup = function()
             { name = 'spell' },
             { name = 'vsnip' },
             { name = 'tags' },
-            -- { name = 'latex_symbols' },
+             { name = 'latex_symbols' },
             -- { name = 'treesitter' },
             -- { name = 'buffer' },
         },
@@ -65,12 +65,17 @@ M.setup = function()
         },
         formatting = {
             format = function(entry, vim_item)
+                -- Add tabnine like icon if it's an entry of tabnine
+                local tabnine_icon = ''
+                if entry.source.name == "cmp_tabnine" then
+                    tabnine_icon = '❂ '
+                end
+
                 -- fancy icons and a name of kind
                 if vim_item.kind == "Field" or vim_item.kind == "Property" then
-                    vim_item.kind = '' .. " " .. vim_item.kind
+                    vim_item.kind = tabnine_icon .. '' .. " " .. vim_item.kind
                 else
-
-                    vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+                    vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. tabnine_icon .. vim_item.kind
                 end
 
                 -- set a name for each source

@@ -23,8 +23,8 @@ M.setup = function()
             { name = 'spell' },
             { name = 'vsnip' },
             { name = 'tags' },
-             { name = 'latex_symbols' },
-            -- { name = 'treesitter' },
+            { name = 'treesitter' },
+            { name = 'latex_symbols' },
             -- { name = 'buffer' },
         },
         mapping = {
@@ -90,7 +90,7 @@ M.setup = function()
                     path = "[Path]",
                     tags = "[Tags]",
                     spell = "[Spell]",
-                    -- treesitter = "[Treesitter]",
+                    treesitter = "[Treesitter]",
                     vsnip = "[Vsnip]",
                 })[entry.source.name]
                 return vim_item

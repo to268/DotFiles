@@ -70,8 +70,9 @@ return require("packer").startup {
                 "kdheepak/cmp-latex-symbols",
                 "saadparwaiz1/cmp_luasnip",
                 "hrsh7th/cmp-nvim-lsp",
+                "ray-x/cmp-treesitter",
                 {
-                    'quangnguyen30192/cmp-nvim-tags',
+                    "quangnguyen30192/cmp-nvim-tags",
                     ft = {
                         'kotlin',
                         'java'

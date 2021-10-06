@@ -1,6 +1,7 @@
 #!/bin/sh
 
 cp -f $CALCURSE_DIR/todo /tmp/todo
+rm -f $CALCURSE_DIR/notes/*
 CALCURSE_CALDAV_PASSWORD=$(pass show nextcloud/tony) calcurse-caldav --init=keep-remote --datadir $CALCURSE_DIR
 cp -f /tmp/todo $CALCURSE_DIR/todo
 rm -f /tmp/todo

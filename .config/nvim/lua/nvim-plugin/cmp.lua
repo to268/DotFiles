@@ -23,8 +23,8 @@ M.setup = function()
             { name = 'spell' },
             { name = 'vsnip' },
             { name = 'tags' },
-            { name = 'treesitter' },
             { name = 'latex_symbols' },
+            { name = 'treesitter' },
             -- { name = 'buffer' },
         },
         mapping = {
@@ -33,31 +33,25 @@ M.setup = function()
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
             ["<Tab>"] = cmp.mapping(function(fallback)
-                if vim.fn.pumvisible() == 1 then
-                    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
-                elseif luasnip.expand_or_jumpable() then
-                    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+                if luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
                 elseif snippets.check_back_space() then
                     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<tab>", true, true, true), "n")
+                elseif vim.fn.pumvisible() ~= 1 then
+                    cmp.select_next_item()
                 else
                     fallback()
                 end
-            end, {
-                    "i",
-                    "s",
-                }),
+            end, { "i", "s", }),
             ["<S-Tab>"] = cmp.mapping(function(fallback)
-                if vim.fn.pumvisible() == 1 then
-                    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
-                elseif luasnip.jumpable(-1) then
-                    vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+                if luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
+                elseif vim.fn.pumvisible() ~= 1 then
+                    cmp.select_prev_item()
                 else
                     fallback()
                 end
-            end, {
-                    "i",
-                    "s",
-                }),
+            end, { "i", "s", }),
             ['<CR>'] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,

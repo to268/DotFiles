@@ -28,6 +28,8 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.cmake.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.csharp_ls.setup{ cmd = { vim.fn.expandcmd("~/.dotnet/tools/csharp-ls") }, on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }

@@ -182,7 +182,15 @@ return require("packer").startup {
         use 'tveskag/nvim-blame-line'
 
         -- Comments
-        use 'b3nj5m1n/kommentary'
+        use {
+            'b3nj5m1n/kommentary',
+            config = function()
+                require('kommentary.config').configure_language({"c", "cpp", "rust"}, {
+                    prefer_multi_line_comments = true,
+                })
+            end
+        }
+
         use 'tpope/vim-surround'
 
         -- Colorschemes

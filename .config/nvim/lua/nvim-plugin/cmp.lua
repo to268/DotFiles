@@ -19,43 +19,39 @@ M.setup = function()
             { name = 'nvim_lsp' },
             { name = 'calc' },
             { name = 'nvim_lua' },
-            { name = 'path' },
+            { name = 'path', priority = 2 },
             { name = 'spell' },
             { name = 'vsnip' },
             { name = 'tags' },
-            { name = 'latex_symbols' },
+            { name = 'latex_symbols',  priority = 2 },
+            { name = 'buffer', priority = 2 },
             { name = 'treesitter' },
-            -- { name = 'buffer' },
         },
         mapping = {
             ['<C-d>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
-            ["<Tab>"] = cmp.mapping(function(fallback)
-                if luasnip.expand_or_jumpable() then
+            ["<Tab>"] = function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif luasnip.expand_or_jumpable() then
                     luasnip.expand_or_jump()
                 elseif snippets.check_back_space() then
                     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<tab>", true, true, true), "n")
-                elseif vim.fn.pumvisible() ~= 1 then
-                    cmp.select_next_item()
                 else
                     fallback()
                 end
-            end, { "i", "s", }),
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
-                if luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
-                elseif vim.fn.pumvisible() ~= 1 then
+            end,
+            ["<S-Tab>"] = function(fallback)
+                if cmp.visible() then
                     cmp.select_prev_item()
+                elseif luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
                 else
                     fallback()
                 end
-            end, { "i", "s", }),
-            ['<CR>'] = cmp.mapping.confirm({
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
-            })
+            end,
         },
         formatting = {
             format = function(entry, vim_item)

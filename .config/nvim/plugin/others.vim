@@ -9,7 +9,7 @@ let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
 " Sessions
-" let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
+let g:auto_session_pre_save_cmds = ["tabdo NvimTreeClose"]
 nnoremap <silent><leader>ss :SaveSession<CR>
 nnoremap <silent><leader>sr :RestoreSession<CR>
 

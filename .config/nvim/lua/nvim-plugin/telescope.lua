@@ -47,7 +47,7 @@ end
 
 set_fuzzy()
 
-M.dot_files = function()
+M.nvim_config = function()
     require("telescope.builtin").find_files({
         shorten_path = false,
         cwd = "~/.config/nvim",
@@ -101,7 +101,7 @@ map("n", "<leader>fg", ":lua require('telescope.builtin').grep_string({ search =
 map("n", "<leader>ht", ":lua require('telescope.builtin').help_tags()<CR>", opts)
 map("n", "<leader>gb", ":lua require('telescope.builtin').git_branches()<CR>", opts)
 map("n", "<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", opts)
-map("n", "<leader>df", ":lua require('nvim-plugin.telescope').dot_files()<CR>", opts)
+map("n", "<leader>nv", ":lua require('nvim-plugin.telescope').nvim_config()<CR>", opts)
 map("n", "<leader>sl", ":lua require('session-lens').search_session()<CR>", opts)
 map("n", "<leader>m", ":lua require('telescope').extensions.telescope_makefile.telescope_makefile()<CR>", opts)
 map("n", "<leader>d", ":lua require('telescope-doc').open_path({cwd = '$HOME/files/ext/shared/pdf/'})<CR>", opts)

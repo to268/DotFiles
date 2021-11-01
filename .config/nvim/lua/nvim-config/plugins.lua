@@ -71,6 +71,8 @@ return require("packer").startup {
                 "saadparwaiz1/cmp_luasnip",
                 "hrsh7th/cmp-nvim-lsp",
                 "ray-x/cmp-treesitter",
+                "hrsh7th/cmp-nvim-lsp-document-symbol",
+                "lukas-reineke/cmp-under-comparator",
                 {
                     "quangnguyen30192/cmp-nvim-tags",
                     ft = {
@@ -132,6 +134,15 @@ return require("packer").startup {
                 }
             end
         }
+
+        -- Neovim DAP
+        use {
+            'mfussenegger/nvim-dap',
+            config = function() require('nvim-plugin.dap') end
+        }
+        use 'rcarriga/nvim-dap-ui'
+        use 'theHamsta/nvim-dap-virtual-text'
+        use 'nvim-telescope/telescope-dap.nvim'
 
         -- Neovim Tree Sitter
         use {
@@ -198,6 +209,8 @@ return require("packer").startup {
             'RRethy/nvim-base16',
             config = function() require('nvim-plugin.colorscheme').setup() end
         }
+        -- Meme colorscheme
+        use 'mangeshrex/uwu.vim'
 
         -- Utils
         use 'rmagatti/auto-session'

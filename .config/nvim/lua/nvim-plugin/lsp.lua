@@ -1,4 +1,5 @@
 local cmp = require("nvim-plugin.cmp")
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require("lspconfig")
 local lspkind = require('lspkind').init({symbol_map = {Field = '', Property = ''}})
 local opts = { noremap = true, silent = true }
@@ -23,7 +24,6 @@ local custom_attach = function(client)
     map('n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }

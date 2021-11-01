@@ -15,9 +15,15 @@ require('telescope').setup {
 
         mappings = {
             i = {
-                ["C-x"] = false,
-                ["C-s"] = actions.select_default:replace(goto_file_selection_split),
-                ["C-q"] = actions.select_default:replace(send_to_qflist),
+                ["<C-x>"] = false,
+                ["<C-s>"] = actions.select_default:replace(goto_file_selection_split),
+                ["<C-q>"] = actions.smart_send_to_qflist,
+            },
+            n = {
+                ["<C-q>"] = actions.smart_send_to_qflist,
+                ["<C-a>"] = actions.select_all,
+                ["<C-s>"] = actions.toggle_selection,
+                ["<C-d>"] = actions.drop_all,
             },
         }
     },

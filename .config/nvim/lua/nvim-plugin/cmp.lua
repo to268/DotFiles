@@ -1,5 +1,4 @@
 local cmp = require('cmp')
-local compare = require("cmp.types")
 local luasnip = require("luasnip")
 local snippets = require('nvim-plugin.snippets')
 
@@ -13,6 +12,21 @@ M.setup = function()
             end
         },
 
+        cmp.setup.cmdline('/', {
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp_document_symbol' }
+            }, {
+                { name = 'buffer' }
+            })
+        },
+        cmp.setup.cmdline(':', {
+            sources = cmp.config.sources({
+                { name = 'path' }
+            }, {
+                { name = 'cmdline' }
+            })
+        })),
+
         sources = {
             { name = 'luasnip' },
             { name = 'cmp_tabnine' },
@@ -25,13 +39,19 @@ M.setup = function()
             { name = 'tags' },
             { name = 'latex_symbols',  priority = 2 },
             { name = 'buffer', priority = 2 },
-            { name = 'treesitter' },
+            { name = 'treesitter', priority = 2 },
         },
+
         mapping = {
-            ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+            ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+            ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+            ['<C-y>'] = cmp.config.disable,
             ['<C-e>'] = cmp.mapping.close(),
+            ['<CR>'] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            }),
             ["<Tab>"] = function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
@@ -53,6 +73,7 @@ M.setup = function()
                 end
             end,
         },
+
         formatting = {
             format = function(entry, vim_item)
                 -- Add tabnine like icon if it's an entry of tabnine
@@ -86,6 +107,19 @@ M.setup = function()
                 return vim_item
             end,
         },
+
+        sorting = {
+            comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                require "cmp-under-comparator".under,
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+            },
+        }
     }
 end
 

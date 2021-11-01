@@ -123,7 +123,6 @@ alt + exclam
 alt + slash
 	mpc seek 0%
 
-
 # Swap keyboard
 
 ctrl + Return
@@ -136,7 +135,7 @@ ctrl + alt + Return
 	setxkbmap fr -variant bepo -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 ctrl + shift alt + Return
-	setxkbmap us -variant dvorak -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
+	setxkbmap ru -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 # Backlight
 
@@ -170,6 +169,13 @@ alt + shift + 4
 
 alt + shift + 5
 	notify-send --urgency=low "Changed Notification Apparence" "Notifications will be hidden or showed" && sleep 2 && notify-send "DUNST_COMMAND_TOGGLE"
+
+# Dunst keybinds
+ctrl + F1
+    dunstctl close-all
+
+ctrl + F2
+    dunstctl context
 
 # Mecc Shortcuts
 

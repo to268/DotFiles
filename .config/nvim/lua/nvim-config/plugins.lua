@@ -194,12 +194,8 @@ return require("packer").startup {
 
         -- Comments
         use {
-            'b3nj5m1n/kommentary',
-            config = function()
-                require('kommentary.config').configure_language({"c", "cpp", "rust"}, {
-                    prefer_multi_line_comments = true,
-                })
-            end
+            'numToStr/Comment.nvim',
+            config = function() require('Comment').setup() end
         }
 
         use 'tpope/vim-surround'

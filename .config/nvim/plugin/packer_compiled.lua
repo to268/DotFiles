@@ -69,6 +69,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    config = { "\27LJ\1\0025\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\fComment\frequire\0" },
+    loaded = true,
+    path = "/home/tony/.local/share/nvim/site/pack/packer/start/Comment.nvim"
+  },
   ["DoxygenToolkit.vim"] = {
     loaded = true,
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/DoxygenToolkit.vim"
@@ -165,11 +170,6 @@ _G.packer_plugins = {
     config = { "\27LJ\1\0028\0\0\2\0\4\0\0054\0\0\0007\0\1\0%\1\3\0:\1\2\0G\0\1\0\nto268\21instant_username\6g\bvim\0" },
     loaded = true,
     path = "/home/tony/.local/share/nvim/site/pack/packer/start/instant.nvim"
-  },
-  kommentary = {
-    config = { "\27LJ\1\2�\1\0\0\3\0\5\0\b4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\3\0003\2\4\0>\0\3\1G\0\1\0\1\0\1\31prefer_multi_line_comments\2\1\4\0\0\6c\bcpp\trust\23configure_language\22kommentary.config\frequire\0" },
-    loaded = true,
-    path = "/home/tony/.local/share/nvim/site/pack/packer/start/kommentary"
   },
   ["lsp-trouble.nvim"] = {
     config = { "\27LJ\1\2~\0\0\3\0\6\0\t4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\4\0003\2\3\0:\2\5\1>\0\2\1G\0\1\0\nsigns\1\0\0\1\0\4\16information\b\thint\t💡\fwarning\t⚠ \nerror\b❌\nsetup\ftrouble\frequire\0" },
@@ -390,10 +390,6 @@ time([[Config for lualine.nvim]], false)
 time([[Config for lsp-trouble.nvim]], true)
 try_loadstring("\27LJ\1\2~\0\0\3\0\6\0\t4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\4\0003\2\3\0:\2\5\1>\0\2\1G\0\1\0\nsigns\1\0\0\1\0\4\16information\b\thint\t💡\fwarning\t⚠ \nerror\b❌\nsetup\ftrouble\frequire\0", "config", "lsp-trouble.nvim")
 time([[Config for lsp-trouble.nvim]], false)
--- Config for: kommentary
-time([[Config for kommentary]], true)
-try_loadstring("\27LJ\1\2�\1\0\0\3\0\5\0\b4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\3\0003\2\4\0>\0\3\1G\0\1\0\1\0\1\31prefer_multi_line_comments\2\1\4\0\0\6c\bcpp\trust\23configure_language\22kommentary.config\frequire\0", "config", "kommentary")
-time([[Config for kommentary]], false)
 -- Config for: telescope.nvim
 time([[Config for telescope.nvim]], true)
 try_loadstring("\27LJ\1\0025\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\26nvim-plugin.telescope\frequire\0", "config", "telescope.nvim")
@@ -418,6 +414,10 @@ time([[Config for nvim-dap]], false)
 time([[Config for LuaSnip]], true)
 try_loadstring("\27LJ\1\0024\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\25nvim-plugin.snippets\frequire\0", "config", "LuaSnip")
 time([[Config for LuaSnip]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+try_loadstring("\27LJ\1\2X\0\0\3\0\6\0\t4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\3\0003\2\4\0:\2\5\1>\0\2\1G\0\1\0\bcss\1\0\1\vrgb_fn\2\1\2\0\0\6*\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
+time([[Config for nvim-colorizer.lua]], false)
 -- Config for: vim-fugitive
 time([[Config for vim-fugitive]], true)
 try_loadstring("\27LJ\1\0024\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\25nvim-plugin.fugitive\frequire\0", "config", "vim-fugitive")
@@ -426,18 +426,18 @@ time([[Config for vim-fugitive]], false)
 time([[Config for instant.nvim]], true)
 try_loadstring("\27LJ\1\0028\0\0\2\0\4\0\0054\0\0\0007\0\1\0%\1\3\0:\1\2\0G\0\1\0\nto268\21instant_username\6g\bvim\0", "config", "instant.nvim")
 time([[Config for instant.nvim]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-try_loadstring("\27LJ\1\2X\0\0\3\0\6\0\t4\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\3\0003\2\4\0:\2\5\1>\0\2\1G\0\1\0\bcss\1\0\1\vrgb_fn\2\1\2\0\0\6*\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
-time([[Config for nvim-colorizer.lua]], false)
--- Config for: nvim-base16
-time([[Config for nvim-base16]], true)
-try_loadstring("\27LJ\1\2E\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\28nvim-plugin.colorscheme\frequire\0", "config", "nvim-base16")
-time([[Config for nvim-base16]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\1\2�\1\0\0\4\0\f\0\0154\0\0\0%\1\1\0>\0\2\0027\0\2\0003\1\3\0003\2\4\0:\2\5\0013\2\6\0:\2\a\0013\2\b\0003\3\t\0:\3\n\2:\2\v\1>\0\2\1G\0\1\0\17query_linter\16lint_events\1\3\0\0\rBufWrite\15CursorHold\1\0\2\21use_virtual_text\2\venable\2\vindent\1\0\1\venable\2\14highlight\1\0\1\venable\2\1\0\1\21ensure_installed\ball\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
+-- Config for: nvim-base16
+time([[Config for nvim-base16]], true)
+try_loadstring("\27LJ\1\2E\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\28nvim-plugin.colorscheme\frequire\0", "config", "nvim-base16")
+time([[Config for nvim-base16]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\1\0025\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
 -- Config for: FTerm.nvim
 time([[Config for FTerm.nvim]], true)
 try_loadstring("\27LJ\1\2%\0\0\2\0\2\0\0044\0\0\0%\1\1\0>\0\2\1G\0\1\0\nFTerm\frequire\0", "config", "FTerm.nvim")

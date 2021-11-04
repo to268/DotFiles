@@ -99,6 +99,7 @@ return require("packer").startup {
         use 'glepnir/lspsaga.nvim'
         use 'tjdevries/nlua.nvim'
         use 'tjdevries/lsp_extensions.nvim'
+        use 'ray-x/lsp_signature.nvim'
 
         use {
             'folke/lsp-trouble.nvim',

@@ -9,6 +9,15 @@ local custom_attach = function(client)
     -- Enable cmp
     cmp.setup()
 
+    -- Enable lsp_signature
+    require "lsp_signature".on_attach({
+        hint_enable = false,
+        hint_prefix = "💡 ",
+        use_lspsaga = true,
+        fix_pos = true,
+        auto_close_after = 3,
+    })
+
     -- Enable lspsaga
     require('lspsaga').init_lsp_saga()
     map("n", "<leader>vls", ":Lspsaga lsp_finder<CR>", opts)
@@ -104,7 +113,7 @@ map("n", "<leader>vws", ":lua require('telescope.builtin').lsp_workspace_symbols
 map("n", "<leader>vi", ":lua vim.lsp.buf.implementations()<CR>", opts)
 map("n", "<leader>vd", ":lua vim.lsp.buf.definition()<CR>", opts)
 map("n", "<leader>vh", ":lua vim.lsp.buf.hover()<CR>", opts)
-map("n", "<leader>vs", ":lua vim.lsp.buf.signature_help()<CR>", opts)
+map("n", "<leader>vs", ":lua require('lsp_signature').signature()<CR>", opts)
 map("n", "<leader>vt", ":lua vim.lsp.buf.type_definition()<CR>", opts)
 map("n", "<leader>vr", ":lua vim.lsp.buf.references()<CR>", opts)
 map("n", "<leader>vl", "<cmd>LspTroubleToggle<CR>", opts)

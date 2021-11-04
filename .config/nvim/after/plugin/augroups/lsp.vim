@@ -7,5 +7,6 @@ augroup lsp
     autocmd BufEnter *.rb let g:completion_trigger_character = ['.', '::', '@']
     autocmd BufEnter *.c,*.cpp,*.h,*.hpp let g:completion_trigger_character = ['.', '->', '::', '#']
     autocmd BufEnter *.rs let g:completion_trigger_character = ['.', ':', '::']
+    autocmd CursorHold * :lua require('lsp_signature').signature()
     autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints()
 augroup END

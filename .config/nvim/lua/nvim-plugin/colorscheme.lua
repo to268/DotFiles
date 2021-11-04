@@ -137,6 +137,9 @@ M.Gruvbox = function()
 
     -- Lspsaga
     hi.LspFloatWinNormal    = { guifg = nil, guibg = colors.base02, gui = NONE,            guisp = nil }
+
+    -- Lsp signature
+    hi.LspSignatureActiveParameter = { guifg = colors.base09, guibg = nil, gui = NONE,     guisp = nil }
 end
 
 M.Transparent = function()

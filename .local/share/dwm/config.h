@@ -138,7 +138,7 @@ static Key keys[] = {
  	TAGKEYS(                        0x29,                      6)
  	TAGKEYS(                        0x7d,                      7)
  	TAGKEYS(                        0x5d,                      8)
- 	TAGKEYS(                        0x23,                      9)
+ 	TAGKEYS(                        0x2a,                      9)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY,                       0x2c,     mpdchange,       {.i = -1} },
 	{ MODKEY,                       0x3b,     mpdchange,       {.i = +1} },

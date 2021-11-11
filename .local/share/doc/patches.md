@@ -13,6 +13,7 @@ mpdcontrol
 notitle
 rotatestack
 setborderpx
+statusallmons
 swallow
 systray
 three-column

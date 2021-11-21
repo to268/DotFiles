@@ -53,9 +53,10 @@ M.setup = function()
     dap.configurations.cpp = dap.configurations.c
     dap.configurations.rust = dap.configurations.c
 
-    -- require("nvim-dap-virtual-text").setup()
+    require("nvim-dap-virtual-text").setup()
     require("dapui").setup()
 end
+
 
 M.remap = function()
     map("n", "<F5>", ":lua require('dap').continue()<CR>", opts)

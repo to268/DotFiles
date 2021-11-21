@@ -97,6 +97,7 @@ end
 
 map("n", "<leader>tl", ":Telescope<CR>", opts)
 map("n", "<leader>bf", ":lua require('nvim-plugin.telescope').buffers_list()<CR>", opts)
+map("n", "<leader>rl", ":lua require('nvim-plugin.telescope').refactors()<CR>", opts)
 map("v", "<leader>rl", ":lua require('nvim-plugin.telescope').refactors()<CR>", opts)
 map("n", "<leader>ch", ":lua require('telescope.builtin').command_history{}<CR>", opts)
 map("n", "<leader>of", ":lua require('telescope.builtin').oldfiles{}<CR>", opts)

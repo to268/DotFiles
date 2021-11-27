@@ -165,6 +165,10 @@ return require("packer").startup {
         }
         use 'nvim-treesitter/nvim-treesitter-textobjects'
         use 'nvim-treesitter/playground'
+        use {
+            'windwp/nvim-ts-autotag',
+            config = function() require('nvim-ts-autotag').setup() end
+        }
 
         -- Telescope
         use {

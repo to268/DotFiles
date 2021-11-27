@@ -43,6 +43,10 @@ lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities, lspki
 lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.rust_analyzer.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 
+-- Web
+lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
 require'lspconfig'.sumneko_lua.setup {

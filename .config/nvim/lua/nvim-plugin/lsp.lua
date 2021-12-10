@@ -35,17 +35,17 @@ end
 
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+-- lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.cmake.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
-lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+-- lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.rust_analyzer.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 
 -- Web
-lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
-lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+-- lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+-- lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
@@ -93,7 +93,7 @@ lspconfig.texlab.setup{
 }
 
 lspconfig.tsserver.setup{ on_attach=custom_attach,capabilities=capabilities, lspkind }
-lspconfig.vimls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+-- lspconfig.vimls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 
 require'nvim-treesitter.configs'.setup {
     incremental_selection = {

@@ -3,7 +3,7 @@ require('lualine').setup{
         theme = 'onedark',
         section_separators = {'', ''},
         component_separators = {'|', '|'},
-        sources = {'nvim_lsp'},
+        sources = {'nvim_diagnostic'},
         sections = {'error', 'warn', 'info', 'hint'},
         symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
         icons_enabled = true,

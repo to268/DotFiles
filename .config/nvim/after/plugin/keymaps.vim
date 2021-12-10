@@ -2,6 +2,7 @@
 nnoremap <silent><leader>pi :PackerInstall<CR>
 nnoremap <silent><leader>ps :PackerSync<CR>
 nnoremap <silent><leader>u :UndotreeShow<CR>
+noremap! <C-h> <C-w>
 
 " Shortcutting split navigation
 nnoremap <silent><C-h> :wincmd h<CR>

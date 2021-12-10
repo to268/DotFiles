@@ -25,3 +25,6 @@ nnoremap <F5> :lua require("nabla").replace_current()<CR>
 " Himalaya
 let g:himalaya_mailbox_picker = 'telescope'
 command! -nargs=* Himalaya call himalaya#msg#list(<f-args>)
+
+" Sql completion
+let g:ftplugin_sql_omni_key = '<Nop>'

@@ -1,3 +1,10 @@
+fun! CleanFile()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    keeppatterns %s/\n\+\%$//e
+    call winrestview(l:save)
+endfun
+
 " Automations
 augroup automations
 	autocmd!
@@ -9,4 +16,6 @@ augroup automations
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 	" Sort packages.txt
 	autocmd BufWritePost packages.txt sort
+    " Clean file
+	autocmd BufWritePre * :call CleanFile()
 augroup END

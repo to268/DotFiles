@@ -11,10 +11,15 @@ require('lualine').setup{
     sections = {
         lualine_a = { {'mode', upper = true} },
         lualine_b = { {'branch', icon = ''} },
-        lualine_c = { {'filename', file_status = true}, 'diff', 'diagnostics' },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_c = { {'filename', file_status = true}, 'diagnostics' },
+        lualine_x = { {
+            'diff',
+            colored = true,
+            symbols = {added = ' ', modified = ' ', removed = ' '},
+            source = nil,
+        }, 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress' },
-        lualine_z = { 'location'},
+        lualine_z = { 'location' },
     },
     inactive_sections = {
         lualine_a = {  },
@@ -24,4 +29,5 @@ require('lualine').setup{
         lualine_y = {  },
         lualine_z = {   }
     },
+    extensions = {'quickfix', 'toggleterm', 'symbols-outline', 'fugitive', 'nvim-tree'},
 }

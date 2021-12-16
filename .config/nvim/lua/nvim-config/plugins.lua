@@ -48,7 +48,6 @@ return require("packer").startup {
             config = function() require('nvim-plugin.nvim_tree') end
         }
 
-        use 'jbyuki/monolithic.nvim'
         use 'ThePrimeagen/refactoring.nvim'
 
         use {
@@ -67,12 +66,26 @@ return require("packer").startup {
             requires = {
                 "hrsh7th/cmp-buffer",
                 "hrsh7th/cmp-calc",
+                "hrsh7th/cmp-cmdline",
                 "kdheepak/cmp-latex-symbols",
                 "saadparwaiz1/cmp_luasnip",
                 "hrsh7th/cmp-nvim-lsp",
                 "ray-x/cmp-treesitter",
                 "hrsh7th/cmp-nvim-lsp-document-symbol",
+                "lukas-reineke/cmp-rg",
                 "lukas-reineke/cmp-under-comparator",
+                {
+                    "petertriho/cmp-git",
+                    requires = "nvim-lua/plenary.nvim",
+                    config = function() require("cmp_git").setup() end
+                },
+                {
+                    "saecki/crates.nvim",
+                    requires = { { 'nvim-lua/plenary.nvim' } },
+                    config = function()
+                        require('crates').setup()
+                    end,
+                },
                 {
                     "quangnguyen30192/cmp-nvim-tags",
                     ft = {
@@ -210,8 +223,6 @@ return require("packer").startup {
             'RRethy/nvim-base16',
             config = function() require('nvim-plugin.colorscheme').setup() end
         }
-        -- Meme colorscheme
-        use 'mangeshrex/uwu.vim'
 
         -- Utils
         use 'rmagatti/auto-session'
@@ -233,7 +244,7 @@ return require("packer").startup {
         use 'mhinz/vim-startify'
         use 'mbbill/undotree'
         use 'jbyuki/nabla.nvim'
-        use "dstein64/vim-startuptime"
+        use 'dstein64/vim-startuptime'
         use 'jbyuki/venn.nvim'
         use 'nathom/filetype.nvim'
         use {

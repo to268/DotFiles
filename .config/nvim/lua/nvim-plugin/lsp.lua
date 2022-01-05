@@ -21,7 +21,6 @@ local custom_attach = function(client)
     -- Enable lspsaga
     require('lspsaga').init_lsp_saga()
     map("n", "<leader>vls", ":Lspsaga lsp_finder<CR>", opts)
-    map("n", "<leader>va", ":Lspsaga code_action<CR>", opts)
     map("n", "<leader>vf", ":Lspsaga lsp_finder<CR>", opts)
     map("n", "<leader>vdc", ":Lspsaga hover_doc<CR>", opts)
     map("n", "<leader>vrn", ":Lspsaga rename<CR>", opts)
@@ -34,6 +33,7 @@ local custom_attach = function(client)
 end
 
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
 lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
@@ -114,6 +114,7 @@ require'nvim-treesitter.configs'.setup {
 -- Remaps
 map("n", "<leader>vds", ":lua require('telescope.builtin').lsp_document_symbols{}<CR>", opts)
 map("n", "<leader>vws", ":lua require('telescope.builtin').lsp_workspace_symbols{}<CR>", opts)
+map("n", "<leader>va", ":lua vim.lsp.buf.code_action()<CR>", opts)
 map("n", "<leader>vi", ":lua vim.lsp.buf.implementations()<CR>", opts)
 map("n", "<leader>vd", ":lua vim.lsp.buf.definition()<CR>", opts)
 map("n", "<leader>vh", ":lua vim.lsp.buf.hover()<CR>", opts)

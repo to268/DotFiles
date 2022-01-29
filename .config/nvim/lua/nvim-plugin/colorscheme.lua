@@ -140,6 +140,13 @@ M.Gruvbox = function()
 
     -- Lsp signature
     hi.LspSignatureActiveParameter = { guifg = colors.base09, guibg = nil, gui = NONE,     guisp = nil }
+
+
+    -- Telescope
+    hi.TelescopeBorder          = { guifg = colors.base01, guibg = NONE, gui = NONE,            guisp = nil }
+    hi.TelescopeNormal          = { guifg = NONE, guibg = NONE, gui = NONE,                     guisp = nil }
+    hi.TelescopeResultsTitle    = { guifg = NONE, guibg = colors.base0D, gui = NONE,            guisp = nil }
+    hi.TelescopeSelection       = { guifg = colors.base0E, guibg = NONE, gui = NONE,            guisp = nil }
 end
 
 M.Transparent = function()

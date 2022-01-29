@@ -11,12 +11,16 @@ return require("packer").startup {
         }
 
         -- Dev Stuff
+        use 'tpope/vim-dispatch'
+        use 'octol/vim-cpp-enhanced-highlight'
+        use 'tpope/vim-projectionist'
+        use 'babaybus/DoxygenToolkit.vim'
+        use 'ThePrimeagen/refactoring.nvim'
         use {
             'L3MON4D3/LuaSnip',
             requires = { 'rafamadriz/friendly-snippets' },
             config = function() require("nvim-plugin.snippets") end
         }
-        use 'babaybus/DoxygenToolkit.vim'
         use {
             'sindrets/diffview.nvim',
             config = function() require("diffview").setup({
@@ -30,37 +34,32 @@ return require("packer").startup {
             })
             end
         }
-
         use {
             'norcalli/nvim-colorizer.lua',
             config = function() require("colorizer").setup({
                 "*"; css = { rgb_fn = true; };
             }) end
         }
-
-        use 'tpope/vim-dispatch'
-        use 'octol/vim-cpp-enhanced-highlight'
-        use 'tpope/vim-projectionist'
-
         use {
             'kyazdani42/nvim-tree.lua',
             requires = { 'kyazdani42/nvim-web-devicons', opt = true },
             config = function() require('nvim-plugin.nvim_tree') end
         }
-
-        use 'ThePrimeagen/refactoring.nvim'
-
         use {
             'ThePrimeagen/git-worktree.nvim',
             config = function() require('git-worktree').setup() end
         }
 
         -- Neovim LSP
+        use 'glepnir/lspsaga.nvim'
+        use 'tjdevries/nlua.nvim'
+        use 'tjdevries/lsp_extensions.nvim'
+        use 'ray-x/lsp_signature.nvim'
+        use 'onsails/lspkind-nvim'
         use {
             'neovim/nvim-lspconfig',
             config = function() require('nvim-plugin.lsp') end
         }
-
         use {
             "hrsh7th/nvim-cmp",
             requires = {
@@ -109,11 +108,6 @@ return require("packer").startup {
                 "f3fora/cmp-spell"
             }
         }
-        use 'glepnir/lspsaga.nvim'
-        use 'tjdevries/nlua.nvim'
-        use 'tjdevries/lsp_extensions.nvim'
-        use 'ray-x/lsp_signature.nvim'
-
         use {
             'folke/lsp-trouble.nvim',
             config = function() require('trouble').setup({
@@ -124,8 +118,6 @@ return require("packer").startup {
                         information = ""}
             }) end
         }
-
-        use 'onsails/lspkind-nvim'
         use {
             'simrat39/symbols-outline.nvim',
             config = function()
@@ -134,6 +126,7 @@ return require("packer").startup {
                     show_guides = true,
                     auto_preview = true,
                     position = 'right',
+                    width = 35,
                     show_numbers = false,
                     show_relative_numbers = false,
                     show_symbol_details = true,
@@ -148,17 +141,40 @@ return require("packer").startup {
                 }
             end
         }
+        use {
+            'j-hui/fidget.nvim',
+            config = function() require('fidget').setup({
+                text = {
+                    spinner = "pipe",
+                    done = "",
+                    commenced = "Started",
+                    completed = "Completed",
+                },
+                timer = {
+                    spinner_rate = 100,
+                    fidget_decay = 1500,
+                    task_decay = 1200,
+                },
+                fmt = {
+                    leftpad = true,
+                    stack_upwards = false,
+                }
+            })
+            end
+        }
 
         -- Neovim DAP
+        use 'rcarriga/nvim-dap-ui'
+        use 'theHamsta/nvim-dap-virtual-text'
+        use 'nvim-telescope/telescope-dap.nvim'
         use {
             'mfussenegger/nvim-dap',
             config = function() require('nvim-plugin.dap') end
         }
-        use 'rcarriga/nvim-dap-ui'
-        use 'theHamsta/nvim-dap-virtual-text'
-        use 'nvim-telescope/telescope-dap.nvim'
 
         -- Neovim Tree Sitter
+        use 'nvim-treesitter/nvim-treesitter-textobjects'
+        use 'nvim-treesitter/playground'
         use {
             'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
             config = function() require('nvim-treesitter.configs').setup({
@@ -176,47 +192,40 @@ return require("packer").startup {
                 },
             }) end
         }
-        use 'nvim-treesitter/nvim-treesitter-textobjects'
-        use 'nvim-treesitter/playground'
         use {
             'windwp/nvim-ts-autotag',
             config = function() require('nvim-ts-autotag').setup() end
         }
 
         -- Telescope
+        use 'nvim-telescope/telescope-fzy-native.nvim'
         use {
             'nvim-telescope/telescope.nvim',
             requires = {{ 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' }},
             config = function() require('nvim-plugin.telescope') end
         }
-
-        use 'nvim-telescope/telescope-fzy-native.nvim'
-
         use {
             'to268/telescope-doc.nvim',
             requires = { 'nvim-lua/popup.nvim' }
         }
-
         use {
             'ptethng/telescope-makefile',
             requires = { 'akinsho/nvim-toggleterm.lua' }
         }
 
         -- Git
+        use 'tveskag/nvim-blame-line'
         use {
             'tpope/vim-fugitive',
             config = function() require('nvim-plugin.fugitive') end
         }
 
-        use 'tveskag/nvim-blame-line'
-
         -- Comments
+        use 'tpope/vim-surround'
         use {
             'numToStr/Comment.nvim',
             config = function() require('Comment').setup() end
         }
-
-        use 'tpope/vim-surround'
 
         -- Colorschemes
         use {
@@ -226,6 +235,33 @@ return require("packer").startup {
 
         -- Utils
         use 'rmagatti/auto-session'
+        use 'vimwiki/vimwiki'
+        use 'mhinz/vim-startify'
+        use 'mbbill/undotree'
+        use 'jbyuki/nabla.nvim'
+        use 'dstein64/vim-startuptime'
+        use 'jbyuki/venn.nvim'
+        use 'nathom/filetype.nvim'
+        use 'mhinz/vim-rfc'
+        use {
+            "nvim-neorg/neorg",
+            config = function()
+                require('neorg').setup {
+                    load = {
+                        ["core.defaults"] = {},
+                        ["core.norg.concealer"] = {},
+                        ["core.norg.dirman"] = {
+                            config = {
+                                workspaces = {
+                                    my_workspace = "~/neorg"
+                                }
+                            }
+                        }
+                    },
+                }
+            end,
+            requires = "nvim-lua/plenary.nvim"
+        }
         use {
             'rmagatti/session-lens',
             requires = { 'rmagatti/auto-session' },
@@ -234,31 +270,19 @@ return require("packer").startup {
                 prompt_title = 'Sessions',
             }) end
         }
-
         use {
             'numtostr/FTerm.nvim',
             config = function() require('FTerm') end
         }
-
-        use 'vimwiki/vimwiki'
-        use 'mhinz/vim-startify'
-        use 'mbbill/undotree'
-        use 'jbyuki/nabla.nvim'
-        use 'dstein64/vim-startuptime'
-        use 'jbyuki/venn.nvim'
-        use 'nathom/filetype.nvim'
         use {
             'jbyuki/instant.nvim',
             config = function()
                 vim.g["instant_username"] = "to268"
             end
         }
-
-        use 'mhinz/vim-rfc'
         use {
             'soywod/himalaya',
             rtp = "vim"
         }
-
     end
 }

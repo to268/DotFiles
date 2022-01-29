@@ -29,3 +29,6 @@ let g:ftplugin_sql_omni_key = '<Nop>'
 " DiffView
 nnoremap <silent><leader>dvo :DiffviewOpen<CR>
 nnoremap <silent><leader>dvc :DiffviewClose<CR>
+
+" Reload config
+nnoremap <leader><F5> :lua require("plenary.reload").reload_module("init.lua")<CR>

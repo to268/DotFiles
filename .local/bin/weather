@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-[ -z $1 ] || curl wttr.in/$1 && exit
-curl wttr.in/$LOCATION
+city=${1:-$LOCATION}
+curl wttr.in/$city

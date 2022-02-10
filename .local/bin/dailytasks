@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+git_repos_update() {
+    repos=($(find $HOME/files/Dev -maxdepth 3 -name ".git" | sed 's/.git//'))
+    for i in "${repos[@]}"
+    do
+        echo "[*] $(basename $i) repo:"
+        pushd "$i" > /dev/null
+        git pull
+        git submodule update --remote
+        popd > /dev/null
+    done
+}
+
+rustup_update() {
+    rustup update
+}
+
+echo -e "\e[1m[*] Git repos:\e[0m"
+git_repos_update
+
+rustup_path="$(whereis rustup -b | cut -d' ' -f2)"
+[ -n $rustup_path ] && echo -e "\e[1m\n[*] Rustup:\e[0m" && rustup_update
+
+echo -e "\e[1m\n[*] Build OBS:\e[0m"
+[ -f $HOME/.local/bin/build-obs ] && $HOME/.local/bin/build-obs

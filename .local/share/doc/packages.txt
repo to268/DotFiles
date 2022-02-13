@@ -1,4 +1,5 @@
 alsa-oss
+xdg-user-dirs
 alsa-utils
 ant-gtk-theme
 arc-gtk-theme

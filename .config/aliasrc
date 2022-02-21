@@ -2,8 +2,7 @@
 
 # Aliases
 alias ccat="bat"
-alias cleanpackages="doas pacman -Rns $(doas pacman -Qtdq)"
-alias dmenu_run="dmenu_run -nb '#393535' -nf '#cccccc' -sb '#ef4e4e' -sf '#feeeee'"
+alias dmenu_run="dmenu_run -nb '#3c3836' -nf '#ebdbb2' -sb '#fb4934' -sf '#ebdbb2'"
 alias ffmpeg="ffmpeg -hide_banner"
 alias fhop="hfzf --bind 'enter:execute(smartopen {})'"
 alias fop="fzf --bind 'enter:execute(smartopen {})'"

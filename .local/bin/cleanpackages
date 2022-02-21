@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+doas pacman -Rns $(doas pacman -Qtdq)

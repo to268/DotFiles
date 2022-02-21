@@ -77,7 +77,6 @@ rsync
 scrot
 simple-mtpfs
 sxhkd
-sxiv
 task-spooler
 texinfo
 texlab

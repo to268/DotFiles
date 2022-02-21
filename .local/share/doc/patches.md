@@ -1,5 +1,5 @@
 ## Suckless builds
-My Suckless custom builds of dwm, dmenu and st are located in .local/share/
+My Suckless custom builds of dwm, dmenu and st are located in .local/share/suckless
 
 dwm patches:
 ```
@@ -9,13 +9,11 @@ fibonacci
 fullgaps
 fullscreen
 gridmode
-mpdcontrol
 notitle
 rotatestack
 setborderpx
 statusallmons
 swallow
-systray
 three-column
 ```
 
@@ -40,19 +38,25 @@ font2
 gruvbox
 iso14755
 newterm
-openurl
-scrollbar
-scrollbar-mouse
+open-copied-url
+scrollback
+scrollback-mouse
 sync
 vertcenter
-Xressources
 workingdir
+Xressources
 ```
 
 slock:
 ```
 capscolor
 control-clear
+```
+
+nsxiv:
+```
+alpha
+dmenu-mode
 ```
 
 ## Additionnals programs

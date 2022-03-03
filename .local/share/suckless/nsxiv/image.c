@@ -1,5 +1,5 @@
 /* Copyright 2011-2020 Bert Muennich
- * Copyright 2021 nsxiv contributors
+ * Copyright 2021-2022 nsxiv contributors
  *
  * This file is a part of nsxiv.
  *
@@ -46,12 +46,30 @@ enum { DEF_WEBP_DELAY = 75 };
 #define ZOOM_MIN (zoom_levels[0] / 100)
 #define ZOOM_MAX (zoom_levels[ARRLEN(zoom_levels)-1] / 100)
 
+static int calc_cache_size(void)
+{
+	int cache;
+	long pages, page_size;
+
+	if (CACHE_SIZE_MEM_PERCENTAGE <= 0)
+		return 0;
+
+	pages = sysconf(_SC_PHYS_PAGES);
+	page_size = sysconf(_SC_PAGE_SIZE);
+	if (pages < 0 || page_size < 0)
+		return CACHE_SIZE_FALLBACK;
+	cache = (pages/100) * CACHE_SIZE_MEM_PERCENTAGE;
+	cache *= page_size;
+
+	return MIN(cache, CACHE_SIZE_LIMIT);
+}
+
 void img_init(img_t *img, win_t *win)
 {
 	imlib_context_set_display(win->env.dpy);
 	imlib_context_set_visual(win->env.vis);
 	imlib_context_set_colormap(win->env.cmap);
-	imlib_set_cache_size(CACHE_SIZE);
+	imlib_set_cache_size(calc_cache_size());
 
 	img->im = NULL;
 	img->win = win;
@@ -117,6 +135,23 @@ void exif_auto_orientate(const fileinfo_t *file)
 }
 #endif
 
+#if HAVE_LIBGIF || HAVE_LIBWEBP
+static void img_multiframe_context_set(img_t *img)
+{
+	if (img->multi.cnt > 1) {
+		imlib_context_set_image(img->im);
+		imlib_free_image();
+		img->im = img->multi.frames[0].im;
+	} else if (img->multi.cnt == 1) {
+		imlib_context_set_image(img->multi.frames[0].im);
+		imlib_free_image();
+		img->multi.cnt = 0;
+	}
+
+	imlib_context_set_image(img->im);
+}
+#endif
+
 #if HAVE_LIBGIF
 static bool img_load_gif(img_t *img, const fileinfo_t *file)
 {
@@ -124,7 +159,7 @@ static bool img_load_gif(img_t *img, const fileinfo_t *file)
 	GifRowType *rows = NULL;
 	GifRecordType rec;
 	ColorMapObject *cmap;
-	DATA32 bgpixel, *data, *ptr;
+	DATA32 bgpixel = 0, *data, *ptr;
 	DATA32 *prev_frame = NULL;
 	Imlib_Image im;
 	int i, j, bg, r, g, b;
@@ -280,17 +315,7 @@ static bool img_load_gif(img_t *img, const fileinfo_t *file)
 	if (err && (file->flags & FF_WARN))
 		error(0, 0, "%s: Corrupted gif file", file->name);
 
-	if (img->multi.cnt > 1) {
-		imlib_context_set_image(img->im);
-		imlib_free_image();
-		img->im = img->multi.frames[0].im;
-	} else if (img->multi.cnt == 1) {
-		imlib_context_set_image(img->multi.frames[0].im);
-		imlib_free_image();
-		img->multi.cnt = 0;
-	}
-
-	imlib_context_set_image(img->im);
+	img_multiframe_context_set(img);
 
 	return !err;
 }
@@ -298,60 +323,35 @@ static bool img_load_gif(img_t *img, const fileinfo_t *file)
 
 
 #if HAVE_LIBWEBP
-static bool is_webp(const char *path)
-{
-	/* The size (in bytes) of the largest amount of data required to verify a WebP image. */
-	enum { max = 30 };
-	const unsigned char fmt[max];
-	bool ret = false;
-	FILE *f;
-
-	if ((f = fopen(path, "rb")) != NULL) {
-		if (fread((unsigned char *) fmt, 1, max, f) == max)
-			ret = WebPGetInfo(fmt, max, NULL, NULL);
-		fclose(f);
-	}
-	return ret;
-}
-
-/* fframe   img
- * NULL     NULL  = do nothing
- * x        NULL  = load the first frame as an Imlib_Image
- * NULL     x     = load all frames into img->multi.
- */
-static bool img_load_webp(const fileinfo_t *file, Imlib_Image *fframe, img_t *img)
+static bool img_load_webp(img_t *img, const fileinfo_t *file)
 {
 	FILE *webp_file;
 	WebPData data;
-
 	Imlib_Image im = NULL;
 	struct WebPAnimDecoderOptions opts;
 	WebPAnimDecoder *dec = NULL;
 	struct WebPAnimInfo info;
-	unsigned char *buf = NULL;
+	unsigned char *buf = NULL, *bytes = NULL;
 	int ts;
 	const WebPDemuxer *demux;
 	WebPIterator iter;
 	unsigned long flags;
 	unsigned int delay;
 	bool err = false;
-	data.bytes = NULL;
 
-	if ((err = fframe == NULL && img == NULL))
-		goto fail;
-
-	if ((err = (webp_file = fopen(file->path, "rb")) == NULL)) {
-		error(0, 0, "%s: Error opening webp image", file->name);
-		goto fail;
+	if ((webp_file = fopen(file->path, "rb")) == NULL) {
+		error(0, errno, "%s: Error opening webp image", file->name);
+		return false;
 	}
 	fseek(webp_file, 0L, SEEK_END);
 	data.size = ftell(webp_file);
 	rewind(webp_file);
-	data.bytes = emalloc(data.size);
-	if ((err = fread((unsigned char *)data.bytes, 1, data.size, webp_file) != data.size)) {
+	bytes = emalloc(data.size);
+	if ((err = fread(bytes, 1, data.size, webp_file) != data.size)) {
 		error(0, 0, "%s: Error reading webp image", file->name);
 		goto fail;
 	}
+	data.bytes = bytes;
 
 	/* Setup the WebP Animation Decoder */
 	if ((err = !WebPAnimDecoderOptionsInit(&opts))) {
@@ -368,65 +368,42 @@ static bool img_load_webp(const fileinfo_t *file, Imlib_Image *fframe, img_t *im
 	}
 	demux = WebPAnimDecoderGetDemuxer(dec);
 
-	if (img == NULL) { /* Only get the first frame and put it into fframe. */
-		if ((err = !WebPAnimDecoderGetNext(dec, &buf, &ts))) {
-			error(0, 0, "%s: Error loading first frame", file->name);
-			goto fail;
-		}
-		*fframe = imlib_create_image_using_copied_data(
-		          info.canvas_width, info.canvas_height, (DATA32*)buf);
-		imlib_context_set_image(*fframe);
-		imlib_image_set_has_alpha(WebPDemuxGetI(demux, WEBP_FF_FORMAT_FLAGS) & ALPHA_FLAG);
-	} else {
-		/* Get global information for the image */
-		flags = WebPDemuxGetI(demux, WEBP_FF_FORMAT_FLAGS);
-		img->w = WebPDemuxGetI(demux, WEBP_FF_CANVAS_WIDTH);
-		img->h = WebPDemuxGetI(demux, WEBP_FF_CANVAS_HEIGHT);
+	/* Get global information for the image */
+	flags = WebPDemuxGetI(demux, WEBP_FF_FORMAT_FLAGS);
+	img->w = WebPDemuxGetI(demux, WEBP_FF_CANVAS_WIDTH);
+	img->h = WebPDemuxGetI(demux, WEBP_FF_CANVAS_HEIGHT);
 
-		if (img->multi.cap == 0) {
-			img->multi.cap = info.frame_count;
-			img->multi.frames = emalloc(img->multi.cap * sizeof(img_frame_t));
-		} else if (info.frame_count > img->multi.cap) {
-			img->multi.cap = info.frame_count;
-			img->multi.frames = erealloc(img->multi.frames,
-			                             img->multi.cap * sizeof(img_frame_t));
-		}
-
-		/* Load and decode frames (also works on images with only 1 frame) */
-		img->multi.cnt = img->multi.sel = 0;
-		while (WebPAnimDecoderGetNext(dec, &buf, &ts)) {
-			im = imlib_create_image_using_copied_data(
-			     info.canvas_width, info.canvas_height, (DATA32*)buf);
-			imlib_context_set_image(im);
-			imlib_image_set_format("webp");
-			/* Get an iterator of this frame - used for frame info (duration, etc.) */
-			WebPDemuxGetFrame(demux, img->multi.cnt+1, &iter);
-			imlib_image_set_has_alpha((flags & ALPHA_FLAG) == ALPHA_FLAG);
-			/* Store info for this frame */
-			img->multi.frames[img->multi.cnt].im = im;
-			delay = iter.duration > 0 ? iter.duration : DEF_WEBP_DELAY;
-			img->multi.frames[img->multi.cnt].delay = delay;
-			img->multi.length += img->multi.frames[img->multi.cnt].delay;
-			img->multi.cnt++;
-		}
-		WebPDemuxReleaseIterator(&iter);
-
-		if (img->multi.cnt > 1) {
-			imlib_context_set_image(img->im);
-			imlib_free_image();
-			img->im = img->multi.frames[0].im;
-		} else if (img->multi.cnt == 1) {
-			imlib_context_set_image(img->multi.frames[0].im);
-			imlib_free_image();
-			img->multi.cnt = 0;
-		}
-		imlib_context_set_image(img->im);
+	if (info.frame_count > img->multi.cap) {
+		img->multi.cap = info.frame_count;
+		img->multi.frames = erealloc(img->multi.frames,
+		                             img->multi.cap * sizeof(img_frame_t));
 	}
-	imlib_image_set_format("webp");
+
+	/* Load and decode frames (also works on images with only 1 frame) */
+	img->multi.cnt = img->multi.sel = 0;
+	while (WebPAnimDecoderGetNext(dec, &buf, &ts)) {
+		im = imlib_create_image_using_copied_data(
+		     info.canvas_width, info.canvas_height, (DATA32*)buf);
+		imlib_context_set_image(im);
+		imlib_image_set_format("webp");
+		/* Get an iterator of this frame - used for frame info (duration, etc.) */
+		WebPDemuxGetFrame(demux, img->multi.cnt+1, &iter);
+		imlib_image_set_has_alpha((flags & ALPHA_FLAG) == ALPHA_FLAG);
+		/* Store info for this frame */
+		img->multi.frames[img->multi.cnt].im = im;
+		delay = iter.duration > 0 ? iter.duration : DEF_WEBP_DELAY;
+		img->multi.frames[img->multi.cnt].delay = delay;
+		img->multi.length += img->multi.frames[img->multi.cnt].delay;
+		img->multi.cnt++;
+	}
+	WebPDemuxReleaseIterator(&iter);
+
+	img_multiframe_context_set(img);
 fail:
 	if (dec != NULL)
 		WebPAnimDecoderDelete(dec);
-	free((unsigned char *)data.bytes);
+	free(bytes);
+	fclose(webp_file);
 	return !err;
 }
 #endif /* HAVE_LIBWEBP */
@@ -439,12 +416,7 @@ Imlib_Image img_open(const fileinfo_t *file)
 	if (access(file->path, R_OK) == 0 &&
 	    stat(file->path, &st) == 0 && S_ISREG(st.st_mode))
 	{
-#if HAVE_LIBWEBP
-		if (is_webp(file->path))
-			img_load_webp(file, &im, NULL);
-		else
-#endif
-			im = imlib_load_image(file->path);
+		im = imlib_load_image(file->path);
 		if (im != NULL) {
 			imlib_context_set_image(im);
 			if (imlib_image_get_data_for_reading_only() == NULL) {
@@ -467,7 +439,11 @@ bool img_load(img_t *img, const fileinfo_t *file)
 
 	imlib_image_set_changes_on_disk();
 
-#if HAVE_LIBEXIF
+/* since v1.7.5, Imlib2 can parse exif orientation from jpeg files.
+ * this version also happens to be the first one which defines the
+ * IMLIB2_VERSION macro.
+ */
+#if HAVE_LIBEXIF && !defined(IMLIB2_VERSION)
 	exif_auto_orientate(file);
 #endif
 
@@ -478,7 +454,11 @@ bool img_load(img_t *img, const fileinfo_t *file)
 #endif
 #if HAVE_LIBWEBP
 		if (STREQ(fmt, "webp"))
-			img_load_webp(file, NULL, img);
+			img_load_webp(img, file);
+#endif
+#if HAVE_LIBEXIF && defined(IMLIB2_VERSION)
+		if (!STREQ(fmt, "jpeg") && !STREQ(fmt, "jpg"))
+			exif_auto_orientate(file);
 #endif
 	}
 	img->w = imlib_image_get_width();
@@ -677,12 +657,12 @@ void img_render(img_t *img)
 	if (img->y <= 0) {
 		sy = -img->y / img->zoom + 0.5;
 		sh = win->h / img->zoom;
-		dy = 0;
+		dy = win->bar.top ? win->bar.h : 0;
 		dh = win->h;
 	} else {
 		sy = 0;
 		sh = img->h;
-		dy = img->y;
+		dy = img->y + (win->bar.top ? win->bar.h : 0);
 		dh = MAX(img->h * img->zoom, 1);
 	}
 
@@ -797,6 +777,14 @@ bool img_pan(img_t *img, direction_t dir, int d)
 			return img_move(img, 0.0, -y);
 	}
 	return false;
+}
+
+bool img_pan_center(img_t *img)
+{
+	float x, y;
+	x = (img->win->w - img->w * img->zoom) / 2.0;
+	y = (img->win->h - img->h * img->zoom) / 2.0;
+	return img_pos(img, x, y);
 }
 
 bool img_pan_edge(img_t *img, direction_t dir)

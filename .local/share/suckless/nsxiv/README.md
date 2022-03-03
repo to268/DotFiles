@@ -1,6 +1,6 @@
 [![nsxiv](https://raw.githubusercontent.com/nsxiv/nsxiv/gh-pages/img/logo.png)](https://github.com/nsxiv/nsxiv)
 
-[![tags](https://img.shields.io/github/v/tag/nsxiv/nsxiv?sort=semver&style=flat-square)](https://github.com/nsxiv/nsxiv/tags)
+[![tags](https://img.shields.io/github/v/tag/nsxiv/nsxiv?style=flat-square)](https://github.com/nsxiv/nsxiv/tags)
 [![license](https://img.shields.io/badge/license-GPL--2.0-lightgreen?style=flat-square)](https://github.com/nsxiv/nsxiv/blob/master/LICENSE)
 [![loc](https://img.shields.io/tokei/lines/github/nsxiv/nsxiv?color=red&style=flat-square)](https://github.com/nsxiv/nsxiv)
 
@@ -76,6 +76,7 @@ The following dependencies are optional.
   * libexif : Used for auto-orientation and exif thumbnails.
     Disable via `HAVE_LIBEXIF=0`
   * libwebp : Used for animated webp playback.
+    (NOTE: animated webp also requires Imlib2 v1.7.5 or above)
     Disabled via `HAVE_LIBWEBP=0`.
 
 Please make sure to install the corresponding development packages in case that
@@ -160,6 +161,11 @@ Yes, see [nsxiv-env](https://github.com/nsxiv/nsxiv-extra/tree/master/scripts/ns
 
 * Can I pipe images into nsxiv? <br>
 Yes, see [nsxiv-pipe](https://github.com/nsxiv/nsxiv-extra/tree/master/scripts/nsxiv-pipe)
+
+* nsxiv crashes when viewing images with emojis in their name. <br>
+This is an issue with libXft. Either wait for
+[this](https://gitlab.freedesktop.org/xorg/lib/libxft/-/merge_requests/1) fix to
+be merged, or install [libxft-bgra](https://github.com/uditkarode/libxft-bgra)
 
 
 Customization

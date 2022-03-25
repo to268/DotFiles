@@ -32,3 +32,6 @@ nnoremap <silent><leader>dvc :DiffviewClose<CR>
 
 " Reload config
 nnoremap <leader><F5> :lua require("plenary.reload").reload_module("init.lua")<CR>
+
+" LLVM ft
+let g:llvm_extends_official = 0

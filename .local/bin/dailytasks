@@ -7,7 +7,7 @@ git_repos_update() {
         echo "[*] $(basename $i) repo:"
         pushd "$i" > /dev/null
         git pull
-        git submodule update --remote
+        git submodule foreach git pull
         popd > /dev/null
     done
 }

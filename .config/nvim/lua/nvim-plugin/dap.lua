@@ -60,9 +60,9 @@ end
 
 M.remap = function()
     map("n", "<F5>", ":lua require('dap').continue()<CR>", opts)
-    map("n", "<F10>", ":lua require('dap').step_over()<CR>", opts)
-    map("n", "<F11>", ":lua require('dap').step_into()<CR>", opts)
-    map("n", "<F12>", ":lua require('dap').step_out()<CR>", opts)
+    map("n", "<F2>", ":lua require('dap').step_into()<CR>", opts)
+    map("n", "<F3>", ":lua require('dap').step_over()<CR>", opts)
+    map("n", "<F4>", ":lua require('dap').step_out()<CR>", opts)
     map("n", "<leader>b", ":lua require('dap').toggle_breakpoint()<CR>", opts)
     map("n", "<leader>B", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
     map("n", "<leader>lp", ":lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", opts)

@@ -1,5 +1,6 @@
 alsa-oss
 xdg-user-dirs
+zsh-theme-powerlevel10k
 alsa-utils
 ant-gtk-theme
 arc-gtk-theme
@@ -31,6 +32,7 @@ htim
 inetutils
 lf
 libnotify
+logo-ls
 libxft-bgra
 linux
 linux-headers

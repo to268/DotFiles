@@ -24,13 +24,16 @@ https://aur.archlinux.org/htim.git
 https://aur.archlinux.org/lf.git
 
 - **libxft-bgra**
-https://aur.archlinux.org/packages/libxft-bgra/
+https://aur.archlinux.org/packages/libxft-bgra.git
+
+- **logo-ls**
+https://aur.archlinux.org/packages/logo-ls.git
 
 - **pipe-viewer-git**
 https://aur.archlinux.org/pipe-viewer-git.git
 
 - **nerd-fonts-inconsolata**
-https://aur.archlinux.org/packages/nerd-fonts-inconsolata/
+https://aur.archlinux.org/packages/nerd-fonts-inconsolata.git
 
 - **nerd-fonts-source-code-pro**
 https://aur.archlinux.org/nerd-fonts-source-code-pro.git
@@ -52,4 +55,4 @@ https://aur.archlinux.org/zsh-fast-syntax-highlighting.git
 
 ### To install these packages using a suitable package manager
 Copy and paste the following after the installation command:
-```ant-gtk-theme gotop htim lf libxft-bgra pipe-viewer-git nerd-fonts-inconsolata nerd-fonts-source-code-pro simple-mtpfs task-spooler vidir xbanish zsh-fast-syntax-highlighting```
+```ant-gtk-theme gotop htim lf libxft-bgra logo-ls pipe-viewer-git nerd-fonts-inconsolata nerd-fonts-source-code-pro simple-mtpfs task-spooler vidir xbanish zsh-fast-syntax-highlighting```

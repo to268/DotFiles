@@ -49,6 +49,7 @@ return require("packer").startup {
             'ThePrimeagen/git-worktree.nvim',
             config = function() require('git-worktree').setup() end
         }
+        use 'rhysd/vim-llvm'
 
         -- Neovim LSP
         use 'glepnir/lspsaga.nvim'
@@ -167,10 +168,7 @@ return require("packer").startup {
         use 'rcarriga/nvim-dap-ui'
         use 'theHamsta/nvim-dap-virtual-text'
         use 'nvim-telescope/telescope-dap.nvim'
-        use {
-            'mfussenegger/nvim-dap',
-            config = function() require('nvim-plugin.dap') end
-        }
+        use 'mfussenegger/nvim-dap'
 
         -- Neovim Tree Sitter
         use 'nvim-treesitter/nvim-treesitter-textobjects'

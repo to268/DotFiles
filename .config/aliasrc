@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Aliases
+alias l="logo-ls -D"
 alias ccat="bat"
 alias dmenu_run="dmenu_run -nb '#3c3836' -nf '#ebdbb2' -sb '#fb4934' -sf '#ebdbb2'"
 alias ffmpeg="ffmpeg -hide_banner"

@@ -49,7 +49,6 @@ return require("packer").startup {
             'ThePrimeagen/git-worktree.nvim',
             config = function() require('git-worktree').setup() end
         }
-        use 'rhysd/vim-llvm'
 
         -- Neovim LSP
         use 'glepnir/lspsaga.nvim'
@@ -208,7 +207,7 @@ return require("packer").startup {
         }
         use {
             'ptethng/telescope-makefile',
-            requires = { 'akinsho/nvim-toggleterm.lua' }
+            requires = { 'akinsho/toggleterm.nvim' }
         }
 
         -- Git

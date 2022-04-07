@@ -33,5 +33,24 @@ nnoremap <silent><leader>dvc :DiffviewClose<CR>
 " Reload config
 nnoremap <leader><F5> :lua require("plenary.reload").reload_module("init.lua")<CR>
 
-" LLVM ft
-let g:llvm_extends_official = 0
+" LLVM setup
+fun! SetupLLVM()
+    set softtabstop=2
+    set shiftwidth=2
+    set expandtab
+
+    augroup csrc
+      au!
+      autocmd FileType *      set nocindent smartindent
+      autocmd FileType c,cpp  set cindent
+    augroup END
+
+    set cinoptions=:0,g0,(0,Ws,l1
+    set smarttab
+
+    autocmd FileType make set noexpandtab
+
+    command! Untab :%s/\t/  /g
+endfun!
+
+command! SetupLLVM :call SetupLLVM()

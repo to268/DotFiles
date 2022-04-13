@@ -46,7 +46,7 @@ void getmpdstat() {
 
                 elapsed = mpd_status_get_elapsed_time(theStatus);
                 total = mpd_status_get_total_time(theStatus);
-                printf("🎵 %s %.2d:%.2d/%.2d:%.2d 🎵\n", title, elapsed/60, elapsed%60, total/60, total%60);
+                printf("🎵 %s - %s %.2d:%.2d/%.2d:%.2d 🎵\n", artist, title, elapsed/60, elapsed%60, total/60, total%60);
                 isempty = 0;
                 mpd_song_free(song);
         }

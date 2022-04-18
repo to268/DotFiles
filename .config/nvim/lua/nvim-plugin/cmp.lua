@@ -4,6 +4,34 @@ local snippets = require('nvim-plugin.snippets')
 
 local M = {}
 
+local kind_icons = {
+    Text = "",
+    Method = "",
+    Function = "",
+    Constructor = "",
+    Field = "",
+    Variable = "",
+    Class = "ﴯ",
+    Interface = "",
+    Module = "",
+    Property = "",
+    Unit = "",
+    Value = "",
+    Enum = "",
+    Keyword = "",
+    Snippet = "",
+    Color = "",
+    File = "",
+    Reference = "",
+    Folder = "",
+    EnumMember = "",
+    Constant = "",
+    Struct = "",
+    Event = "",
+    Operator = "",
+    TypeParameter = ""
+}
+
 M.setup = function()
     cmp.setup {
         snippet = {
@@ -11,6 +39,14 @@ M.setup = function()
                 require'luasnip'.lsp_expand(args.body)
             end
         },
+
+        cmp.setup.filetype('gitcommit', {
+            sources = cmp.config.sources({
+                { name = 'cmp_git' },
+            }, {
+                    { name = 'buffer' },
+                })
+        }),
 
         cmp.setup.cmdline('/', {
             sources = cmp.config.sources({
@@ -79,20 +115,8 @@ M.setup = function()
 
         formatting = {
             format = function(entry, vim_item)
-                -- Add tabnine like icon if it's an entry of tabnine
-                local tabnine_icon = ''
-                if entry.source.name == "cmp_tabnine" then
-                    tabnine_icon = '❂ '
-                end
+                vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
 
-                -- fancy icons and a name of kind
-                if vim_item.kind == "Field" or vim_item.kind == "Property" then
-                    vim_item.kind = tabnine_icon .. '' .. " " .. vim_item.kind
-                else
-                    vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. tabnine_icon .. vim_item.kind
-                end
-
-                -- set a name for each source
                 vim_item.menu = ({
                     buffer = "[Buffer]",
                     calc = "[Calc]",

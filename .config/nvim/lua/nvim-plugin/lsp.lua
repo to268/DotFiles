@@ -1,7 +1,6 @@
 local cmp = require("nvim-plugin.cmp")
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspconfig = require("lspconfig")
-local lspkind = require('lspkind').init({symbol_map = {Field = '', Property = ''}})
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
 
@@ -30,22 +29,23 @@ local custom_attach = function(client)
     -- Jump forwards/backwards
     map('n', '<leader>vdp', '<cmd>AerialPrev<CR>', opts)
     map('n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
+
 end
 
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
-lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
-lspconfig.cmake.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
--- lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
-lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
-lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
-lspconfig.rust_analyzer.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+-- lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.cmake.setup{ on_attach=custom_attach, capabilities=capabilities }
+-- lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.rust_analyzer.setup{ on_attach=custom_attach, capabilities=capabilities }
 
 -- Web
--- lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
--- lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+-- lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities }
+-- lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities }
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
@@ -72,7 +72,7 @@ require'lspconfig'.sumneko_lua.setup {
             },
         },
     },
-    on_attach=custom_attach, capabilities=capabilities, lspkind
+    on_attach=custom_attach, capabilities=capabilities,
 
 }
 
@@ -89,11 +89,11 @@ lspconfig.texlab.setup{
             }
         }
     },
-    on_attach=custom_attach, capabilities=capabilities, lspkind
+    on_attach=custom_attach, capabilities=capabilities,
 }
 
-lspconfig.tsserver.setup{ on_attach=custom_attach,capabilities=capabilities, lspkind }
--- lspconfig.vimls.setup{ on_attach=custom_attach, capabilities=capabilities, lspkind }
+lspconfig.tsserver.setup{ on_attach=custom_attach,capabilities=capabilities }
+-- lspconfig.vimls.setup{ on_attach=custom_attach, capabilities=capabilities }
 
 require'nvim-treesitter.configs'.setup {
     incremental_selection = {

@@ -17,6 +17,14 @@ return require("packer").startup {
         use 'babaybus/DoxygenToolkit.vim'
         use 'ThePrimeagen/refactoring.nvim'
         use {
+            "klen/nvim-test",
+            config = function() require('nvim-test').setup() end
+        }
+        use {
+            'simrat39/rust-tools.nvim',
+            config = function() require('rust-tools').setup({}) end
+        }
+        use {
             'L3MON4D3/LuaSnip',
             requires = { 'rafamadriz/friendly-snippets' },
             config = function() require("nvim-plugin.snippets") end
@@ -55,7 +63,6 @@ return require("packer").startup {
         use 'tjdevries/nlua.nvim'
         use 'tjdevries/lsp_extensions.nvim'
         use 'ray-x/lsp_signature.nvim'
-        use 'onsails/lspkind-nvim'
         use {
             'neovim/nvim-lspconfig',
             config = function() require('nvim-plugin.lsp') end
@@ -72,6 +79,7 @@ return require("packer").startup {
                 "ray-x/cmp-treesitter",
                 "hrsh7th/cmp-nvim-lsp-document-symbol",
                 "lukas-reineke/cmp-rg",
+                "petertriho/cmp-git",
                 "lukas-reineke/cmp-under-comparator",
                 {
                     "petertriho/cmp-git",
@@ -209,6 +217,7 @@ return require("packer").startup {
             'ptethng/telescope-makefile',
             requires = { 'akinsho/toggleterm.nvim' }
         }
+        use 'nvim-telescope/telescope-ui-select.nvim'
 
         -- Git
         use 'tveskag/nvim-blame-line'

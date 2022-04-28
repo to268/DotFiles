@@ -5,7 +5,6 @@ require('nvim-tree').setup {
     hijack_netrw        = false,
     open_on_setup       = false,
     ignore_ft_on_setup  = { 'startify' },
-    auto_close          = false,
     open_on_tab         = false,
     hijack_cursor       = true,
     update_cwd          = false,
@@ -44,8 +43,6 @@ require('nvim-tree').setup {
         width = '15%',
         -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
         side = 'left',
-        -- if true the tree will resize itself after opening a file
-        auto_resize = false,
         mappings = {
             -- custom only false will merge the list with the default mappings
             -- if true, it will only use your list to set the mappings

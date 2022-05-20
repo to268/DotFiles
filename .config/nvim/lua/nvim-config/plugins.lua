@@ -35,9 +35,11 @@ return require("packer").startup {
                 diff_binaries = true,
                 use_icons = true,
                 file_panel = {
-                    position = "left",
-                    width = 35,
-                    height = 10,
+                    win_config = {
+                        position = "left",
+                        width = 35,
+                        height = 10,
+                    },
                 },
             })
             end

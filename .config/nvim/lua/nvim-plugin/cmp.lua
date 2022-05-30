@@ -65,8 +65,6 @@ M.setup = function()
 
         sources = {
             { name = 'luasnip' },
-            { name = 'cmp_git' },
-            { name = 'cmp_tabnine' },
             { name = 'nvim_lsp' },
             { name = 'calc' },
             { name = "crates" },
@@ -94,10 +92,6 @@ M.setup = function()
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item()
-                elseif luasnip.expand_or_jumpable() then
-                    luasnip.expand_or_jump()
-                elseif snippets.has_words_before() then
-                    cmp.complete()
                 else
                     fallback()
                 end
@@ -105,8 +99,6 @@ M.setup = function()
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
-                elseif luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
                 else
                     fallback()
                 end

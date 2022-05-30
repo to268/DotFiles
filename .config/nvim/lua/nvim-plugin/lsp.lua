@@ -29,7 +29,6 @@ local custom_attach = function(client)
     -- Jump forwards/backwards
     map('n', '<leader>vdp', '<cmd>AerialPrev<CR>', opts)
     map('n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
-
 end
 
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)

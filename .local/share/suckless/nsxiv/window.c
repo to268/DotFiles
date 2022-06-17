@@ -30,8 +30,6 @@
 #include <X11/Xatom.h>
 #include <X11/Xresource.h>
 
-extern size_t get_win_title(unsigned char *, int, bool);
-
 #if HAVE_LIBFONTS
 #include "utf8.h"
 static XftFont *font;
@@ -73,7 +71,6 @@ static void win_init_font(const win_env_t *e, const char *fontstr)
 	fontheight = font->ascent + font->descent;
 	FcPatternGetDouble(font->pattern, FC_SIZE, 0, &fontsize);
 	barheight = fontheight + 2 * V_TEXT_PAD;
-	XftFontClose(e->dpy, font);
 }
 
 static void xft_alloc_color(const win_env_t *e, const char *name, XftColor *col)
@@ -108,15 +105,14 @@ static const char* win_res(XrmDatabase db, const char *name, const char *def)
 void win_init(win_t *win)
 {
 	win_env_t *e;
-	const char *win_bg, *win_fg, *mrk_fg, *win_alpha;
-#if HAVE_LIBFONTS
-	const char *bar_fg, *bar_bg, *f;
-#endif
+	const char *win_bg, *win_fg, *mrk_fg;
 	char *res_man;
 	XrmDatabase db;
-	XVisualInfo vis;
-	float alpha;
-	char *endptr;
+#if HAVE_LIBFONTS
+	const char *bar_fg, *bar_bg, *f;
+
+	static char lbuf[512 + 3], rbuf[64 + 3];
+#endif
 
 	memset(win, 0, sizeof(win_t));
 
@@ -127,16 +123,9 @@ void win_init(win_t *win)
 	e->scr = DefaultScreen(e->dpy);
 	e->scrw = DisplayWidth(e->dpy, e->scr);
 	e->scrh = DisplayHeight(e->dpy, e->scr);
-
-	if (XMatchVisualInfo(e->dpy, e->scr, 32, TrueColor, &vis)) {
-		e->depth = 32;
-		e->vis = vis.visual;
-		e->cmap = XCreateColormap(e->dpy, DefaultRootWindow(e->dpy), e->vis, None);
-	} else {
-		e->depth = DefaultDepth(e->dpy, e->scr);
-		e->vis = DefaultVisual(e->dpy, e->scr);
-		e->cmap = DefaultColormap(e->dpy, e->scr);
-	}
+	e->depth = DefaultDepth(e->dpy, e->scr);
+	e->vis = DefaultVisual(e->dpy, e->scr);
+	e->cmap = DefaultColormap(e->dpy, e->scr);
 
 	if (setlocale(LC_CTYPE, "") == NULL || XSupportsLocale() == 0)
 		error(0, 0, "No locale support");
@@ -152,25 +141,6 @@ void win_init(win_t *win)
 	win_alloc_color(e, win_fg, &win->win_fg);
 	win_alloc_color(e, mrk_fg, &win->mrk_fg);
 
-	/* apply alpha */
-	win->win_bg_postmul = win->win_bg;
-	win_alpha = win_res(db, RES_CLASS ".window.alpha", "1.0");
-	alpha = strtof(win_alpha, &endptr);
-	if (!(*endptr == '\0' && alpha >= 0.0 && alpha <= 1.0))
-		error(EXIT_FAILURE, 0, "Error parsing alpha");
-	win->win_alpha = 0xFF;
-	if (e->depth == 32 && alpha < 1.0) {
-		win->win_alpha *= alpha;
-		win->win_bg.red *= alpha;
-		win->win_bg.green *= alpha;
-		win->win_bg.blue *= alpha;
-		win->win_bg.pixel =
-			(((unsigned long) win->win_bg.blue  >> 8) <<  0) |
-			(((unsigned long) win->win_bg.green >> 8) <<  8) |
-			(((unsigned long) win->win_bg.red   >> 8) << 16) |
-			(((unsigned long) win->win_alpha        ) << 24);
-	}
-
 #if HAVE_LIBFONTS
 	bar_bg = win_res(db, RES_CLASS ".bar.background", DEFAULT_BAR_BG ? DEFAULT_BAR_BG : win_bg);
 	bar_fg = win_res(db, RES_CLASS ".bar.foreground", DEFAULT_BAR_FG ? DEFAULT_BAR_FG : win_fg);
@@ -180,13 +150,11 @@ void win_init(win_t *win)
 	f = win_res(db, RES_CLASS ".bar.font", DEFAULT_FONT);
 	win_init_font(e, f);
 
-	win->bar.l.size = BAR_L_LEN;
-	win->bar.r.size = BAR_R_LEN;
+	win->bar.l.buf = lbuf;
+	win->bar.r.buf = rbuf;
 	/* 3 padding bytes needed by utf8_decode */
-	win->bar.l.buf = emalloc(win->bar.l.size + 3);
-	win->bar.l.buf[0] = '\0';
-	win->bar.r.buf = emalloc(win->bar.r.size + 3);
-	win->bar.r.buf[0] = '\0';
+	win->bar.l.size = sizeof(lbuf) - 3;
+	win->bar.r.size = sizeof(rbuf) - 3;
 	win->bar.h = options->hide_bar ? 0 : barheight;
 	win->bar.top = TOP_STATUSBAR;
 #endif /* HAVE_LIBFONTS */
@@ -218,7 +186,7 @@ void win_open(win_t *win)
 	int gmask;
 	XSizeHints sizehints;
 	XWMHints hints;
-	pid_t pid;
+	long pid;
 	char hostname[256];
 	XSetWindowAttributes attrs;
 	char res_class[] = RES_CLASS;
@@ -276,7 +244,7 @@ void win_open(win_t *win)
 	/* set the _NET_WM_PID */
 	pid = getpid();
 	XChangeProperty(e->dpy, win->xwin, atoms[ATOM__NET_WM_PID], XA_CARDINAL,
-	                sizeof(pid_t) * 8, PropModeReplace, (unsigned char *) &pid, 1);
+	                32, PropModeReplace, (unsigned char *) &pid, 1);
 	if (gethostname(hostname, ARRLEN(hostname)) == 0) {
 		XTextProperty tp;
 		tp.value = (unsigned char *)hostname;
@@ -320,7 +288,7 @@ void win_open(win_t *win)
 	}
 	free(icon_data);
 
-	win_set_title(win, true);
+	win_set_title(win, res_name, strlen(res_name));
 	classhint.res_class = res_class;
 	classhint.res_name = options->res_name != NULL ? options->res_name : res_name;
 	XSetClassHint(e->dpy, win->xwin, &classhint);
@@ -338,6 +306,12 @@ void win_open(win_t *win)
 	hints.initial_state = NormalState;
 	XSetWMHints(win->env.dpy, win->xwin, &hints);
 
+	if (options->fullscreen) {
+		XChangeProperty(e->dpy, win->xwin, atoms[ATOM__NET_WM_STATE],
+		                XA_ATOM, 32, PropModeReplace,
+		                (unsigned char *) &atoms[ATOM__NET_WM_STATE_FULLSCREEN], 1);
+	}
+
 	win->h -= win->bar.h;
 
 	win->buf.w = e->scrw;
@@ -349,9 +323,6 @@ void win_open(win_t *win)
 	XSetWindowBackgroundPixmap(e->dpy, win->xwin, win->buf.pm);
 	XMapWindow(e->dpy, win->xwin);
 	XFlush(e->dpy);
-
-	if (options->fullscreen)
-		win_toggle_fullscreen(win);
 }
 
 CLEANUP void win_close(win_t *win)
@@ -362,7 +333,9 @@ CLEANUP void win_close(win_t *win)
 		XFreeCursor(win->env.dpy, cursors[i].icon);
 
 	XFreeGC(win->env.dpy, gc);
-
+#if HAVE_LIBFONTS
+	XftFontClose(win->env.dpy, font);
+#endif
 	XDestroyWindow(win->env.dpy, win->xwin);
 	XCloseDisplay(win->env.dpy);
 }
@@ -531,17 +504,14 @@ void win_draw_rect(win_t *win, int x, int y, int w, int h, bool fill, int lw,
 		XDrawRectangle(win->env.dpy, win->buf.pm, gc, x, y, w, h);
 }
 
-void win_set_title(win_t *win, bool init)
+void win_set_title(win_t *win, const char *title, size_t len)
 {
-	size_t len, i;
-	unsigned char title[512];
-	int targets[] = { ATOM_WM_NAME, ATOM_WM_ICON_NAME, ATOM__NET_WM_NAME, ATOM__NET_WM_ICON_NAME };
+	int i, targets[] = { ATOM_WM_NAME, ATOM_WM_ICON_NAME, ATOM__NET_WM_NAME, ATOM__NET_WM_ICON_NAME };
 
-	if ((len = get_win_title(title, ARRLEN(title), init)) > 0) {
-		for (i = 0; i < ARRLEN(targets); ++i) {
-			XChangeProperty(win->env.dpy, win->xwin, atoms[targets[i]],
-			                atoms[ATOM_UTF8_STRING], 8, PropModeReplace, title, len);
-		}
+	for (i = 0; i < ARRLEN(targets); ++i) {
+		XChangeProperty(win->env.dpy, win->xwin, atoms[targets[i]],
+		                atoms[ATOM_UTF8_STRING], 8, PropModeReplace,
+		                (unsigned char *)title, len);
 	}
 }
 

@@ -31,9 +31,7 @@
 
 #if HAVE_LIBEXIF
 #include <libexif/exif-data.h>
-void exif_auto_orientate(const fileinfo_t*);
 #endif
-Imlib_Image img_open(const fileinfo_t*);
 
 static char *cache_dir;
 
@@ -143,7 +141,7 @@ void tns_clean_cache(void)
 	r_closedir(&dir);
 }
 
-void tns_init(tns_t *tns, fileinfo_t *files, const int *cnt, int *sel, win_t *win)
+void tns_init(tns_t *tns, fileinfo_t *tns_files, const int *cnt, int *sel, win_t *win)
 {
 	int len;
 	const char *homedir, *dsuffix = "";
@@ -152,7 +150,7 @@ void tns_init(tns_t *tns, fileinfo_t *files, const int *cnt, int *sel, win_t *wi
 		tns->thumbs = ecalloc(*cnt, sizeof(thumb_t));
 	else
 		tns->thumbs = NULL;
-	tns->files = files;
+	tns->files = tns_files;
 	tns->cnt = cnt;
 	tns->initnext = tns->loadnext = 0;
 	tns->first = tns->end = tns->r_first = tns->r_end = 0;
@@ -446,7 +444,7 @@ void tns_render(tns_t *tns)
 			t->x = x + (thumb_sizes[tns->zl] - t->w) / 2;
 			t->y = y + (thumb_sizes[tns->zl] - t->h) / 2;
 			imlib_context_set_image(t->im);
-			render_core(win, 0, 0, t->w, t->h, t->x, t->y, t->w, t->h, false);
+			imlib_render_image_on_drawable_at_size(t->x, t->y, t->w, t->h);
 			if (tns->files[i].flags & FF_MARK)
 				tns_mark(tns, i, true);
 		} else {
@@ -461,6 +459,7 @@ void tns_render(tns_t *tns)
 	}
 	tns->dirty = false;
 	tns_highlight(tns, *tns->sel, true);
+	title_dirty = true;
 }
 
 void tns_mark(tns_t *tns, int n, bool mark)
@@ -529,6 +528,7 @@ bool tns_move_selection(tns_t *tns, direction_t dir, int cnt)
 		tns_check_view(tns, false);
 		if (!tns->dirty)
 			tns_highlight(tns, *tns->sel, true);
+		title_dirty = true;
 	}
 	return *tns->sel != old;
 }

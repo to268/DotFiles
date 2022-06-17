@@ -24,34 +24,11 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
-void remove_file(int, bool);
-void load_image(int);
-bool mark_image(int, bool);
-void close_info(void);
-void open_info(void);
-int nav_button(void);
-void redraw(void);
-void reset_cursor(void);
-void animate(void);
-void slideshow(void);
-void set_timeout(timeout_f, int, bool);
-void reset_timeout(timeout_f);
-void handle_key_handler(bool);
+#include "commands.h"
 
-extern appmode_t mode;
 extern img_t img;
 extern tns_t tns;
 extern win_t win;
-extern const XButtonEvent *xbutton_ev;
-
-extern fileinfo_t *files;
-extern int filecnt, fileidx;
-extern int alternate;
-extern int markcnt;
-extern int markidx;
-
-extern int prefix;
-extern bool extprefix;
 
 bool cg_quit(arg_t status)
 {
@@ -84,13 +61,10 @@ bool cg_switch_mode(arg_t _)
 		load_image(fileidx);
 		mode = MODE_IMAGE;
 	}
+	close_info();
+	open_info();
+	title_dirty = true;
 	return true;
-}
-
-bool cg_pick_quit(arg_t _)
-{
-	printf("%s\n", files[fileidx].name);
-	exit(EXIT_SUCCESS);
 }
 
 bool cg_toggle_fullscreen(arg_t _)
@@ -205,8 +179,6 @@ bool cg_reverse_marks(arg_t _)
 {
 	int i;
 
-	if (options->dmenu)
-		return false;
 	for (i = 0; i < filecnt; i++) {
 		files[i].flags ^= FF_MARK;
 		markcnt += files[i].flags & FF_MARK ? 1 : -1;
@@ -230,8 +202,6 @@ bool cg_unmark_all(arg_t _)
 {
 	int i;
 
-	if (options->dmenu)
-		return false;
 	for (i = 0; i < filecnt; i++)
 		files[i].flags &= ~FF_MARK;
 	markcnt = 0;
@@ -283,10 +253,7 @@ bool ci_navigate(arg_t n)
 	if (prefix > 0)
 		n *= prefix;
 	n += fileidx;
-	if (n < 0)
-		n = 0;
-	if (n >= filecnt)
-		n = filecnt - 1;
+	n = MAX(0, MIN(n, filecnt - 1));
 
 	if (n != fileidx) {
 		load_image(n);
@@ -442,7 +409,12 @@ bool ci_slideshow(arg_t _)
 
 bool ct_move_sel(arg_t dir)
 {
-	return tns_move_selection(&tns, dir, prefix);
+	bool dirty = tns_move_selection(&tns, dir, prefix);
+	if (dirty) {
+		close_info();
+		open_info();
+	}
+	return dirty;
 }
 
 bool ct_reload_all(arg_t _)

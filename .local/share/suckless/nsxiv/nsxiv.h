@@ -45,11 +45,6 @@
 #define TV_DIFF(t1,t2) (((t1)->tv_sec  - (t2)->tv_sec ) * 1000 + \
                         ((t1)->tv_usec - (t2)->tv_usec) / 1000)
 
-#define TV_SET_MSEC(tv,t) {             \
-  (tv)->tv_sec  = (t) / 1000;           \
-  (tv)->tv_usec = (t) % 1000 * 1000;    \
-}
-
 #define TV_ADD_MSEC(tv,t) {             \
   (tv)->tv_sec  += (t) / 1000;          \
   (tv)->tv_usec += (t) % 1000 * 1000;   \
@@ -231,7 +226,10 @@ void img_toggle_antialias(img_t*);
 bool img_change_gamma(img_t*, int);
 bool img_frame_navigate(img_t*, int);
 bool img_frame_animate(img_t*);
-void render_core(win_t*, int, int, int, int, int, int, int, int, bool);
+Imlib_Image img_open(const fileinfo_t*);
+#if HAVE_LIBEXIF
+void exif_auto_orientate(const fileinfo_t*);
+#endif
 
 
 /* options.c */
@@ -240,7 +238,6 @@ struct opt {
 	/* file list: */
 	char **filenames;
 	bool from_stdin;
-	bool dmenu;
 	bool to_stdout;
 	bool using_null;
 	bool recursive;
@@ -370,11 +367,6 @@ spawn_t spawn(const char*, char *const [], unsigned int);
 #endif
 
 enum {
-	BAR_L_LEN = 512,
-	BAR_R_LEN = 64
-};
-
-enum {
 	ATOM_WM_DELETE_WINDOW,
 	ATOM__NET_WM_NAME,
 	ATOM__NET_WM_ICON_NAME,
@@ -407,11 +399,9 @@ struct win {
 	Window xwin;
 	win_env_t env;
 
-	XColor win_bg; /* pre-multiplied alpha */
-	XColor win_bg_postmul; /* post-multiplied alpha */
+	XColor win_bg;
 	XColor win_fg;
 	XColor mrk_fg;
-	unsigned int win_alpha;
 #if HAVE_LIBFONTS
 	XftColor bar_bg;
 	XftColor bar_fg;
@@ -448,8 +438,37 @@ void win_toggle_bar(win_t*);
 void win_clear(win_t*);
 void win_draw(win_t*);
 void win_draw_rect(win_t*, int, int, int, int, bool, int, unsigned long);
-void win_set_title(win_t*, bool);
+void win_set_title(win_t*, const char*, size_t);
 void win_set_cursor(win_t*, cursor_t);
 void win_cursor_pos(win_t*, int*, int*);
+
+/* main.c */
+
+/* timeout handler functions: */
+void redraw(void);
+void reset_cursor(void);
+void animate(void);
+void slideshow(void);
+void clear_resize(void);
+
+void remove_file(int, bool);
+void set_timeout(timeout_f, int, bool);
+void reset_timeout(timeout_f);
+void close_info(void);
+void open_info(void);
+void load_image(int);
+bool mark_image(int, bool);
+int nav_button(void);
+void handle_key_handler(bool);
+
+extern appmode_t mode;
+extern const XButtonEvent *xbutton_ev;
+extern fileinfo_t *files;
+extern int filecnt, fileidx;
+extern int alternate;
+extern int markcnt;
+extern int markidx;
+extern int prefix;
+extern bool title_dirty;
 
 #endif /* NSXIV_H */

@@ -1,8 +1,9 @@
-[![nsxiv](https://raw.githubusercontent.com/nsxiv/nsxiv/gh-pages/img/logo.png)](https://github.com/nsxiv/nsxiv)
+[![nsxiv](https://codeberg.org/nsxiv/pages/raw/branch/master/img/logo.png)](https://codeberg.org/nsxiv/nsxiv)
 
-[![tags](https://img.shields.io/github/v/tag/nsxiv/nsxiv?style=flat-square)](https://github.com/nsxiv/nsxiv/tags)
-[![license](https://img.shields.io/badge/license-GPL--2.0-lightgreen?style=flat-square)](https://github.com/nsxiv/nsxiv/blob/master/LICENSE)
-[![loc](https://img.shields.io/tokei/lines/github/nsxiv/nsxiv?color=red&style=flat-square)](https://github.com/nsxiv/nsxiv)
+[![CodeBerg](https://img.shields.io/badge/Hosted_at-Codeberg-%232185D0?style=flat-square&logo=CodeBerg)](https://codeberg.org/nsxiv/nsxiv)
+[![tags](https://img.shields.io/github/v/tag/nsxiv/nsxiv?style=flat-square)](https://codeberg.org/nsxiv/nsxiv/tags)
+[![license](https://img.shields.io/badge/license-GPL--2.0-lightgreen?style=flat-square)](https://codeberg.org/nsxiv/nsxiv/src/branch/master/LICENSE)
+[![loc](https://img.shields.io/tokei/lines/github/nsxiv/nsxiv?color=red&style=flat-square)](https://codeberg.org/nsxiv/nsxiv)
 
 **Neo (or New or Not) Simple (or Small or Suckless) X Image Viewer**
 --------------------------------------------------------------------
@@ -15,7 +16,7 @@ and aims to be easy to modify and customize.
 Please file a bug report if something does not work as documented or
 expected in *this* repository, after making sure you are using the latest
 release of nsxiv. Contributions are welcome, see
-[CONTRIBUTING.md](CONTRIBUTING.md#Contribution-Guideline) for details.
+[CONTRIBUTING.md](CONTRIBUTING.md#contribution-guideline) for details.
 
 
 Features
@@ -28,7 +29,7 @@ Features
 * Ability to cache thumbnails for fast re-loading
 * Basic support for animated/multi-frame images (GIF/WebP)
 * Display image information in status bar
-* Display image name/path in X title
+* Customizable window title
 
 
 Screenshots
@@ -36,21 +37,23 @@ Screenshots
 
 **Image mode: (Default colors)**
 
-![Image](https://raw.githubusercontent.com/nsxiv/nsxiv/gh-pages/img/image.png "Image mode")
+![Image](https://codeberg.org/nsxiv/pages/raw/branch/master/img/image.png "Image mode")
 
 **Thumbnail mode: (Custom colors)**
 
-![Thumb](https://raw.githubusercontent.com/nsxiv/nsxiv/gh-pages/img/thumb.png "Thumb mode")
+![Thumb](https://codeberg.org/nsxiv/pages/raw/branch/master/img/thumb.png "Thumb mode")
 
 
 Installing via package manager
 ------------------------------
 
+<a href="https://repology.org/project/nsxiv/versions">
+  <img align="right" width="192" src="https://repology.org/badge/vertical-allrepos/nsxiv.svg">
+</a>
+
 nsxiv is available on the following distributions/repositories. If you don't see
 your distro listed here, either contact your distro's package maintainer or
 consider packaging it yourself and adding it to the respective community repo.
-
-[![Packaging status](https://repology.org/badge/vertical-allrepos/nsxiv.svg)](https://repology.org/project/nsxiv/versions)
 
 Repos not tracked by repology:
 
@@ -97,8 +100,8 @@ For example:
     $ make HAVE_LIBEXIF=0
 
 will disable `libexif` support. Alternatively they can be disabled via editing
-the `Makefile` directly. `OPT_DEP_DEFAULT=0` can be used to disable all
-optional dependencies.
+`config.mk`. `OPT_DEP_DEFAULT=0` can be used to disable all optional
+dependencies.
 
 Installing nsxiv:
 
@@ -151,21 +154,18 @@ F.A.Q
 -----
 
 * Can I open remote urls with nsxiv? <br>
-Yes, see [nsxiv-url](https://github.com/nsxiv/nsxiv-extra/tree/master/scripts/nsxiv-url)
+Yes, see [nsxiv-url](https://codeberg.org/nsxiv/nsxiv-extra/src/branch/master/scripts/nsxiv-url)
 
 * Can I open all the images in a directory? <br>
-Yes, see [nsxiv-rifle](https://github.com/nsxiv/nsxiv-extra/tree/master/scripts/nsxiv-rifle)
+Yes, see [nsxiv-rifle](https://codeberg.org/nsxiv/nsxiv-extra/src/branch/master/scripts/nsxiv-rifle)
 
 * Can I set default arguments for nsxiv? <br>
-Yes, see [nsxiv-env](https://github.com/nsxiv/nsxiv-extra/tree/master/scripts/nsxiv-env)
+Yes, see [nsxiv-env](https://codeberg.org/nsxiv/nsxiv-extra/src/branch/master/scripts/nsxiv-env)
 
 * Can I pipe images into nsxiv? <br>
-Yes, see [nsxiv-pipe](https://github.com/nsxiv/nsxiv-extra/tree/master/scripts/nsxiv-pipe)
+Yes, see [nsxiv-pipe](https://codeberg.org/nsxiv/nsxiv-extra/src/branch/master/scripts/nsxiv-pipe)
 
-* nsxiv crashes when viewing images with emojis in their name. <br>
-This is an issue with libXft. Either wait for
-[this](https://gitlab.freedesktop.org/xorg/lib/libxft/-/merge_requests/1) fix to
-be merged, or install [libxft-bgra](https://github.com/uditkarode/libxft-bgra)
+You may also wish to see the [known issues](https://codeberg.org/nsxiv/nsxiv/issues/242).
 
 
 Customization
@@ -174,11 +174,11 @@ Customization
 The main method of customizing nsxiv is by setting values for the variables in *config.h*,
 or by using Xresources as explained in the manual. If these options are not sufficient,
 you may implement your own features by following
-[this guide](https://github.com/nsxiv/nsxiv-extra/blob/master/CUSTOMIZATION.md).
+[this guide](https://codeberg.org/nsxiv/nsxiv-extra/blob/master/CUSTOMIZATION.md).
 
-Due to our limited [project scope](CONTRIBUTING.md#Project-Scope), certain features or
+Due to our limited [project scope](CONTRIBUTING.md#project-scope), certain features or
 customization cannot be merged into nsxiv mainline. Following the spirit of suckless
-software, we host the [nsxiv-extra](https://github.com/nsxiv/nsxiv-extra) repo where users
+software, we host the [nsxiv-extra](https://codeberg.org/nsxiv/nsxiv-extra) repo where users
 are free to submit whatever patches or scripts they wish.
 
 If you think your custom features can be beneficial for the general user base and is within
@@ -186,25 +186,25 @@ our project scope, please submit it as a pull request on this repository, then w
 merge it to mainline.
 
 Description on how to use or submit patches can be found on
-nsxiv-extra's [README](https://github.com/nsxiv/nsxiv-extra).
+nsxiv-extra's [README](https://codeberg.org/nsxiv/nsxiv-extra).
 
 
 Download
 --------
 
-You can [browse](https://github.com/nsxiv/nsxiv) the source code repository
-on GitHub or get a copy using git with the following command:
+You can [browse](https://codeberg.org/nsxiv/nsxiv) the source code repository
+on CodeBerg or get a copy using git with the following command:
 
-    $ git clone https://github.com/nsxiv/nsxiv.git
+    $ git clone https://codeberg.org/nsxiv/nsxiv.git
 
 You can view the changelog [here](CHANGELOG.md)
 
-Related projects
+Similar projects
 ----------------
 
 If nsxiv isn't able to fit your needs, check out the image viewer section of
-[suckless rocks](https://suckless.org/rocks) to find other minimal image viewers
-to try out.
+**[suckless rocks](https://suckless.org/rocks)** to find other minimal image
+viewers to try out.
 
 Below are a couple other lesser known projects not listed in suckless rocks.
 

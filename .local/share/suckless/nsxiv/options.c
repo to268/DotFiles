@@ -28,7 +28,7 @@ const opt_t *options;
 
 void print_usage(void)
 {
-	printf("usage: nsxiv [-abcfhiOopqrtvZ0] [-A FRAMERATE] [-e WID] [-G GAMMA] "
+	printf("usage: nsxiv [-abcfhiopqrtvZ0] [-A FRAMERATE] [-e WID] [-G GAMMA] "
 	       "[-g GEOMETRY] [-N NAME] [-n NUM] [-S DELAY] [-s MODE] "
 	       "[-z ZOOM] FILES...\n");
 }
@@ -63,7 +63,6 @@ void parse_options(int argc, char **argv)
 	progname = progname ? progname + 1 : argv[0];
 
 	_options.from_stdin = false;
-	_options.dmenu = false;
 	_options.to_stdout = false;
 	_options.using_null = false;
 	_options.recursive = false;
@@ -87,7 +86,7 @@ void parse_options(int argc, char **argv)
 	_options.clean_cache = false;
 	_options.private_mode = false;
 
-	while ((opt = getopt(argc, argv, "A:abce:fG:g:hin:N:OopqrS:s:T:tvZz:0")) != -1) {
+	while ((opt = getopt(argc, argv, "A:abce:fG:g:hin:N:opqrS:s:T:tvZz:0")) != -1) {
 		switch (opt) {
 			case '?':
 				print_usage();
@@ -140,9 +139,6 @@ void parse_options(int argc, char **argv)
 			case 'N':
 				_options.res_name = optarg;
 				break;
-			case 'O':
-				_options.dmenu = true;
-				break;
 			case 'o':
 				_options.to_stdout = true;
 				break;
@@ -168,7 +164,7 @@ void parse_options(int argc, char **argv)
 				_options.scalemode = s - scalemodes;
 				break;
 			case 'T':
-				title_deprecation_notice(); /* TODO(v30): remove this option */
+				title_deprecation_notice(); /* TODO(v31): remove this option */
 				break;
 			case 't':
 				_options.thumb_mode = true;

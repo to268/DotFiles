@@ -34,21 +34,30 @@ end
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities }
-lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.asm_lsp.setup{ on_attach=custom_attach, capabilities=capabilities, filetypes={ "asm", "nasm", "gasm" }}
+lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities, cmd={ "clangd", "-j=12" } }
 lspconfig.cmake.setup{ on_attach=custom_attach, capabilities=capabilities }
--- lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.rust_analyzer.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.sqlls.setup{ on_attach=custom_attach, capabilities=capabilities }
 
 -- Web
--- lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities }
--- lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities }
+
+
+local verible_binary = vim.fn.stdpath('cache')..'/lspconfig/verible/bin/verible-verilog-ls'
+lspconfig.verible.setup {
+    cmd = {verible_binary};
+    on_attach=custom_attach, capabilities=capabilities,
+}
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
-require'lspconfig'.sumneko_lua.setup {
+local sumneko_binary = sumneko_root_path.."/bin/lua-language-server"
+lspconfig.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
     settings = {
         Lua = {
@@ -92,7 +101,7 @@ lspconfig.texlab.setup{
 }
 
 lspconfig.tsserver.setup{ on_attach=custom_attach,capabilities=capabilities }
--- lspconfig.vimls.setup{ on_attach=custom_attach, capabilities=capabilities }
+lspconfig.vimls.setup{ on_attach=custom_attach, capabilities=capabilities }
 
 require'nvim-treesitter.configs'.setup {
     incremental_selection = {

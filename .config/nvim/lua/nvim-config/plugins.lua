@@ -22,7 +22,7 @@ return require("packer").startup {
         }
         use {
             'simrat39/rust-tools.nvim',
-            config = function() require('rust-tools').setup({}) end
+            -- config = function() require('rust-tools').setup({}) end
         }
         use {
             'L3MON4D3/LuaSnip',

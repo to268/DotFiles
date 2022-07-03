@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-rm -rf "$HOME/files/obs-studio/*"
+doas rm -rf "/usr/local/obs-studio/*"
 mkdir obs-build
 cd obs-build
-wget https://cdn-fastly.obsproject.com/downloads/cef_binary_4280_linux64.tar.bz2
-tar -xjf ./cef_binary_4280_linux64.tar.bz2
+wget https://cdn-fastly.obsproject.com/downloads/cef_binary_4638_linux64.tar.bz2
+tar -xjf ./cef_binary_4638_linux64.tar.bz2
 git clone --recursive https://github.com/obsproject/obs-studio.git
 cd obs-studio
+git submodule update --init
 mkdir build && cd build
-cmake -DUNIX_STRUCTURE=0 -DCMAKE_INSTALL_PREFIX="${HOME}/files/obs-studio" -DBUILD_BROWSER=ON -DENABLE_JACK=ON -DENABLE_LIBFDK=ON -DENABLE_SNDIO=ON -DCEF_ROOT_DIR="../../cef_binary_4280_linux64" ..
-make && make install
-cd ../../../
-doas rm -rf obs-build
+cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX="/usr/local/obs-studio" -DBUILD_BROWSER=ON -DENABLE_JACK=ON -DENABLE_LIBFDK=ON -DENABLE_SNDIO=ON -DENABLE_PIPEWIRE=OFF -DENABLE_VLC=OFF -DENABLE_AJA=OFF -DCEF_ROOT_DIR="${HOME}/obs-build/cef_binary_4638_linux64" ..
+make && doas make install
+rm -rf "${HOME}/obs-build"

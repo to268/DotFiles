@@ -14,6 +14,12 @@ source $XDG_CONFIG_HOME/aliasrc
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 export PATH="$PATH:${$(find ~/.local/bin/statusbar -type d -printf %p:)%%:}"
 
+# Servals local programs
+export PATH=/usr/local/llvm/bin:$PATH
+#export PATH=/usr/local/llvm-dev/bin:$PATH
+export PATH=/usr/local/obs-studio/bin:$PATH
+export PATH=$HOME/.local/share/cargo/bin/:$PATH
+
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"

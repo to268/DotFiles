@@ -14,6 +14,7 @@ opt.smartcase = true
 opt.termguicolors = true
 opt.timeoutlen = 400
 opt.updatetime = 50
+opt.laststatus = 3
 
 -- Always off
 opt.backup = false

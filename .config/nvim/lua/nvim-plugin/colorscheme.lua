@@ -41,6 +41,7 @@ M.Gruvbox = function()
     hi.SignColumn   = { guifg = colors.base04, guibg = colors.base01,     gui = nil,              guisp = nil }
     hi.Title        = { guifg = colors.base0E, guibg = colors.base00,     gui = nil,              guisp = nil }
     hi.VertSplit    = { guifg = colors.base02, guibg = colors.base00,     gui = nil,              guisp = nil }
+    hi.WinSeparator = { guifg = colors.base02, guibg = colors.base00,     gui = nil,              guisp = nil }
 
     hi.Comment        = { guifg = colors.base03, guibg = nil,             gui = NONE,             guisp = nil }
     hi.Constant       = { guifg = colors.base09, guibg = nil,             gui = NONE,             guisp = nil }
@@ -141,7 +142,6 @@ M.Gruvbox = function()
     -- Lsp signature
     hi.LspSignatureActiveParameter = { guifg = colors.base09, guibg = nil, gui = NONE,     guisp = nil }
 
-
     -- Telescope
     hi.TelescopeBorder          = { guifg = colors.base01, guibg = NONE, gui = NONE,            guisp = nil }
     hi.TelescopeNormal          = { guifg = NONE, guibg = NONE, gui = NONE,                     guisp = nil }
@@ -157,6 +157,7 @@ M.Transparent = function()
     hi.CursorLineNr         = { guibg = NONE }
     hi.ColorColumn          = { guibg = NONE }
     hi.LspFloatWinNormal    = { guibg = NONE }
+    hi.WinSeparator         = { guifg = NONE, guibg = NONE }
 end
 
 M.setup = function()

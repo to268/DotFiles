@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+icon="🐉 "
+
+# Check is whe can reach internet
+ping -w 4 -c 1 8.8.8.8 >/dev/null || echo "$icon no internet !"
+
+passed=$(curl -s "https://green.lab.llvm.org/green/api/json?pretty=true" | jq | grep '"color": "blue"' | wc -l)
+failed=$(curl -s "https://green.lab.llvm.org/green/api/json?pretty=true" | jq | grep '"color": "red"' | wc -l)
+building=$(curl -s "https://green.lab.llvm.org/green/api/json?pretty=true" | jq | grep "anime" | wc -l)
+disabled=$(curl -s "https://green.lab.llvm.org/green/api/json?pretty=true" | jq | grep '"color": "disabled"' | wc -l)
+notbuilt=$(curl -s "https://green.lab.llvm.org/green/api/json?pretty=true" | jq | grep '"color": "notbuilt"' | wc -l)
+
+echo "$icon ✅ $passed ❌ $failed 🔄 $building ⚪ $(($disabled + notbuilt))"

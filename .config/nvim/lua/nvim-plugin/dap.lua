@@ -5,7 +5,6 @@ local opts = { noremap = true, silent = true }
 local M = {}
 
 M.setup = function()
-
     dap.adapters.python = {
         type = 'executable';
         command = os.getenv('HOME') .. '/.virtualenvs/tools/bin/python';

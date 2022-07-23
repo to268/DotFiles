@@ -177,7 +177,13 @@ return require("packer").startup {
         use 'rcarriga/nvim-dap-ui'
         use 'theHamsta/nvim-dap-virtual-text'
         use 'nvim-telescope/telescope-dap.nvim'
-        use 'mfussenegger/nvim-dap'
+        use {
+            'mfussenegger/nvim-dap',
+            config = function()
+                require('nvim-plugin.dap').setup()
+                require('nvim-plugin.dap').remap()
+            end
+        }
 
         -- Neovim Tree Sitter
         use 'nvim-treesitter/nvim-treesitter-textobjects'

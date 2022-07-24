@@ -1,7 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
 file="$1"
 type=$(file --dereference --brief --mime-type "$1")
+label_type=$(file --brief "$1")
+
+declare -A cernsor_array=( [$HOME/.arcrc]=1  [$HOME/.irssi/config]=1 [$HOME/.config/gh/hosts.yml]=1)
+
+censor(){
+    if [[ -n "${cernsor_array[$file]}" ]]
+    then
+        echo "🛑 Preview censored 🛑"
+        exit
+    fi
+
+    case "$label_type" in
+        "OpenSSH private key") echo "🛑 Preview censored 🛑";;
+        *) get_mime;;
+    esac
+}
 
 get_mime(){
     case "$type" in
@@ -11,7 +27,7 @@ get_mime(){
         text/*|*/xml|application/json) highlight --out-format=ansi --force "$file";;
         application/vnd.oasis.opendocument.text|*opendocument*) odt2txt "$1";;
         application/x-executable|application/x-pie-executable|application/x-dosexec|application/x-sharedlib) file --brief "$file" | sed "s/), /), \n/g;s/, B/,\nB/g" && echo "" && rabin2 -I "$file";;
-        *) cat "$1";;
+        *) cat "$file";;
     esac
 }
 
@@ -21,5 +37,5 @@ case "$1" in
     *.tar.*) tar -tvf "$1";;
     *.a) rabin2 -I "$file";;
     *.o) file --brief "$file" | sed "s/), /), \n/g;s/, B/,\nB/g" && echo "" && rabin2 -I "$file";;
-    *) get_mime;;
+    *) censor;;
 esac

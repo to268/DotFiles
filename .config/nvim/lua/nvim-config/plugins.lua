@@ -189,6 +189,10 @@ return require("packer").startup {
         use 'nvim-treesitter/nvim-treesitter-textobjects'
         use 'nvim-treesitter/playground'
         use {
+            'nvim-treesitter/nvim-treesitter-context',
+            config = function() require'treesitter-context'.setup{} end
+        }
+        use {
             'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
             config = function() require('nvim-treesitter.configs').setup({
                 ensure_installed = "all",

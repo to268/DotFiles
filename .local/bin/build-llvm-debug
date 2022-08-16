@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
+llvm_path="/usr/local/llvm/bin"
+
 rm -rf build
 #doas rm -rf /usr/local/llvm/*
 
 cmake -G "Ninja" -S llvm -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug \
--DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DLLVM_USE_LINKER=mold \
--DBUILD_SHARED_LIBS=ON -DLLVM_ENABLE_PROJECTS="llvm;mlir" -DLLVM_PARALLEL_LINK_JOBS=2 \
--DLLVM_CCACHE_BUILD=ON -DLLVM_OPTIMIZED_TABLEGEN=ON -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-dev
+-DCMAKE_C_COMPILER=$llvm_path/clang -DCMAKE_CXX_COMPILER=$llvm_path/clang++ -DLLVM_USE_LINKER=mold \
+-DLLVM_BINUTILS_INCDIR=/usr/include -DBUILD_SHARED_LIBS=ON -DLLVM_ENABLE_PROJECTS="clang;llvm" \
+-DLLVM_PARALLEL_LINK_JOBS=2 -DLLVM_ENABLE_LTO=Thin -DLLVM_ENABLE_ZSTD=ON -DLLVM_CCACHE_BUILD=ON \
+-DLLVM_OPTIMIZED_TABLEGEN=ON -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-dev
 
-cp -f build/compile_commands.json .
 cd build && time ninja
 #doas ninja install

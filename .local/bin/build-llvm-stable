@@ -1,10 +1,13 @@
 echo "[*] Fetching urls"
 
 urls=($(curl -s "https://github.com/llvm/llvm-project/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/llvm/llvm-project/releases/download/" | grep "llvm-project-" | head -n 2 | sed "s|/llvm/|https://github.com/llvm/|"))
-projects="clang;clang-tools-extra;compiler-rt;mlir;lld;lldb;llvm"
 basenames=()
 sources=()
+
+# Build options
 workdir=$HOME/llvm-release
+llvm_path="/usr/local/llvm/bin"
+projects="all"
 
 for url in "${urls[@]}"
 do
@@ -43,16 +46,13 @@ echo "[*] Compiling llvm-project"
 tar -xvf $file
 cd $directory
 
-doas rm -rf /usr/local/llvm
-
-cmake -G "Ninja" -S llvm -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release \
--DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DLLVM_USE_LINKER=mold \
--DBUILD_SHARED_LIBS=ON -DLLVM_ENABLE_PROJECTS=$projects -DLLVM_PARALLEL_LINK_JOBS=2 \
--DCMAKE_INSTALL_PREFIX=/usr/local/llvm
+cmake -G "Ninja" -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$llvm_path/clang \
+-DCMAKE_CXX_COMPILER=$llvm_path/clang++ -DLLVM_USE_LINKER=lld -DBUILD_SHARED_LIBS=OFF \
+-DLLVM_ENABLE_PROJECTS=$projects -DLLVM_PARALLEL_LINK_JOBS=2 -DLLVM_ENABLE_LTO=Thin \
+-DLLVM_BINUTILS_INCDIR=/usr/include -DLLVM_ENABLE_ZSTD=ON -DCMAKE_INSTALL_PREFIX=/usr/local/llvm
 
 cd build
-time ninja
-doas ninja install
+time ninja && time ninja check-all && doas ninja install
 cd ..
 
 popd > /dev/null

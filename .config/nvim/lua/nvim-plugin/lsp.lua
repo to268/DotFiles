@@ -44,8 +44,10 @@ lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabil
 lspconfig.rust_analyzer.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.sqlls.setup{ on_attach=custom_attach, capabilities=capabilities }
 
--- LLVM experimental lsp servers
+-- LLVM LSP Servers
 -- lspconfig.mlir_lsp_server.setup{ on_attach=custom_attach, capabilities=capabilities }
+-- lspconfig.mlir_pdll_lsp_server.setup{ on_attach=custom_attach, capabilities=capabilities }
+-- lspconfig.tblgen_lsp_server.setup{ on_attach=custom_attach, capabilities=capabilities }
 
 -- Web
 lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities }

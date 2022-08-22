@@ -125,6 +125,8 @@ alt + slash
 
 # Swap keyboard
 
+# Swap keyboard
+
 ctrl + Return
 	setxkbmap us -variant true-dvorak -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
@@ -132,7 +134,7 @@ ctrl + shift + Return
 	setxkbmap fr -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
 
 ctrl + alt + Return
-	setxkbmap fr -variant bepo -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"
+	setxkbmap us -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard) (한글)"
 
 ctrl + shift alt + Return
 	setxkbmap ru -option ctrl:nocaps && notify-send --urgency=low "New Keymap" "$(~/.local/bin/statusbar/keyboard)"

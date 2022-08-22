@@ -2,6 +2,12 @@
 
 # This file runs when a DM logs you into a graphical session.
 
+# Fcitx
+export GTK_IM_MODULE='fcitx'
+export QT_IM_MODULE='fcitx'
+export SDL_IM_MODULE='fcitx'
+export XMODIFIERS='@im=fcitx'
+
 # Fix Gnome Apps Slow  Start due to failing services
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
@@ -18,3 +24,4 @@ notify-manager &                                            # Notify service
 setxkbmap us -variant true-dvorak -option ctrl:nocaps       # Set the True-Dvorak keymap
 wificonnect &                                               # Connect to the configured wifi
 xbanish &                                                   # Remove cursor automaticly
+fcitx5 -d &                                                 # Start fcitx5 for additionnal keyboard layouts

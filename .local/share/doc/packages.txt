@@ -1,6 +1,5 @@
+adobe-source-han-sans-kr-fonts
 alsa-oss
-xdg-user-dirs
-zsh-theme-powerlevel10k
 alsa-utils
 ant-gtk-theme
 arc-gtk-theme
@@ -19,6 +18,9 @@ cryptsetup
 doas
 dunst
 exa
+fcitx5-configtool
+fcitx5-hangul
+fcitx5-im
 fd
 firefox
 flameshot
@@ -32,10 +34,10 @@ htim
 inetutils
 lf
 libnotify
-logo-ls
 libxft-bgra
 linux
 linux-headers
+logo-ls
 make
 man-db
 man-pages
@@ -97,6 +99,7 @@ wireless_tools
 wpa_supplicant
 xbanish
 xcompmgr
+xdg-user-dirs
 xf86-video-amdgpu
 xf86-video-fbdev
 xf86-video-nouveau
@@ -113,3 +116,4 @@ zbar
 zip
 zsh
 zsh-fast-syntax-highlighting
+zsh-theme-powerlevel10k

@@ -1,6 +1,7 @@
 # Zoomer shell config
 
 # Base
+export PATH="/bin:/usr/bin:/usr/local/bin:/usr/local/sbin"
 source $HOME/.zprofile
 setopt HIST_IGNORE_SPACE
 setopt PROMPT_SUBST

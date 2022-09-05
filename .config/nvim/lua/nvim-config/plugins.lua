@@ -6,7 +6,7 @@ return require("packer").startup {
         -- Status Line
         use {
             'hoob3rt/lualine.nvim',
-            requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+            requires = { 'kyazdani42/nvim-web-devicons' },
             config = function() require('nvim-plugin.statusline') end
         }
 
@@ -52,7 +52,7 @@ return require("packer").startup {
         }
         use {
             'kyazdani42/nvim-tree.lua',
-            requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+            requires = { 'kyazdani42/nvim-web-devicons' },
             config = function() require('nvim-plugin.nvim_tree') end
         }
         use {
@@ -215,21 +215,22 @@ return require("packer").startup {
         }
 
         -- Telescope
-        use 'nvim-telescope/telescope-fzy-native.nvim'
         use {
             'nvim-telescope/telescope.nvim',
-            requires = {{ 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' }},
+            requires = {
+                { 'nvim-lua/popup.nvim' },
+                { 'nvim-lua/plenary.nvim' },
+                { 'kyazdani42/nvim-web-devicons' },
+                { 'to268/telescope-doc.nvim' },
+                { 'nvim-telescope/telescope-ui-select.nvim' },
+                { 'nvim-telescope/telescope-fzy-native.nvim'}
+            },
             config = function() require('nvim-plugin.telescope') end
-        }
-        use {
-            'to268/telescope-doc.nvim',
-            requires = { 'nvim-lua/popup.nvim' }
         }
         use {
             'ptethng/telescope-makefile',
             requires = { 'akinsho/toggleterm.nvim' }
         }
-        use 'nvim-telescope/telescope-ui-select.nvim'
 
         -- Git
         use 'tveskag/nvim-blame-line'
@@ -261,25 +262,6 @@ return require("packer").startup {
         use 'jbyuki/venn.nvim'
         use 'nathom/filetype.nvim'
         use 'mhinz/vim-rfc'
-        use {
-            "nvim-neorg/neorg",
-            config = function()
-                require('neorg').setup {
-                    load = {
-                        ["core.defaults"] = {},
-                        ["core.norg.concealer"] = {},
-                        ["core.norg.dirman"] = {
-                            config = {
-                                workspaces = {
-                                    my_workspace = "~/neorg"
-                                }
-                            }
-                        }
-                    },
-                }
-            end,
-            requires = "nvim-lua/plenary.nvim"
-        }
         use {
             'rmagatti/session-lens',
             requires = { 'rmagatti/auto-session' },

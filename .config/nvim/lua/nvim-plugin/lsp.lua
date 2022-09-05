@@ -37,7 +37,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 lspconfig.asm_lsp.setup{ on_attach=custom_attach, capabilities=capabilities, filetypes={ "asm", "nasm", "gasm" }}
 lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.clangd.setup{ on_attach=custom_attach, capabilities=capabilities, cmd={ "clangd", "-j=12" } }
-lspconfig.cmake.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.jsonls.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.pylsp.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.r_language_server.setup{ on_attach=custom_attach, capabilities=capabilities }

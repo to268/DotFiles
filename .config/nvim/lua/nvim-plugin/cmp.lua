@@ -73,10 +73,10 @@ M.setup = function()
             { name = 'spell' },
             { name = 'vsnip' },
             { name = 'tags' },
-            { name = 'rg', priority = 2 },
+            -- { name = 'buffer', priority = 2 },
+            -- { name = 'rg', priority = 2 },
+            -- { name = 'treesitter', priority = 2 },
             { name = 'latex_symbols', priority = 2 },
-            { name = 'buffer', priority = 2 },
-            { name = 'treesitter', priority = 2 },
         },
 
         mapping = {

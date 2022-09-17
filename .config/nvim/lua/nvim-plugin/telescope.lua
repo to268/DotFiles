@@ -42,6 +42,7 @@ require('telescope').load_extension('fzy_native')
 require('telescope').load_extension('session-lens')
 require('telescope').load_extension('git_worktree')
 require("telescope").load_extension("ui-select")
+require("telescope").load_extension("make")
 
 local opts = { noremap = true, silent = true }
 
@@ -101,6 +102,7 @@ M.refactors = function()
 end
 
 map("n", "<leader>tl", ":Telescope<CR>", opts)
+map("n", "<leader>m", ":Telescope make<CR>", opts)
 map("n", "<leader>bf", ":lua require('nvim-plugin.telescope').buffers_list()<CR>", opts)
 map("n", "<leader>rl", ":lua require('nvim-plugin.telescope').refactors()<CR>", opts)
 map("v", "<leader>rl", ":lua require('nvim-plugin.telescope').refactors()<CR>", opts)
@@ -115,7 +117,6 @@ map("n", "<leader>gb", ":lua require('telescope.builtin').git_branches()<CR>", o
 map("n", "<leader>gw", ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", opts)
 map("n", "<leader>df", ":lua require('nvim-plugin.telescope').nvim_config()<CR>", opts)
 map("n", "<leader>sl", ":lua require('session-lens').search_session()<CR>", opts)
-map("n", "<leader>m", ":lua require('telescope').extensions.telescope_makefile.telescope_makefile()<CR>", opts)
 map("n", "<leader>d", ":lua require('telescope-doc').open_path({cwd = '$HOME/files/ext/shared/pdf/'})<CR>", opts)
 
 return M

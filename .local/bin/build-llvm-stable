@@ -58,8 +58,8 @@ cmake -G "Ninja" -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=
 -DLLDB_PYTHON_EXE_RELATIVE_PATH=/usr/bin/python -DCMAKE_INSTALL_PREFIX=/usr/local/llvm
 
 cd build
-#time ninja && time ninja check-all && doas rm -rf /usr/local/llvm/* && doas ninja install
-time ninja && doas rm -rf /usr/local/llvm/* && doas ninja install
+time ninja && time ninja check-all
+doas rm -rf /usr/local/llvm/* && doas ninja install
 cd ..
 
 popd > /dev/null

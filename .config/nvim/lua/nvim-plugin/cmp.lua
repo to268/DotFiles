@@ -64,6 +64,7 @@ M.setup = function()
         }),
 
         sources = {
+            -- { name = 'cmp_tabnine' },
             { name = 'luasnip' },
             { name = 'nvim_lsp' },
             { name = 'calc' },

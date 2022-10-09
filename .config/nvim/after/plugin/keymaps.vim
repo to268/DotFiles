@@ -29,6 +29,10 @@ nnoremap <silent><leader>tf :lua require('FTerm').open()<CR>
 " Terminal navigation
 tnoremap <leader><Esc> <C-\><C-n>
 
+" Tabs
+nnoremap <silent><leader>t< :-tabm<CR>
+nnoremap <silent><leader>t> :+tabm<CR>
+
 " Ignore case for the write command
 com! W w
 

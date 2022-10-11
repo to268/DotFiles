@@ -6,7 +6,8 @@ git_repos_update() {
     do
         echo "[*] $(basename $i) repo:"
         pushd "$i" > /dev/null
-        git pull
+        is_bare="$(git rev-parse --is-bare-repository)"
+        [ $is_bare == "false" ] && git pull || git fetch --all
         git submodule foreach git pull
         popd > /dev/null
     done
@@ -19,8 +20,14 @@ rustup_update() {
 echo -e "\e[1m[*] Git repos:\e[0m"
 git_repos_update
 
+echo -e "\e[1m[*] Updating Neovim plugins:\e[0m"
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
 rustup_path="$(whereis rustup -b | cut -d' ' -f2)"
 [ -n $rustup_path ] && echo -e "\e[1m\n[*] Rustup:\e[0m" && rustup_update
+
+echo -e "\e[1m\n[*] Build Neovim:\e[0m"
+[ -f $HOME/.local/bin/build-neovim ] && $HOME/.local/bin/build-neovim
 
 echo -e "\e[1m\n[*] Build OBS:\e[0m"
 [ -f $HOME/.local/bin/build-obs ] && $HOME/.local/bin/build-obs

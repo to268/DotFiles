@@ -1,5 +1,4 @@
--- local repos = require('repos')
-local repos = require('nvim-plugin.repos_plugin')
+local repos = require('repos')
 
 repos.setup({
     callbacks = {

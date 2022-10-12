@@ -147,6 +147,7 @@ M.Gruvbox = function()
     hi.TelescopeNormal          = { guifg = NONE, guibg = NONE, gui = NONE,                     guisp = nil }
     hi.TelescopeResultsTitle    = { guifg = NONE, guibg = colors.base0D, gui = NONE,            guisp = nil }
     hi.TelescopeSelection       = { guifg = colors.base0E, guibg = NONE, gui = NONE,            guisp = nil }
+    hi.TelescopeResultsNormal   = { guifg = NONE, guibg = NONE, gui = NONE,                     guisp = nil }
 end
 
 M.Transparent = function()

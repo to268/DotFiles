@@ -47,10 +47,9 @@ nnoremap <leader>lo :lopen<CR>
 nnoremap <leader>lp :lprev<CR>zzzv
 nnoremap <leader>ln :lnext<CR>zzzv
 
-" Clang(d)/LLVM keymaps
+" Clang(d)
 nnoremap <silent><leader>h :ClangdSwitchSourceHeader<CR>
 nnoremap <silent><leader>cf :%!clang-format %<CR>
-nnoremap <silent><leader>lit :!llvm-lit -v %<CR>
 
 " Spell check
 map <leader>se :setlocal spell! spelllang=en_us<CR>

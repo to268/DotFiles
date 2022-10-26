@@ -1,5 +1,5 @@
 local cmp = require("nvim-plugin.cmp")
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require("lspconfig")
 local opts = { noremap = true, silent = true }
 local map = vim.api.nvim_set_keymap
@@ -30,9 +30,6 @@ local custom_attach = function(client)
     map('n', '<leader>vdp', '<cmd>AerialPrev<CR>', opts)
     map('n', '<leader>vdn', '<cmd>AerialNext<CR>', opts)
 end
-
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lspconfig.asm_lsp.setup{ on_attach=custom_attach, capabilities=capabilities, filetypes={ "asm", "nasm", "gasm" }}
 lspconfig.bashls.setup{ on_attach=custom_attach, capabilities=capabilities }

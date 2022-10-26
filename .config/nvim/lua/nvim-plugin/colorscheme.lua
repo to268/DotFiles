@@ -70,7 +70,7 @@ M.Gruvbox = function()
     hi.Typedef        = { guifg = colors.base08, guibg = nil,             gui = NONE,             guisp = nil }
     hi.Special        = { guifg = colors.base09, guibg = nil,             gui = NONE,             guisp = nil }
     hi.SpecialChar    = { guifg = colors.base09, guibg = nil,             gui = NONE,             guisp = nil }
-    hi.Tag            = { guifg = colors.base0A, guibg = nil,             gui = NONE,             guisp = nil }
+    hi.Tag            = { guifg = colors.base0C, guibg = nil,             gui = NONE,             guisp = nil }
     hi.Delimiter      = { guifg = colors.base0F, guibg = nil,             gui = NONE,             guisp = nil }
     hi.SpecialComment = { guifg = colors.base0C, guibg = nil,             gui = NONE,             guisp = nil }
     hi.Debug          = { guifg = colors.base08, guibg = nil,             gui = NONE,             guisp = nil }
@@ -121,7 +121,7 @@ M.Gruvbox = function()
     hi.TSString             = { guifg = colors.base0B, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSStringRegex        = { guifg = colors.base0B, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSStringEscape       = { guifg = colors.base0C, guibg = nil, gui = NONE,            guisp = nil }
-    hi.TSTag                = { guifg = colors.base0A, guibg = nil, gui = NONE,            guisp = nil }
+    hi.TSTag                = { guifg = colors.base0C, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSTagDelimiter       = { guifg = colors.base0F, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSText               = { guifg = colors.base05, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSStrong             = { guifg = nil,           guibg = nil, gui = 'bold',          guisp = nil }
@@ -135,6 +135,8 @@ M.Gruvbox = function()
     hi.TSTypeBuiltin        = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSVariable           = { guifg = colors.base0D, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSVariableBuiltin    = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
+    -- Fix TODO, HACK and WARNING colors
+    vim.cmd [[hi! link @text.warning Todo]]
 
     -- Lspsaga
     hi.LspFloatWinNormal    = { guifg = nil, guibg = colors.base02, gui = NONE,            guisp = nil }

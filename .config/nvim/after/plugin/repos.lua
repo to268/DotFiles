@@ -4,13 +4,14 @@ local opt = vim.opt
 repos.setup({
     callbacks = {
         ["git@github.com:llvm/llvm-project"] = function(root)
+            opt.tabstop = 2
             opt.softtabstop = 2
             opt.shiftwidth = 2
             opt.expandtab = true
             opt.smarttab = true
             opt.cinoptions = ":0,g0,(0,Ws,l1"
 
-            local augroup = vim.api.nvim_create_augroup("llvm-c", { clear = true })
+            local augroup = vim.api.nvim_create_augroup("llvm", { clear = true })
 
             vim.api.nvim_create_autocmd("FileType", {
                 group = augroup,

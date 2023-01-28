@@ -135,8 +135,11 @@ M.Gruvbox = function()
     hi.TSTypeBuiltin        = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSVariable           = { guifg = colors.base0D, guibg = nil, gui = NONE,            guisp = nil }
     hi.TSVariableBuiltin    = { guifg = colors.base08, guibg = nil, gui = NONE,            guisp = nil }
+
     -- Fix TODO, HACK and WARNING colors
     vim.cmd [[hi! link @text.warning Todo]]
+
+    vim.cmd [[hi! link @Method TSFunction]]
 
     -- Lspsaga
     hi.LspFloatWinNormal    = { guifg = nil, guibg = colors.base02, gui = NONE,            guisp = nil }

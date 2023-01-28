@@ -18,7 +18,7 @@ local custom_attach = function(client)
     })
 
     -- Enable lspsaga
-    require('lspsaga').init_lsp_saga()
+    require('lspsaga').setup({})
     map("n", "<leader>vls", ":Lspsaga lsp_finder<CR>", opts)
     map("n", "<leader>vf", ":Lspsaga lsp_finder<CR>", opts)
     map("n", "<leader>vdc", ":Lspsaga hover_doc<CR>", opts)
@@ -48,7 +48,6 @@ lspconfig.tblgen_lsp_server.setup{ on_attach=custom_attach, capabilities=capabil
 -- Web
 lspconfig.html.setup{ on_attach=custom_attach, capabilities=capabilities }
 lspconfig.cssls.setup{ on_attach=custom_attach, capabilities=capabilities }
-
 
 local verible_binary = vim.fn.stdpath('cache')..'/lspconfig/verible/bin/verible-verilog-ls'
 lspconfig.verible.setup {
@@ -122,12 +121,12 @@ require'nvim-treesitter.configs'.setup {
 
 -- Remaps
 map("n", "<leader>vds", ":lua require('telescope.builtin').lsp_document_symbols{}<CR>", opts)
-map("n", "<leader>vws", ":lua require('telescope.builtin').lsp_workspace_symbols{}<CR>", opts)
+map("n", "<leader>vws", ":lua require('telescope.builtin').lsp_dynamic_workspace_symbols{}<CR>", opts)
+map("n", "<leader>vr", ":lua require('telescope.builtin').lsp_references{}<CR>", opts)
 map("n", "<leader>va", ":lua vim.lsp.buf.code_action()<CR>", opts)
 map("n", "<leader>vi", ":lua vim.lsp.buf.implementations()<CR>", opts)
 map("n", "<leader>vd", ":lua vim.lsp.buf.definition()<CR>", opts)
 map("n", "<leader>vh", ":lua vim.lsp.buf.hover()<CR>", opts)
 map("n", "<leader>vs", ":lua require('lsp_signature').signature()<CR>", opts)
 map("n", "<leader>vt", ":lua vim.lsp.buf.type_definition()<CR>", opts)
-map("n", "<leader>vr", ":lua vim.lsp.buf.references()<CR>", opts)
 map("n", "<leader>vl", "<cmd>TroubleToggle<CR>", opts)

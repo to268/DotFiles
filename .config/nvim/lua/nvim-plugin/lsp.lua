@@ -55,33 +55,24 @@ lspconfig.verible.setup {
     on_attach=custom_attach, capabilities=capabilities,
 }
 
-local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/lua-language-server"
-lspconfig.sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+lspconfig.lua_ls.setup {
     settings = {
         Lua = {
             runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                 version = 'LuaJIT',
-                -- Setup your lua path
-                path = vim.split(package.path, ';'),
             },
             diagnostics = {
-                -- Get the language server to recognize the `vim` global
                 globals = {'vim'},
             },
             workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-                },
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+                enable = false,
             },
         },
     },
     on_attach=custom_attach, capabilities=capabilities,
-
 }
 
 lspconfig.texlab.setup{
@@ -89,7 +80,7 @@ lspconfig.texlab.setup{
         latex = {
             build = {
                 executable = "tex",
-                args = {"-pdf", "%f" },
+                args = { "-pdf", "%f" },
                 onSave = true
             },
             lint = {

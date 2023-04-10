@@ -1,15 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Script to connect to the network configured in /etc/wpa_supplicant/wpa_supplicant.conf
 
 # Wireless interface to use
 interface="wlan0"
 
-# Make sure to kill wpa_supplicant if is already running
-sudo pkill -e wpa_supplicant
+count=0
 
-# Launch wpa_supplicant in the background
-sudo wpa_supplicant -B -i $interface -c /etc/wpa_supplicant/wpa_supplicant.conf
+until [ $count == 1 ]
+do
+    # Make sure to kill wpa_supplicant if is already running
+    sudo pkill wpa_supplicant
 
-# Launch dhcp client to get an ip address
-sudo dhcpcd
+    # Launch wpa_supplicant in the background
+    count=$(sudo wpa_supplicant -B -i $interface -c /etc/wpa_supplicant/wpa_supplicant.conf | wc -l)
+
+    # Launch dhcp client to get an ip address
+    sudo dhcpcd -q
+done

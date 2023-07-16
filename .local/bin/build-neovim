@@ -6,13 +6,13 @@ llvm_path="/usr/local/llvm/bin"
 build_flags="-DCMAKE_C_COMPILER=$llvm_path/clang"
 
 cp -r $neovim_source $HOME
-doas rm -rf /usr/local/neovim
+sudo rm -rf /usr/local/neovim
 cd $HOME/neovim
 
 make CMAKE_EXTRA_FLAGS="$build_flags" DEPS_CMAKE_FLAGS="$build_flags" \
 CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=$neovim_path
 
-doas make install
+sudo make install
 
 cd ..
 rm -rf $HOME/neovim

@@ -1,20 +1,35 @@
 #!/usr/bin/env bash
 
-doas rm -rf "/usr/local/obs-studio/*"
-mkdir obs-build
-cd obs-build
+echo "[*] Fetching releases"
+release_tag="$(curl -s "https://github.com/obsproject/obs-studio/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/obsproject/obs-studio/releases/tag/" | head -n1 | xargs basename)"
+cef_binary_version="5060"
 
-wget https://cdn-fastly.obsproject.com/downloads/cef_binary_4638_linux64.tar.bz2
-tar -xjf ./cef_binary_4638_linux64.tar.bz2
-git clone --recursive https://github.com/obsproject/obs-studio.git
+# Build options
+workdir=$HOME/obs-build
 
+[ ! -d $workdir ] && mkdir $workdir
+pushd $workdir > /dev/null
+
+echo "[*] Cloning obs-studio"
+git clone --recursive https://github.com/obsproject/obs-studio.git -b $release_tag
+
+echo "[*] Downloading cef_binary"
+wget https://cdn-fastly.obsproject.com/downloads/cef_binary_${cef_binary_version}_linux64.tar.bz2
+tar -xjf ./cef_binary_${cef_binary_version}_linux64.tar.bz2
+
+echo "[*] Compiling obs-studio"
 cd obs-studio
-
 cmake -S . -B build -G "Ninja" -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX="/usr/local/obs-studio" \
 -DBUILD_BROWSER=ON -DENABLE_JACK=ON -DENABLE_LIBFDK=ON -DENABLE_SNDIO=ON \
--DENABLE_PIPEWIRE=OFF -DENABLE_VLC=OFF -DENABLE_AJA=OFF -DCMAKE_BUILD_TYPE=Release \
--DCEF_ROOT_DIR="${HOME}/obs-build/cef_binary_4638_linux64"
+-DENABLE_VLC=OFF -DENABLE_AJA=OFF -DCMAKE_BUILD_TYPE=Release \
+-DCEF_ROOT_DIR="$HOME/obs-build/cef_binary_${cef_binary_version}_linux64" \
+-DQT_VERSION=5
 
 cd build
-ninja && doas ninja install
-rm -rf "${HOME}/obs-build"
+sudo rm -rf "/usr/local/obs-studio/*"
+ninja && sudo ninja install
+
+popd > /dev/null
+rm -rf "$HOME/obs-build"
+
+echo "[*] Done"

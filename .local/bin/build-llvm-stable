@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "[*] Fetching urls"
 
 release_tag="$(curl -s "https://github.com/llvm/llvm-project/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/llvm/llvm-project/releases/tag/" | head -n1 | xargs basename)"
@@ -59,7 +60,7 @@ cmake -G "Ninja" -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=
 
 cd build
 time ninja && time ninja check-all
-doas rm -rf /usr/local/llvm/* && doas ninja install
+sudo rm -rf /usr/local/llvm/* && sudo ninja install
 cd ..
 
 popd > /dev/null

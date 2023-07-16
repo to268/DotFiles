@@ -1,33 +1,69 @@
 #!/usr/bin/env bash
 
 git_repos_update() {
-    repos=($(find $HOME/files/Dev -maxdepth 3 -name ".git" | sed 's/.git//'))
+    echo -e "\e[1m[*] Git repos:\e[0m"
+    repos=($(find $HOME/files/Dev -maxdepth 2 -type d -name ".git" | sed 's/.git//'))
+    repos+=($(find $HOME/files/Dev/repos -maxdepth 2 -type d -name ".git" | sed 's/.git//'))
+
     for i in "${repos[@]}"
     do
         echo "[*] $(basename $i) repo:"
         pushd "$i" > /dev/null
-        is_bare="$(git rev-parse --is-bare-repository)"
-        [ $is_bare == "false" ] && git pull || git fetch --all
+
+        git pull --rebase
         git submodule foreach git pull
+
         popd > /dev/null
     done
 }
 
+git_bare_repos_update() {
+    echo -e "\e[1m[*] Git bare repos:\e[0m"
+    repos=($(find $HOME/files/Dev -maxdepth 3 -type f -name "HEAD" | grep -v ".git" | sed 's/HEAD//'))
+
+    for i in "${repos[@]}"
+    do
+        echo "[*] $(basename $i) repo:"
+        pushd "$i" > /dev/null
+
+        git fetch --all
+        worktrees=($(git worktree list | grep "\[.*\]" | cut -d' ' -f1))
+
+        for j in "${worktrees[@]}"
+        do
+            pushd "$j" > /dev/null
+            echo "[-] Worktree $(basename $PWD):"
+
+            git stash
+            git pull --rebase
+            git stash pop
+
+            popd > /dev/null
+        done
+
+        popd > /dev/null
+    done
+}
+
+neovim_update() {
+    echo -e "\e[1m[*] Updating Neovim plugins:\e[0m"
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+    nvim --headless -c 'TSUpdate' -c 'quitall'
+    nvim --headless -c 'MasonUpdate' -c 'quitall'
+}
+
 rustup_update() {
+    rustup_path="$(whereis rustup -b | cut -d' ' -f2)"
+    [ -n $rustup_path ] || return
+    echo -e "\e[1m\n[*] Rustup:\e[0m"
     rustup update
 }
 
-echo -e "\e[1m[*] Git repos:\e[0m"
+# Updates
 git_repos_update
+git_bare_repos_update
+neovim_update
+rustup_update
 
-echo -e "\e[1m[*] Updating Neovim plugins:\e[0m"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
-rustup_path="$(whereis rustup -b | cut -d' ' -f2)"
-[ -n $rustup_path ] && echo -e "\e[1m\n[*] Rustup:\e[0m" && rustup_update
-
-echo -e "\e[1m\n[*] Build Neovim:\e[0m"
-[ -f $HOME/.local/bin/build-neovim ] && $HOME/.local/bin/build-neovim
-
-echo -e "\e[1m\n[*] Build OBS:\e[0m"
-[ -f $HOME/.local/bin/build-obs ] && $HOME/.local/bin/build-obs
+# Builds
+build_neovim

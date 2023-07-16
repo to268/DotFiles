@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 file="$1"
 type=$(file --dereference --brief --mime-type "$1")
@@ -22,7 +22,8 @@ censor(){
 get_mime(){
     case "$type" in
         video/*|audio/*|application/octet-steam) mediainfo "$file";;
-        image/*) mediainfo "$file";;
+        # I hope that sixel support will be available in lf
+        image/*) mediainfo "$file" && img2sixel -w 512 "$file";;
         text/x-shellscript) highlight --out-format=ansi "$file";;
         text/*|*/xml|application/json) highlight --out-format=ansi --force "$file";;
         application/vnd.oasis.opendocument.text|*opendocument*) odt2txt "$1";;

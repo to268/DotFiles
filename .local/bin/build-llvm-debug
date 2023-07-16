@@ -3,7 +3,7 @@
 llvm_path="/usr/local/llvm/bin"
 
 rm -rf build
-#doas rm -rf /usr/local/llvm/*
+#sudo rm -rf /usr/local/llvm/*
 
 cmake -G "Ninja" -S llvm -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug \
 -DCMAKE_C_COMPILER=$llvm_path/clang -DCMAKE_CXX_COMPILER=$llvm_path/clang++ -DLLVM_USE_LINKER=mold \
@@ -12,4 +12,4 @@ cmake -G "Ninja" -S llvm -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUI
 -DLLVM_OPTIMIZED_TABLEGEN=ON -DCMAKE_INSTALL_PREFIX=/usr/local/llvm-dev
 
 cd build && time ninja
-#doas ninja install
+#sudo ninja install

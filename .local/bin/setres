@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-
-# cvt <width> <height>
-xrandr --newmode "1600x900_60.00" 118.25 1600 1696 1856 2112 900 903 908 934 -HSync +Vsync
-xrandr --addmode VGA-1 "1600x900_60.00"
-xrandr --output VGA-1 --primary --mode "1600x900_60.00" --pos 0x0 --rotate normal

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# This script gets the best available linker
+# My linker priority list: mold, lld, ld
+
+mold=$(whereis mold | cut -d' ' -f2)
+lld=$(whereis lld | cut -d' ' -f2)
+
+[ ! -z "$mold" ] && echo "mold" && exit
+[ ! -z "$lld" ] && echo "lld" && exit
+
+# Fallback to LD
+echo "ld"

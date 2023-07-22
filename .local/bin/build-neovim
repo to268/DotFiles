@@ -2,8 +2,8 @@
 
 neovim_source="$HOME/files/Dev/repos/neovim"
 neovim_path="/usr/local/neovim"
-llvm_path="/usr/local/llvm/bin"
-build_flags="-DCMAKE_C_COMPILER=$llvm_path/clang"
+cc_path="$($HOME/.local/bin/get-cc-path)"
+build_flags="-DCMAKE_C_COMPILER=$cc_path"
 
 cp -r $neovim_source $HOME
 sudo rm -rf /usr/local/neovim

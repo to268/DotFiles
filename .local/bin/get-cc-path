@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# This script gets my preferred and the latest C compiler path available
+# My compiler priority list: clang, gcc
+# I don't use others C compilers (tcc, ...)
+
+# To simplify things, i assume that whereis sorts entries and tac reverses
+# the order, which respects my installations path priority to search.
+
+# Clang candidate installations path, sorted by priority:
+# /usr/local/llvm-dev/bin
+# /usr/local/llvm/bin
+# /usr/local/bin
+# /usr/bin
+clang_path=$(whereis clang | sed 's/\s\+/\n/g' | grep '/bin' | tac | head -n 1)
+
+# GCC candidate installations path, sorted by priority:
+# /usr/local/bin
+# /usr/bin
+gcc_path=$(whereis gcc | sed 's/\s\+/\n/g' | grep '/bin' | tac | head -n 1)
+
+[ ! -z "$clang_path" ] && echo $clang_path && exit
+[ ! -z "$gcc_path" ] && echo $gcc_path && exit
+
+# Fallback to CC symlink
+echo "$(whereis $(readlink '/bin/cc') | cut -d' ' -f2)"

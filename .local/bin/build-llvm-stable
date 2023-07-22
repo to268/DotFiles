@@ -10,10 +10,18 @@ sources=()
 
 # Build options
 workdir=$HOME/llvm-release
-llvm_path="/usr/local/llvm/bin"
-#llvm_path="/usr/bin"
-projects="all"
-runtimes=""
+install_path="/usr/local/llvm"
+linker_name="$($HOME/.local/bin/get-linker)"
+projects="bolt;clang;clang-tools-extra;lld;lldb;mlir;openmp;polly;pstl"
+runtimes="compiler-rt;libcxx;libcxxabi;libunwind"
+
+# I can use only system compilers, sadly
+clang_c_path=$(whereis clang | cut -d' ' -f2)
+clang_cxx_path=$(whereis clang++ | cut -d' ' -f2)
+gcc_c_path=$(whereis gcc | cut -d' ' -f2)
+gcc_cxx_path=$(whereis g++ | cut -d' ' -f2)
+[ ! -z $clang_c_path ] && cc_path=$clang_c_path || cc_path=$gcc_c_path
+[ ! -z $clang_cxx_path ] && cxx_path=$clang_cxx_path || cxx_path=$gcc_cxx_path
 
 for url in "${urls[@]}"
 do
@@ -52,15 +60,16 @@ echo "[*] Compiling llvm-project"
 tar -xvf $file
 cd $directory
 
-cmake -G "Ninja" -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$llvm_path/clang \
--DCMAKE_CXX_COMPILER=$llvm_path/clang++ -DLLVM_USE_LINKER=lld -DBUILD_SHARED_LIBS=OFF \
--DLLVM_ENABLE_PROJECTS=$projects -DLLVM_ENABLE_RUNTIMES=$runtimes -DLLVM_PARALLEL_LINK_JOBS=2 \
+cmake -G "Ninja" -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$cc_path \
+-DCMAKE_CXX_COMPILER=$cxx_path -DLLVM_USE_LINKER=$linker_name -DLLVM_OPTIMIZED_TABLEGEN=ON \
+-DLLVM_ENABLE_PROJECTS=$projects -DLLVM_ENABLE_RUNTIMES=$runtimes -DLLVM_PARALLEL_LINK_JOBS=6 \
 -DLLVM_ENABLE_LTO=Thin -DLLVM_BINUTILS_INCDIR=/usr/include -DLLVM_ENABLE_ZSTD=ON \
--DLLDB_PYTHON_EXE_RELATIVE_PATH=/usr/bin/python -DCMAKE_INSTALL_PREFIX=/usr/local/llvm
+-DLLVM_INSTALL_UTILS=ON -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD="all" \
+-DCMAKE_INSTALL_PREFIX=$install_path
 
 cd build
 time ninja && time ninja check-all
-sudo rm -rf /usr/local/llvm/* && sudo ninja install
+sudo rm -rf "$install_path/*" && sudo ninja install
 cd ..
 
 popd > /dev/null

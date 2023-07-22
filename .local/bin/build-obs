@@ -6,6 +6,7 @@ cef_binary_version="5060"
 
 # Build options
 workdir=$HOME/obs-build
+[ ! -z "$(whereis qt6 | awk '{print $2}')" ] && qt_version="6" || qt_version="5"
 
 [ ! -d $workdir ] && mkdir $workdir
 pushd $workdir > /dev/null
@@ -20,10 +21,10 @@ tar -xjf ./cef_binary_${cef_binary_version}_linux64.tar.bz2
 echo "[*] Compiling obs-studio"
 cd obs-studio
 cmake -S . -B build -G "Ninja" -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX="/usr/local/obs-studio" \
--DBUILD_BROWSER=ON -DENABLE_JACK=ON -DENABLE_LIBFDK=ON -DENABLE_SNDIO=ON \
+-DENABLE_WAYLAND=ON -DBUILD_BROWSER=ON -DENABLE_PIPEWIRE=ON -DENABLE_SNDIO=ON -DENABLE_LIBFDK=ON -DENABLE_SNDIO=ON \
 -DENABLE_VLC=OFF -DENABLE_AJA=OFF -DCMAKE_BUILD_TYPE=Release \
 -DCEF_ROOT_DIR="$HOME/obs-build/cef_binary_${cef_binary_version}_linux64" \
--DQT_VERSION=5
+-DQT_VERSION="$qt_version"
 
 cd build
 sudo rm -rf "/usr/local/obs-studio/*"

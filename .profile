@@ -11,8 +11,8 @@ export XDG_CACHE_HOME="$HOME/.cache"
 source $XDG_CONFIG_HOME/aliasrc
 
 # Adds servals directories to $PATH
-export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
-export PATH="$PATH:${$(find ~/.local/bin/statusbar -type d -printf %p:)%%:}"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin/statusbar:$PATH"
 
 # Servals local programs
 export PATH=/usr/local/llvm/bin:$PATH

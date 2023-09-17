@@ -1,7 +1,6 @@
 local opt = vim.opt
 
 -- Base
-opt.clipboard = "unnamedplus"
 opt.cmdheight = 1
 opt.encoding = "utf-8"
 opt.mouse = ""
@@ -45,6 +44,18 @@ opt.splitbelow = true
 opt.splitright = true
 opt.hidden = true
 
+-- Comments formatting
+opt.formatoptions = opt.formatoptions
+    - "a"
+    - "t"
+    + "c"
+    + "q"
+    - "o"
+    + "r"
+    + "n"
+    + "j"
+    - "2"
+
 -- Set joinspaces
 opt.joinspaces = false
 
@@ -55,4 +66,4 @@ opt.wildignore = { "*.o", "*.obj", "*.a", "*.bin", "*.elf", "*.iso", ".git",
                 "*.rbc", "*.pyc", "*pycache", "__pycache__" }
 
 -- Disable builtin plugins
-require("nvim-plugin.disable_builtin")
+require("nvim-config.disable_builtin")

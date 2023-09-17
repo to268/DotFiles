@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo "[*] Fetching urls"
 
-release_tag="$(curl -s "https://github.com/llvm/llvm-project/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/llvm/llvm-project/releases/tag/" | head -n1 | xargs basename)"
+release_tag="$(curl -s "https://github.com/llvm/llvm-project/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/llvm/llvm-project/releases/tag/" | grep -v "rc" | head -n1 | xargs basename)"
 version=$(echo $release_tag | sed "s/llvmorg-//")
 base_url="https://github.com/llvm/llvm-project/releases/download/$release_tag"
 urls=("$base_url/llvm-project-$version.src.tar.xz" "$base_url/llvm-project-$version.src.tar.xz.sig")

@@ -22,11 +22,5 @@
 
 vim.g.mapleader = " "
 
--- Setup packer
-require "nvim-config.packer"
-
--- Load plugins
-require "nvim-config.plugins"
-
--- Load options
-require "nvim-config.options"
+-- Load config
+require("nvim-config")

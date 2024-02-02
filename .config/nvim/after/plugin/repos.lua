@@ -8,7 +8,7 @@ local map_opts = { noremap = true, silent = true }
 
 repos.setup({
     callbacks = {
-        ["git@github.com:llvm/llvm-project"] = function(root)
+        ["llvm-project"] = function(root)
             local augroup = autogroup("llvm", group_opts)
 
             autocmd("FileType", {

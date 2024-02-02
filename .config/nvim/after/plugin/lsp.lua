@@ -39,14 +39,14 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-f>'] = cmp_action.luasnip_jump_forward(),
         ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-u>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
     },
     -- FIXME: This is not working as it should
     formatting = {
         fields = {'abbr', 'kind', 'menu'},
         format = require('lspkind').cmp_format({
-            mode = 'symbol',
+            mode = 'symbol_text',
             preset = 'codicons',
             maxwidth = 50,
             ellipsis_char = '...',
@@ -119,7 +119,7 @@ local function get_clang_executable()
         '/usr/bin/clangd'
     }
 
-    for i, clangd in ipairs(clangd_locations) do
+    for _, clangd in ipairs(clangd_locations) do
         if io.open(clangd, 'r') ~= nil then
             return clangd
         end
@@ -128,15 +128,38 @@ local function get_clang_executable()
     return stdpath('data') .. '/mason/bin/clangd'
 end
 
+local function get_cpu_count()
+    local handle = io.popen("nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1")
+
+    if handle == nil then
+        return "1"
+    end
+
+    local result = handle:read("*a")
+
+    if result == nil then
+        return "1"
+    end
+
+    handle:close()
+    return string.gsub(result, "\n", "")
+end
+
 require('lspconfig').clangd.setup({
-    cmd = {get_clang_executable()},
+    cmd = { get_clang_executable(),
+        "-j",
+        get_cpu_count(),
+        "--pch-storage=memory",
+        "--malloc-trim",
+        "--header-insertion=never",
+        "--completion-style=bundled",
+        "--clang-tidy",
+        "--background-index",
+    },
     on_attach = function(_, bufnr)
         local opts = {buffer = bufnr, silent = true, remap = false}
 
         require("clangd_extensions").setup({
-            inlay_hints = {
-                inline = false,
-            },
             ast = {
                 role_icons = {
                     type = "",
@@ -168,7 +191,7 @@ require('lspconfig').clangd.setup({
         require("clangd_extensions.inlay_hints").set_inlay_hints()
 
         map("n", "<leader>h", ":ClangdSwitchSourceHeader<CR>", opts)
-        map("n", "<leader>cf", ":%!clang-format %<CR>", opts)
+        map({"n", "v"}, "<leader>cf", ":pyf ~/files/Dev/llvm-project/main/clang/tools/clang-format/clang-format.py<CR>", opts)
         map({"n", "v"}, "<leader>ca", ":ClangdAST<CR>", opts)
         map({"n", "v"}, "<leader>cm", ":ClangdMemoryUsage<CR>", opts)
         map({"n", "v"}, "<leader>cs", ":ClangdSymbolInfo<CR>", opts)

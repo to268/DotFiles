@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 file="$1"
 type=$(file --dereference --brief --mime-type "$1")
@@ -13,6 +13,12 @@ censor(){
         exit
     fi
 
+    if [[ $file == *".env"* ]]
+    then
+        echo "🛑 Preview censored 🛑"
+        exit
+    fi
+
     case "$label_type" in
         "OpenSSH private key") echo "🛑 Preview censored 🛑";;
         *) get_mime;;
@@ -22,8 +28,7 @@ censor(){
 get_mime(){
     case "$type" in
         video/*|audio/*|application/octet-steam) mediainfo "$file";;
-        # I hope that sixel support will be available in lf
-        image/*) mediainfo "$file" && img2sixel -w 512 "$file";;
+        image/*) mediainfo "$file" && img2sixel "$file";;
         text/x-shellscript) highlight --out-format=ansi "$file";;
         text/*|*/xml|application/json) highlight --out-format=ansi --force "$file";;
         application/vnd.oasis.opendocument.text|*opendocument*) odt2txt "$1";;

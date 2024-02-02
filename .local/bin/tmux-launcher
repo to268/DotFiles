@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+old=$IFS
+IFS=$'\n'
+NEW_SESSION="New-Session"
+
+tmux_no_sessions() {
+    # Launch project selector
+    tmux-project-selector
+}
+
+tmux_sessions() {
+    sessions=($NEW_SESSION)
+    sessions+=($(tmux ls | cut -d':' -f1))
+    sorted_sessions=($(for i in "${sessions[@]}"; do echo $i; done | sort))
+    selected=$(echo ${sorted_sessions[*]} | tr ' ' '\n' | fuzzel -d 2> /dev/null)
+    [ -z $selected ] && exit
+
+    # Launch project if new session is selected, else just attach the selected session
+    if [ $selected == $NEW_SESSION ]; then
+        tmux-project-selector
+    else
+        tmux attach -t $selected
+    fi
+}
+
+# Check if sessions are available
+tmux has-session 2> /dev/null
+[ $? != 0 ] && tmux_no_sessions || tmux_sessions
+
+IFS=$old

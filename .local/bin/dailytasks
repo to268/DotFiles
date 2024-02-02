@@ -2,8 +2,7 @@
 
 git_repos_update() {
     echo -e "\e[1m[*] Git repos:\e[0m"
-    repos=($(find $HOME/files/Dev -maxdepth 2 -type d -name ".git" | sed 's/.git//'))
-    repos+=($(find $HOME/files/Dev/repos -maxdepth 2 -type d -name ".git" | sed 's/.git//'))
+    repos=($(find $HOME/files/Dev/repos -maxdepth 2 -type d -name ".git" | sed 's/.git//'))
 
     for i in "${repos[@]}"
     do
@@ -28,28 +27,37 @@ git_bare_repos_update() {
 
         git fetch --all
         worktrees=($(git worktree list | grep "\[.*\]" | cut -d' ' -f1))
+        remotes=$(git remote -v | grep "upstream")
 
         for j in "${worktrees[@]}"
         do
             pushd "$j" > /dev/null
-            echo "[-] Worktree $(basename $PWD):"
+            wk_name=$(basename $PWD)
+            echo "[-] Worktree $wk_name:"
 
-            git stash
-            git pull --rebase
-            git stash pop
+            if [ $wk_name == "main" ]; then
+                git reset --hard HEAD
+                git pull --rebase
+                continue
+            fi
 
+            # Get type: pr or other
+            wt_type="$(echo $wk_name | cut -d'-' -f1)"
+            # Get pr id (or remaining part)
+            wt_pr_id="$(echo $wk_name | cut -d'-' -f2)"
+
+            # Get PR nb from the branch name
+            if [ $wt_type == "pr" ]; then
+                gh pr checkout -b $wk_name --force $wt_pr_id
+                continue
+            fi
+
+            echo "skipped"
             popd > /dev/null
         done
 
         popd > /dev/null
     done
-}
-
-neovim_update() {
-    echo -e "\e[1m[*] Updating Neovim plugins:\e[0m"
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-    nvim --headless -c 'TSUpdate' -c 'quitall'
-    nvim --headless -c 'MasonUpdate' -c 'quitall'
 }
 
 rustup_update() {
@@ -59,10 +67,16 @@ rustup_update() {
     rustup update
 }
 
+# Builds
+
+build_neovim() {
+    echo -e "\e[1m\n[*] Build Neovim:\e[0m"
+    [ -f $HOME/.local/bin/build-neovim ] && $HOME/.local/bin/build-neovim
+}
+
 # Updates
 git_repos_update
 git_bare_repos_update
-neovim_update
 rustup_update
 
 # Builds

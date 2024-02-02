@@ -16,5 +16,4 @@ cmake -G "Ninja" -S llvm -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUI
 -DLLVM_USE_SPLIT_DWARF=ON -DLLVM_OPTIMIZED_TABLEGEN=ON -DLLVM_INSTALL_UTILS=ON \
 -DCMAKE_INSTALL_PREFIX=$install_prefix
 
-cd build && time ninja
-#sudo ninja install
+cd build && time (ninja && strip lib/libclang.so)

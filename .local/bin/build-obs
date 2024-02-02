@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "[*] Fetching releases"
-release_tag="$(curl -s "https://github.com/obsproject/obs-studio/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/obsproject/obs-studio/releases/tag/" | head -n1 | xargs basename)"
+release_tag="$(curl -s "https://github.com/obsproject/obs-studio/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/obsproject/obs-studio/releases/tag/" | grep -v "beta\|rc" | head -n1 | xargs basename)"
 cef_binary_version="5060"
 
 # Build options

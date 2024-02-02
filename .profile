@@ -58,5 +58,7 @@ else
 fi
 
 # Load ssh-keys
-eval `ssh-agent` >/dev/null
-ssh-add -q
+eval `ssh-agent` > /dev/null
+for i in ~/.ssh/*.pub; do
+    ssh-add -q ${i%.*}
+done

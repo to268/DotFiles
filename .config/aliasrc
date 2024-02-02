@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Aliases
-alias l="logo-ls -D"
+alias l="eza --icons"
 alias ccat="bat"
 alias dmenu_run="dmenu_run -nb '#3c3836' -nf '#ebdbb2' -sb '#fb4934' -sf '#ebdbb2'"
 alias ffmpeg="ffmpeg -hide_banner"
@@ -10,8 +10,8 @@ alias fop="fzf --bind 'enter:execute(smartopen {})'"
 alias fzf="fzf --reverse"
 alias hex="hexyl"
 alias hfzf="rg --hidden --no-ignore --files --no-messages | fzf"
-alias ll="exa --group-directories-first -l"
-alias m="man"
+alias ll="eza --icons --group-directories-first -l"
+alias m="batman"
 alias rsm="doas rsm"
 alias nv="LD_LIBRARY_PATH=\"$(pwd);$LD_LIBRARY_PATH\" nvim"
 alias p="doas pacman"

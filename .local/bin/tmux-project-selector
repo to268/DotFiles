@@ -1,12 +1,31 @@
 #!/usr/bin/env bash
 
+old=$IFS
+IFS=$'\n'
+
 [ $# -eq 1 ] && cmd=$1
 
 if [[ $# -eq 2 ]]; then
     selected=$2
 else
-    items+=$(find ~/files/Dev -maxdepth 1 -mindepth 1 -type d | sed "/examples/d;/repos/d" | tr "\n" "\n")
-    selected=$(echo "$items" | fzf)
+    projects=($(find ~/files/Dev -maxdepth 1 -mindepth 1 -type d | sed "/examples/d;/repos/d"))
+    projects+=($(find ~/files/Dev/pico -maxdepth 1 -mindepth 1 -type d))
+    projects+=($(find ~/files/Dev/univ -maxdepth 1 -mindepth 1 -type d))
+
+    for project in ${projects[@]}; do
+        pushd "$project" > /dev/null
+        is_bare="$(git rev-parse --is-bare-repository 2> /dev/null)"
+
+        if [ "$is_bare" == "true" ]; then
+            projects+=($(git worktree list | awk '{print $1}' | sed '1d'))
+        fi
+
+        popd > /dev/null
+    done
+
+    sorted_projects=($(for i in "${projects[@]}"; do echo $i; done | sort))
+    selected=$(echo "${sorted_projects[*]}" | fuzzel -d 2> /dev/null)
+    [ -z $selected ] && exit
 fi
 
 project_name=`basename $selected | tr . _`
@@ -17,3 +36,5 @@ if [[ $? -eq 0 ]]; then
 fi
 
 tmux new-session -c $selected -d -s $project_name $cmd && tmux switch-client -t $project_name || tmux new -c $selected -A -s $project_name
+
+IFS=$old

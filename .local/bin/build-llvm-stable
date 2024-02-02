@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-echo "[*] Fetching urls"
 
+echo "[*] Fetching urls"
 release_tag="$(curl -s "https://github.com/llvm/llvm-project/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/llvm/llvm-project/releases/tag/" | grep -v "rc" | head -n1 | xargs basename)"
 version=$(echo $release_tag | sed "s/llvmorg-//")
 base_url="https://github.com/llvm/llvm-project/releases/download/$release_tag"
@@ -12,6 +12,8 @@ sources=()
 workdir=$HOME/llvm-release
 install_path="/usr/local/llvm"
 linker_name="$($HOME/.local/bin/get-linker)"
+#projects="bolt;clang;clang-tools-extra;cross-project-tests;flang;libc;libclc;lld;lldb;mlir;openmp;polly;pstl"
+#projects="bolt;clang;clang-tools-extra;libc;libclc;lld;lldb;mlir;openmp;polly;pstl"
 projects="bolt;clang;clang-tools-extra;lld;lldb;mlir;openmp;polly;pstl"
 runtimes="compiler-rt;libcxx;libcxxabi;libunwind"
 

@@ -6,12 +6,12 @@ cc_path="$($HOME/.local/bin/get-cc-path)"
 build_flags="-DCMAKE_C_COMPILER=$cc_path"
 
 cp -r $neovim_source $HOME
-sudo rm -rf /usr/local/neovim
 cd $HOME/neovim
 
 make CMAKE_EXTRA_FLAGS="$build_flags" DEPS_CMAKE_FLAGS="$build_flags" \
 CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=$neovim_path
 
+sudo rm -rf /usr/local/neovim/*
 sudo make install
 
 cd ..

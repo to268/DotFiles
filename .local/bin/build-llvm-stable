@@ -1,23 +1,13 @@
 #!/usr/bin/env bash
 
-echo "[*] Fetching urls"
-release_tag="$(curl -s "https://github.com/llvm/llvm-project/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/llvm/llvm-project/releases/tag/" | grep -v "rc" | head -n1 | xargs basename)"
-version=$(echo $release_tag | sed "s/llvmorg-//")
-base_url="https://github.com/llvm/llvm-project/releases/download/$release_tag"
-urls=("$base_url/llvm-project-$version.src.tar.xz" "$base_url/llvm-project-$version.src.tar.xz.sig")
-basenames=()
-sources=()
-
 # Build options
 workdir=$HOME/llvm-release
 install_path="/usr/local/llvm"
 linker_name="$($HOME/.local/bin/get-linker)"
-#projects="bolt;clang;clang-tools-extra;cross-project-tests;flang;libc;libclc;lld;lldb;mlir;openmp;polly;pstl"
-#projects="bolt;clang;clang-tools-extra;libc;libclc;lld;lldb;mlir;openmp;polly;pstl"
-projects="bolt;clang;clang-tools-extra;lld;lldb;mlir;openmp;polly;pstl"
-runtimes="compiler-rt;libcxx;libcxxabi;libunwind"
+projects="bolt;clang;clang-tools-extra;cross-project-tests;libclc;lld;lldb;mlir;openmp;polly"
+runtimes="compiler-rt;libcxx;libcxxabi;libunwind;pstl"
 
-# I can use only system compilers, sadly
+# I can only use system compilers, sadly
 clang_c_path=$(whereis clang | cut -d' ' -f2)
 clang_cxx_path=$(whereis clang++ | cut -d' ' -f2)
 gcc_c_path=$(whereis gcc | cut -d' ' -f2)
@@ -25,42 +15,15 @@ gcc_cxx_path=$(whereis g++ | cut -d' ' -f2)
 [ ! -z $clang_c_path ] && cc_path=$clang_c_path || cc_path=$gcc_c_path
 [ ! -z $clang_cxx_path ] && cxx_path=$clang_cxx_path || cxx_path=$gcc_cxx_path
 
-for url in "${urls[@]}"
-do
-    name=$(basename "$url")
-    basenames+=("$name")
-    sources+=("$url")
-done
+echo "[*] Fetching latest tag"
+release_tag="$(curl -s "https://github.com/llvm/llvm-project/releases" -o - | grep -Po '(?<=href=")[^"]*' | grep "^/llvm/llvm-project/releases/tag/" | grep -v "rc" | head -n1 | xargs basename)"
 
-[ ! -d $workdir ] && mkdir $workdir
-pushd $workdir > /dev/null
-
-echo "[*] Downloading ${#sources[@]} files"
-sources_count=${#sources[@]}
-for (( i=0; i<${sources_count}; i++ ));
-do
-    url="${sources[$i]}"
-    output="${basenames[$i]}"
-
-    if [ ! -f "$output" ]
-    then
-        echo "Downloading $output"
-        curl -L $url -o $output
-    fi
-done
-
-
-echo "[*] Checking integrity"
-
-file="${basenames[0]}"
-directory="${file%.*}"
-directory="${directory%.*}"
-
-gpg --verify "$file.sig" $file 2> /dev/null && echo "$file: OK" || exit 1
+echo "[*] Cloning repo at $release_tag"
+git clone --depth 1 https://github.com/llvm/llvm-project.git -b $release_tag $workdir
 
 echo "[*] Compiling llvm-project"
-tar -xvf $file
-cd $directory
+pushd $workdir > /dev/null
+ulimit -n 16384
 
 cmake -G "Ninja" -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$cc_path \
 -DCMAKE_CXX_COMPILER=$cxx_path -DLLVM_USE_LINKER=$linker_name -DLLVM_OPTIMIZED_TABLEGEN=ON \
@@ -72,9 +35,8 @@ cmake -G "Ninja" -S llvm -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=
 cd build
 time ninja && time ninja check-all
 sudo rm -rf "$install_path/*" && sudo ninja install
-cd ..
 
 popd > /dev/null
-rm -rf $HOME/llvm-release
+rm -rf $workdir
 
 echo "[*] Done"

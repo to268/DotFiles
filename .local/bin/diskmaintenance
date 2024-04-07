@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Trim supported devices in fstab
 echo "[*] Trim:"
 sudo fstrim -v -A

@@ -1,0 +1,71 @@
+* {
+    all: unset;
+    font-family: IntelOne;
+    font-size: 1rem;
+}
+
+.bar {
+    background-color: rgba(40, 40, 40, 0.9);
+}
+
+.sidestuff {
+    color: #fbf1c7;
+}
+
+.audio {
+    color: #fbf1c7;
+    padding-right: 10px;
+}
+
+.music {
+    color: #fbf1c7;
+}
+
+.network {
+    color: #fbf1c7;
+    padding-right: 10px;
+}
+
+.clock {
+    color: #fbf1c7;
+    padding-right: 10px;
+}
+
+.language {
+    color: #fbf1c7;
+    padding-right: 10px;
+}
+
+.battery {
+    color: #fbf1c7;
+    padding-right: 10px;
+}
+
+.w0, .w01, .w02, .w03, .w04, .w05, .w06, .w07, .w08, .w09, .w010, .w011, .w022, .w033,
+.w044, .w055, .w066, .w077, .w088, .w099, .w0109, .w01010 {
+    padding: 3px 8px;
+    font-weight: bold;
+}
+
+/* Unoccupied */
+.w0 {
+    color: #504945;
+}
+
+/* Occupied */
+.w01, .w02, .w03, .w04, .w05, .w06, .w07, .w08, .w09, .w010 {
+    color: #fbf1c7;
+}
+
+/* Focused */
+.w011, .w022, .w033, .w044, .w055, .w066, .w077, .w088, .w099, .w01010 {
+    color: #fb4934;
+}
+
+.workspace {
+    padding: 0 6px;
+}
+
+.workspace button:hover {
+    color: #fabd2f;
+}

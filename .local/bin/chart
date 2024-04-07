@@ -3,5 +3,5 @@
 # Get the chart of the currency of today
 [ -z $1 ] && echo "The currency parameter is reqired !" && exit
 
-ping -q -c 1 8.8.8.8 >/dev/null || exit
+ping -q -c 1 1.1.1.1 >/dev/null || exit
 echo "$(curl -s rate.sx/"$1"@1d)"

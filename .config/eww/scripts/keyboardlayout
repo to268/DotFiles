@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "⌨️  $(hyprctl devices | grep -A 2 "at-translated-set-2-keyboard" | awk 'NR==3 {print $3}')"

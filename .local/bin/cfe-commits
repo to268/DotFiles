@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+current_week=$(curl -s "https://lists.llvm.org/pipermail/cfe-commits/" | head -n30 | grep "Week-of.*/date.html" | cut -d'"' -f2)
+lynx "https://lists.llvm.org/pipermail/cfe-commits/$current_week"

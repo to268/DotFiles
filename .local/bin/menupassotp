@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+shopt -s nullglob globstar
+
+prefix=${PASSWORD_STORE_DIR-~/.password-store}
+otp_files=( "$prefix"/otp/*.gpg )
+otp_files=( "${otp_files[@]#"$prefix"/}" )
+otp_files=( "${otp_files[@]%.gpg}" )
+
+otp=$(printf '%s\n' "${otp_files[@]}" | sed "s/otp\///" | fuzzel --log-level=warning -d -i "$@")
+
+[[ -n $otp ]] || exit
+pass otp -c otp/$otp

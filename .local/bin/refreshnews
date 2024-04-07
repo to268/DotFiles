@@ -2,10 +2,9 @@
 
 # Set as a cron job to check for new RSS entries for newsboat.
 
-ping -q -c 1 8.8.8.8 > /dev/null || exit
+ping -q -c 1 1.1.1.1 > /dev/null || exit
 
-#/usr/bin/notify-send "📰 Updating RSS feeds..."
+pgrep -f newsboat > /dev/null
+[ $? -eq 0 ] && exit
 
-pgrep -f newsboat$ && /usr/bin/xdotool key --window "$(/usr/bin/xdotool search --name newsboat)" R && exit
-
-/usr/bin/newsboat -x reload
+newsboat -x reload

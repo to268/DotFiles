@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+# This script let's you mount Normal Drives, Encrypted Drives and Phones with the mtp protocol
+
+check_fs_compactibility() {
+    case "$1" in
+        "vfat") pkg="mtools";;
+        "ntfs") pkg="mtools";;
+        "btrfs") pkg="btrfs-progs";;
+        "xfs") pkg="xfsprogs";;
+        *) return 0;;
+    esac
+    [ -z "$(sudo pacman -Qq $pkg 2>/dev/null)"] && notify-send --urgency=normal "📦 Error, Missing a package !" "Missing $pkg package to use $1" && return 1
+    return 0
+}
+
+normal_mount() {
+    [ -z $(lsblk -rpo "name,fstype,type,mountpoint" | grep 'part\|rom') ] && notify-send --urgency=normal "💽 Error No Drive found !" "check if the Drive is avariable" && exit
+    choice=$(lsblk -rpo "name,fstype,type,mountpoint" | grep 'part\|rom' | awk '$4==""{printf "%s (%s)\n",$1,$2}' | fuzzel --log-level=warning -d -i -p 'Which Drive: ')
+    disk=$(echo $choice | sed "s/ .*$//")
+    fs=$(echo $choice | awk '{ print $2 }' | sed "s/(//;s/)//")
+    [ -z $disk ] && exit
+    # Check for filesystem support
+    check_fs_compactibility $fs
+    [ $? == 1 ] && exit
+    point=$(echo -e "/media/usb/\n/mnt/disk\n$HOME/usb\n$HOME/disk" | fuzzel --log-level=warning -d -i -p 'Where to mount the Drive: ')
+    [ -z $point ] && exit
+    stat $point > /dev/null
+    [ $? == 1 ] && sudo mkdir -p $point
+    sudo mount $disk $point
+    sudo chown $(whoami):$(whoami) $point
+    notify-send --urgency=normal "💽 Drive $disk has been mounted" "$disk is now mounted at $point"
+    exit
+}
+
+encrypted_mount() {
+    # Check for cryptsetup
+    [ -z "$(sudo pacman -Qq cryptsetup 2>/dev/null)" ] && notify-send --urgency=normal "📦 Error, Missing a package !" "Missing cryptsetup package" && exit
+    [ -z $(lsblk -rpo "fstype" | grep "crypto_LUKS") ] && notify-send --urgency=normal "🔒 Error No Encrypted Drive found !" "check if the Encrypted Drive is avariable" && exit
+    choice=$(lsblk -rpo "name,fstype,type,mountpoint" | grep 'crypto_LUKS' | awk '$4==""{printf "%s (%s)\n",$1,$2}' | fuzzel --log-level=warning -d -i -p 'Which Drive: ')
+    disk=$(echo $choice | sed "s/ .*$//")
+    [ -z $disk ] && exit
+    point=$(echo -e "/media/cryptusb/\n/mnt/cryptdisk\n/media/usb/\n/mnt/disk\n$HOME/usb\n$HOME/disk\n$HOME/cryptusb\n$HOME/cryptdisk" | fuzzel --log-level=warning -d -i -p 'Where to mount the Drive: ')
+    [ -z $point ] && exit
+    label=$(echo $point | awk -F"/" '{ if ( $4 )  { print $4 }  else { print $3 } }')
+    # Ask pass in a new terminal
+    $TERMINAL -e sudo cryptsetup luksOpen "$disk" "$label"
+    mapper="/dev/mapper/$label"
+    stat $mapper > /dev/null
+    [ $? != 0 ] && notify-send --urgency=normal "🔐 Error when decrypting the Drive !" "Password error or decrypting error" && exit
+    # Check for filesystem support
+    fs=$(lsblk -rpo "name,fstype" | grep $mapper | awk '{ print $2 }')
+    check_fs_compactibility $fs
+    [ $? == 1 ] && sudo cryptsetup luksClose "$mapper" && exit
+    stat $point > /dev/null
+    [ $? == 1 ] && sudo mkdir -p $point
+    # Mounting with noatime
+    sudo mount $mapper $point -o noatime
+    sudo chown $(whoami):$(whoami) $point
+    notify-send --urgency=normal "🔓 Encrypted Drive $disk has been mounted" "$mapper is now mounted at $point"
+    exit
+}
+
+phone_mount() {
+    # Check for simple-mtpfs
+    [ -z "$(sudo pacman -Qq simple-mtpfs 2>/dev/null)" ] && notify-send --urgency=normal "📦 Error, Missing a package !" "Missing simple-mptfs (aur) package" && exit
+    [ -z "$(simple-mtpfs -l 2>/dev/null)" ] && notify-send --urgency=normal "📱 Error No phone found !" "Check if your phone is connected correctly and allow access to it" && exit
+    phone=$(echo -e "$(simple-mtpfs -l 2>/dev/null)" | fuzzel --log-level=warning -d -i -p 'Which Phone: ')
+    [ -z "$phone" ] && exit
+    point=$(echo -e "$HOME/phone\n$HOME/cell" | fuzzel --log-level=warning -d -i -p 'Where to mount the Drive: ')
+    [ -z "$point" ] && exit
+    stat $point > /dev/null
+    [ $? == 1 ] && mkdir $point
+    simple-mtpfs --device "$(echo $phone | head -c 1)" "$point"
+    [ $? != 0 ] && notify-send --urgency=normal "📱 Error The phone cannot be mount !" " Check if you have authorized storage access on your phone" && exit
+    phone_name=$(echo $phone | sed "s/ (.*$//;s/^[0-9]: //")
+    notify-send --urgency=normal "📲 Phone $phone_name has been mounted" " $phone_name is now mounted at $point"
+    exit
+}
+
+kind=$(echo -e "💽 Normal\n🔒 Encrypted\n📱 Phone" | fuzzel --log-level=warning -d -i -p "Type of device to mount: ")
+case "$kind" in
+    "💽 Normal") normal_mount;;
+    "🔒 Encrypted") encrypted_mount;;
+    "📱 Phone") phone_mount;;
+    *) exit;;
+esac

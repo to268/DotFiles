@@ -1,3 +1,4 @@
+# TODO: Needs update
 adobe-source-han-sans-kr-fonts
 alsa-oss
 alsa-utils

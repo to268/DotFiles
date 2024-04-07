@@ -58,6 +58,7 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio",
         },
         opts = {
             handlers = {},

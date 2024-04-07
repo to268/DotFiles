@@ -1,0 +1,173 @@
+(defwidget bar0 []
+(box :class "bar"
+  (centerbox :orientation "h"
+    (workspaces0)
+    (music)
+    (sidestuff)))
+)
+
+(defwidget bar1 []
+(box :class "bar"
+  (centerbox :orientation "h"
+    (workspaces1)
+    (music)
+    (sidestuff)))
+)
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+   (language)
+   (audio)
+   (battery)
+   (network)
+   (clock)
+   ;; (test_button)
+    ))
+
+(defwidget test_button []
+  (eventbox
+       :onhover "notify-send Hover"
+       :onhoverlost "notify-send Hoverlost"
+  (box :class "btns-box" :spacing 5
+       :vexpand true :hexpand true
+       :valign "end" :halign "end"
+       :space-evenly false
+    (button
+      :class "test"
+      :onclick "notify-send Left"
+      :onrightclick "notify-send Right"
+      "Click Me!"))))
+
+(deflisten workspace0
+  "scripts/workspace 0")
+
+(defwidget workspaces0 []
+  (literal :content workspace0))
+
+(deflisten workspace1
+  "scripts/workspace 1")
+
+(defwidget workspaces1 []
+  (literal :content workspace1))
+
+(defwidget language []
+  (box :class "language"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :spacing 10
+    (button
+        :class ""
+	:onclick "scripts/keyboardlayout toggle"
+        language)
+))
+
+(defwidget clock []
+  (box :class "clock"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    (button
+        :class ""
+	:onclick "scripts/calendarow"
+        date-time)
+))
+
+(defwidget audio []
+  (box :class "audio"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :spacing 10
+    (button
+        :class ""
+	:onclick "scripts/volumecontrol down"
+        :onmiddleclick "scripts/volumecontrol mute"
+	:onrightclick "scripts/volumecontrol up"
+        volume)
+))
+
+
+(defwidget network []
+  (box :class "network"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :spacing 10
+    (button
+        :class ""
+	:onclick "scripts/networkowInfo"
+        network)
+))
+
+(defwidget battery []
+  (box :class "battery"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :spacing 10
+    (button
+        :class ""
+	:onclick "scripts/battery --c left-click"
+        :onmiddleclick "scripts/battery --c middle-click"
+	:onrightclick "scripts/battery --c right-click"
+        battery)
+))
+
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
+       :spacing 10
+    (button
+        :class ""
+	:onclick "scripts/music --c left-click"
+        :onmiddleclick "scripts/music --c middle-click"
+	:onrightclick "scripts/music --c right-click"
+        music)
+))
+
+(defpoll music :interval "1s"
+  "~/.local/bin/mpd-status")
+
+(defpoll battery :interval "5s"
+  "scripts/battery --c status")
+
+(defpoll language :interval "1s"
+  "scripts/keyboardlayout")
+
+(defpoll network :interval "5s"
+  "scripts/network")
+
+(defpoll volume :interval "1s"
+  "scripts/volumecontrol")
+
+(defpoll date-time :interval "5s"
+  "scripts/clock")
+
+(defwindow bar0
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "20px"
+                      :anchor "top center")
+  :stacking "bg"
+  :exclusive true
+  :focusable false
+  (bar0))
+
+(defwindow bar1
+  :monitor 1
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "20px"
+                      :anchor "top center")
+  :stacking "bg"
+  :exclusive true
+  :focusable false
+  (bar1))

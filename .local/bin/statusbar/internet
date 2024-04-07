@@ -67,7 +67,7 @@ get_status() {
 
 # Ping test
 test_interface() {
-    ping -w $max_timeout -c 1 8.8.8.8 >/dev/null || return 0
+    ping -w $max_timeout -c 1 1.1.1.1 >/dev/null || return 0
     return 1
 }
 

@@ -10,7 +10,7 @@ if [[ $# -eq 2 ]]; then
 else
     projects=($(find ~/files/Dev -maxdepth 1 -mindepth 1 -type d | sed "/examples/d;/repos/d"))
     projects+=($(find ~/files/Dev/pico -maxdepth 1 -mindepth 1 -type d))
-    projects+=($(find ~/files/Dev/univ -maxdepth 1 -mindepth 1 -type d))
+    #projects+=($(find ~/files/Dev/univ -maxdepth 1 -mindepth 1 -type d))
 
     for project in ${projects[@]}; do
         pushd "$project" > /dev/null

@@ -50,7 +50,7 @@ end, opts)
 
 map("n", "<leader>dc", function()
     require('telescope-doc').open_path({
-        cwd = '$HOME/files/ext/shared/pdf/'
+        cwd = '$HOME/files/ext/data/pdf/'
     })
 end, opts)
 

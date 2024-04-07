@@ -3,7 +3,7 @@
 icon="🐉 "
 
 # Check is whe can reach internet
-ping -w 4 -c 1 8.8.8.8 >/dev/null || echo "$icon no internet !"
+ping -w 4 -c 1 1.1.1.1 >/dev/null || echo "$icon no internet !"
 
 passed=$(curl -s "https://green.lab.llvm.org/green/api/json?pretty=true" | jq | grep '"color": "blue"' | wc -l)
 failed=$(curl -s "https://green.lab.llvm.org/green/api/json?pretty=true" | jq | grep '"color": "red"' | wc -l)

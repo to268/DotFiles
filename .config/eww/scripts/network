@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# Show 🌐 for wired connexion or 📶 for wireless connexion or 🔒 when a vpn is detected or ❎ when internet is down.
+
+# Interface name to get the ip in first (if is true vpn will appear before this interface) (set nothing in quotes to auto find it)
+interface="enp0s3"
+
+# Use auto_find_interface function to find another interface when the interface to focus is not found or down (0 = false, 1 = true)
+use_fallback_method=1
+
+# Test if Internet is working (0 = false, 1 = true)
+test_ping=0
+
+# Max timeout for the test (in seconds)
+max_timeout=1
+
+# Display vpn first if is running (0 = false, 1 = true)
+display_vpn_first=1
+
+# Path to interfaces
+path="/sys/class/net/"
+
+auto_find_interface() {
+    for i in $(ls $path | grep -v "lo\|docker\|vnet\|virbr")
+    do
+        get_ip $i 0
+    done
+    no_internet
+}
+
+# Print no internet and exit
+no_internet() {
+    echo "❎"
+    exit
+}
+
+# $1 = interface name, $2 type to set if it's a vpn or not
+get_ip() {
+    get_status $1
+    [ $? == 0 ] && return
+    [ $test_ping == 1 ] && test_interface && [ $? == 0 ] && return
+    ip="$(ip -4 -o a show | grep $1 | awk '{print $4}' | sed 's|/.*$||')"
+    [ -z "$ip" ] && return
+    [ $2 -eq 2 ] && print_status 2 $ip
+    case "$1" in
+        wl*) print_status 1 $ip;;
+        *) print_status 0 $ip;;
+    esac
+}
+
+check_vpn_runing() {
+    # Openvpn
+    openvpn="$(ls $path | grep tun)"
+    [ ! -z $openvpn ] && get_ip $openvpn 2
+    # Wireguard
+    wireguard="$(ls $path | grep wg)"
+    [ ! -z $wireguard ] && get_ip $wireguard 2
+}
+
+# $1 = interface name, Return 1 of interface is up otherwise 0
+get_status() {
+    [[ "$1" == *"tun"* ]] && return 1
+    [[ "$1" == *"wg"* ]] && return 1
+    [ $(cat $path$1/operstate) == "up" ] && return 1
+    return 0
+}
+
+# Ping test
+test_interface() {
+    ping -w $max_timeout -c 1 1.1.1.1 >/dev/null || return 0
+    return 1
+}
+
+# $1 = interface type, $2 = ip
+print_status() {
+    strenght=$(awk '/^\s*w/ { print "", int($3 * 100 / 70) "%" }' /proc/net/wireless)
+    [ $1 -eq 0 ] && echo "🌐 $2" && exit
+    [ $1 -eq 2 ] && echo "🔒 $2$strenght" && exit
+    echo "📶 $2$strenght"
+    exit
+}
+
+[ $display_vpn_first == 1 ] && check_vpn_runing
+# Check if interface var is empty
+[ -z $interface ] && auto_find_interface
+
+# Find interface name
+for i in $(ls $path)
+do
+   [ "$i" = "$interface" ] && get_ip $i 0 && no_internet
+done
+
+# auto choose if interface is not found and if it's authorized
+[ $use_fallback_method == 1 ] && auto_find_interface && exit
+
+no_internet

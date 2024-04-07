@@ -1,10 +1,10 @@
 [Groups/0]
 # Group Name
-Name="Group 2"
+Name=Default
 # Layout
 Default Layout=us
 # Default Input Method
-DefaultIM=keyboard-us
+DefaultIM=hangul
 
 [Groups/0/Items/0]
 # Name
@@ -12,26 +12,63 @@ Name=keyboard-us
 # Layout
 Layout=
 
-[Groups/1]
-# Group Name
-Name="Group 1"
-# Layout
-Default Layout=us-true-dvorak
-# Default Input Method
-DefaultIM=hangul
-
-[Groups/1/Items/0]
+[Groups/0/Items/1]
 # Name
-Name=keyboard-us-true-dvorak
+Name=keyboard-se
 # Layout
 Layout=
 
-[Groups/1/Items/1]
+[Groups/0/Items/2]
+# Name
+Name=keyboard-ru
+# Layout
+Layout=
+
+[Groups/0/Items/3]
 # Name
 Name=hangul
 # Layout
 Layout=
 
+[Groups/1]
+# Group Name
+Name=Other
+# Layout
+Default Layout=us
+# Default Input Method
+DefaultIM=keyboard-ma
+
+[Groups/1/Items/0]
+# Name
+Name=keyboard-us
+# Layout
+Layout=
+
+[Groups/1/Items/1]
+# Name
+Name=pinyin
+# Layout
+Layout=
+
+[Groups/1/Items/2]
+# Name
+Name=keyboard-th
+# Layout
+Layout=
+
+[Groups/1/Items/3]
+# Name
+Name=mozc
+# Layout
+Layout=
+
+[Groups/1/Items/4]
+# Name
+Name=keyboard-ma
+# Layout
+Layout=
+
 [GroupOrder]
-0="Group 1"
-1="Group 2"
+0=Default
+1=Other
+

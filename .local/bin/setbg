@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-[ -f "$HOME/.local/share/bg" ] && $bgdir="$HOME/.local/share/bg"
-
-[ -f "$1" ] && ln -sf "$(readlink -f "$1")" "$bgdir"
-
-[ -d "$1" ] && ln -sf "$(find "$(readlink -f "$1")" -iregex '.*.\(jpg\|jpeg\|png\|gif\)' -type f | shuf -n 1)" "$bgdir"
-
-xwallpaper --zoom ~/.config/wall.png

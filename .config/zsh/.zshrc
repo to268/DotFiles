@@ -1,8 +1,7 @@
 # Zoomer shell config
 
 # Base
-export PATH="/bin:/usr/bin:/usr/local/bin:/usr/local/sbin"
-source $HOME/.zprofile
+source $HOME/.profile
 setopt HIST_IGNORE_SPACE
 setopt PROMPT_SUBST
 setopt zle
@@ -88,13 +87,13 @@ export KEYTIMEOUT=1
 # Change cursor shape if vim mode is used
 function zle-keymap-select () {
     case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';;      # block
-        viins|main) echo -ne '\e[5 q';; # beam
+        vicmd) echo -ne '\e[2 q';;      # block
+        viins|main) echo -ne '\e[6 q';; # beam
     esac
 }
 
 zle -N zle-keymap-select
-precmd() { echo -ne '\e[5 q' }; # Set beam cursor shape
+precmd() { echo -ne '\e[6 q' };
 
 # Edit line in vim
 autoload edit-command-line; zle -N edit-command-line
@@ -112,6 +111,19 @@ lfcd () {
 }
 bindkey -s '^s' 'lfcd\n'
 
+# Trigger OSC7 to clone terminal in current working dir with foot
+autoload -U add-zsh-hook
+function osc7 {
+    local LC_ALL=C
+    export LC_ALL
+
+    setopt localoptions extendedglob
+    input=( ${(s::)PWD} )
+    uri=${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-\/])/%${(l:2::0:)$(([##16]#match))}}
+    print -n "\e]7;file://${HOSTNAME}${uri}\e\\"
+}
+add-zsh-hook -Uz chpwd osc7
+
 # Usefull Shortcuts
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
@@ -125,7 +137,7 @@ bindkey "^p" up-line-or-search
 bindkey "^n" down-line-or-search
 
 # Load fzf-tab
-source /usr/share/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh 2>/dev/null
+source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh 2>/dev/null
 
 # Load zsh-fast-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null

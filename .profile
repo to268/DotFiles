@@ -18,18 +18,15 @@ export PATH="$HOME/.local/bin/statusbar:$PATH"
 # Servals local programs
 export PATH=/usr/local/llvm/bin:$PATH
 #export PATH=/usr/local/llvm-dev/bin:$PATH
-export PATH=/usr/local/obs-studio/bin:$PATH
-export PATH=$HOME/.local/share/cargo/bin/:$PATH
 
 # Default programs:
 export EDITOR="nvim"
-export TERMINAL="st"
+export TERMINAL="foot"
 export BROWSER="firefox"
 export READER="zathura"
 
 # ~/ Clean-up:
 export LESSHISTFILE="-"
-export AlSA_CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/alsa/asoundrc"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 export CALCURSE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/calcurse"
@@ -40,23 +37,20 @@ export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/winepfx/default"
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
 export PASSWORD_STORE_CLIP_TIME=10
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
+export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup"
 export TMUX_TMPDIR="$XDG_CACHE_HOME"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
+export PSQL_HISTORY="$XDG_CACHE_HOME/psql_history"
+export PYTHON_HISTORY="$XDG_CACHE_HOME/python_history"
+export PIPX_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pipx"
+export PIPX_BIN_DIR="$HOME/.local/bin/pipx"
 
 # Other program settings:
 export LESS=-R
-export QT_QPA_PLATFORMTHEME="gtk2"      # Use gtk2 theme on QT
-export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm
 export LOCATION=""
-export GTK_THEME=Ant:Dark
 export MAKEFLAGS=-j$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1)
 
-if pacman -Qs libxft-bgra >/dev/null 2>&1; then
-	# Start graphical server on tty1 if not already running.
-	[ "$(tty)" = "/dev/tty1" ] && ! pidof Xorg >/dev/null 2>&1  && exec startx
-else
-    echo "You need to install libxft-bgra to avoid a crash !"
-fi
+[ "$(tty)" = "/dev/tty1" ] && ! pidof Hyprland >/dev/null 2>&1  && exec dbus-launch Hyprland
 
 # Load ssh-keys
 eval `ssh-agent` > /dev/null

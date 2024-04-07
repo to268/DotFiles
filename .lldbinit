@@ -1,0 +1,1 @@
+command script import ~/files/Dev/llvm-project/main/clang/utils/ClangDataFormat.py

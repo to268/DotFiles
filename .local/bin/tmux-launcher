@@ -20,7 +20,7 @@ tmux_sessions() {
     if [ $selected == $NEW_SESSION ]; then
         tmux-project-selector
     else
-        setsid -f $TERMINAL tmux attach -t $selected
+        setsid -f $TERMINAL bash -c "sleep 0.1 && tmux attach -t $selected"
     fi
 }
 

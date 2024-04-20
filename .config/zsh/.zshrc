@@ -54,7 +54,7 @@ git_info() {
   fi
 
   local -a GIT_INFO
-  GIT_INFO+=( "%F{011} $GIT_LOCATION%b%f" )
+  GIT_INFO+=( "%F{011}  $GIT_LOCATION%b%f" )
   [ -n "$GIT_STATUS" ] && GIT_INFO+=( "$GIT_STATUS" )
   [[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( ${(j::)DIVERGENCES} )
   [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( ${(j::)FLAGS} )

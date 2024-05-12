@@ -30,6 +30,10 @@ alias yt="youtube-dl --add-metadata -i"
 alias yta="yt -x -f bestaudio/best"
 alias ytv="pipe-viewer --player=mpv"
 alias cmd="cmake -G 'Ninja' -S . -B build"
+alias calcurse="calcurse -D .config/calcurse"
+alias synccal="calcurse-caldav --init=two-way --datadir $CALCURSE_DIR"
+alias synccallocal="calcurse-caldav --init=keep-local --datadir $CALCURSE_DIR"
+alias synccalremote="calcurse-caldav --init=keep-remote --datadir $CALCURSE_DIR"
 
 # Git Aliases
 alias g="git"

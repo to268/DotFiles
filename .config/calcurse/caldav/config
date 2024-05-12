@@ -1,7 +1,7 @@
 [General]
 Binary = calcurse
-Hostname = host
-Path = /remote.php/dav/calendars/user/personal
+Hostname = localhost
+Path = /path
 HTTPS = No
 DryRun = No
 Verbose = Yes
@@ -10,3 +10,4 @@ SyncFilter = cal
 
 [Auth]
 Username = user
+Password = password

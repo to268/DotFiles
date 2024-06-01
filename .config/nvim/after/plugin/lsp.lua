@@ -3,7 +3,6 @@ local cmp = require('cmp')
 local map = vim.keymap.set
 local cmp_select = { behavior = cmp.SelectBehavior.Replace }
 local cmp_action = require('lsp-zero').cmp_action()
-local rust_tools = require('rust-tools')
 
 require('mason-lspconfig').setup({
     ensure_installed = {
@@ -94,13 +93,11 @@ end)
 
 lsp_zero.setup()
 
-rust_tools.setup({
+vim.g.rustaceanvim = {
+    tools = {
+    },
     server = {
-        on_attach = function(_, bufnr)
-            local opts = {buffer = bufnr, silent = true, remap = false}
-
-            map('n', '<leader>rr', rust_tools.runnables.runnables, opts)
-            map('n', '<leader>rm', rust_tools.expand_macro.expand_macro, opts)
+        on_attach = function(_, _)
         end,
         settings = {
             ["rust-analyzer"] = {
@@ -109,8 +106,10 @@ rust_tools.setup({
                 }
             }
         }
-    }
-})
+    },
+    dap = {
+    },
+}
 
 local function get_clang_executable()
     local clangd_locations = {

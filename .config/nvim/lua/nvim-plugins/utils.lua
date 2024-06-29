@@ -37,7 +37,7 @@ return {
             { "<leader>ga", "<cmd>Git add -A<CR>" },
             { "<leader>gc", "<cmd>Git commit<CR>" },
             { "<leader>gch", "<cmd>GBranches<CR>" },
-            { "<leader>gd", "<cmd>Gdiffsplit<CR>" },
+            { "<leader>gd", "<cmd>Gvdiffsplit!<CR>" },
             { "<leader>gf", "<cmd>Git fetch --all<CR>" },
             { "<leader>gu", "<cmd>diffget //2<CR>" },
             { "<leader>gh", "<cmd>diffget //3<CR>" },

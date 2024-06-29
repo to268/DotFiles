@@ -14,7 +14,7 @@ require('mason-lspconfig').setup({
     handlers = {
         lsp_zero.default_setup,
         clangd = lsp_zero.noop,
-        rust_analyzer = lsp_zero.noop
+        rust_analyzer = lsp_zero.noop,
     },
 })
 
@@ -41,7 +41,7 @@ cmp.setup({
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
         ['<C-d>'] = cmp.mapping.scroll_docs(4),
     },
-    -- FIXME: This is not working as it should
+
     formatting = {
         fields = {'abbr', 'kind', 'menu'},
         format = require('lspkind').cmp_format({
@@ -93,24 +93,6 @@ end)
 
 lsp_zero.setup()
 
-vim.g.rustaceanvim = {
-    tools = {
-    },
-    server = {
-        on_attach = function(_, _)
-        end,
-        settings = {
-            ["rust-analyzer"] = {
-                cargo = {
-                    allFeatures = true,
-                }
-            }
-        }
-    },
-    dap = {
-    },
-}
-
 local function get_clang_executable()
     local clangd_locations = {
         -- '/usr/local/llvm-dev/bin/clangd',
@@ -143,6 +125,18 @@ local function get_cpu_count()
     handle:close()
     return string.gsub(result, "\n", "")
 end
+
+require('lspconfig').rust_analyzer.setup({
+    on_attach = function(_, _)
+    end,
+    settings = {
+        ["rust-analyzer"] = {
+            cargo = {
+                allFeatures = true,
+            }
+        }
+    }
+})
 
 require('lspconfig').clangd.setup({
     cmd = { get_clang_executable(),

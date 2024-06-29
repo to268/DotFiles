@@ -78,11 +78,6 @@ return {
 
             "ray-x/lsp_signature.nvim",
             "p00f/clangd_extensions.nvim",
-            {
-                'mrcjkb/rustaceanvim',
-                version = '^4',
-                lazy = false,
-            }
         },
         event = "InsertEnter"
     },

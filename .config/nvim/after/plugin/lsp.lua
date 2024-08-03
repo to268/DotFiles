@@ -57,7 +57,7 @@ cmp.setup({
     }
 })
 
-lsp_zero.on_attach(function(client, bufnr)
+local function global_on_attach(client, bufnr)
     local opts = {buffer = bufnr, silent = true, remap = false}
 
     map("n", "<leader>vds", ":lua require('telescope.builtin').lsp_document_symbols{}<CR>", opts)
@@ -87,8 +87,11 @@ lsp_zero.on_attach(function(client, bufnr)
             border = "rounded"
         }
     }, bufnr)
+end
 
-  lsp_zero.default_keymaps({buffer = bufnr})
+lsp_zero.on_attach(function(client, bufnr)
+    global_on_attach(client, bufnr)
+    lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
 lsp_zero.setup()
@@ -127,7 +130,8 @@ local function get_cpu_count()
 end
 
 require('lspconfig').rust_analyzer.setup({
-    on_attach = function(_, _)
+    on_attach = function(client, bufnr)
+        global_on_attach(client, bufnr)
     end,
     settings = {
         ["rust-analyzer"] = {
@@ -136,6 +140,12 @@ require('lspconfig').rust_analyzer.setup({
             }
         }
     }
+})
+
+require('lspconfig').tblgen_lsp_server.setup({
+    on_attach = function(client, bufnr)
+        global_on_attach(client, bufnr)
+    end,
 })
 
 require('lspconfig').clangd.setup({
@@ -149,8 +159,8 @@ require('lspconfig').clangd.setup({
         "--clang-tidy",
         "--background-index",
     },
-    on_attach = function(_, bufnr)
-        local opts = {buffer = bufnr, silent = true, remap = false}
+    on_attach = function(client, bufnr)
+        global_on_attach(client, bufnr)
 
         require("clangd_extensions").setup({
             ast = {
@@ -182,6 +192,8 @@ require('lspconfig').clangd.setup({
         })
         require("clangd_extensions.inlay_hints").setup_autocmd()
         require("clangd_extensions.inlay_hints").set_inlay_hints()
+
+        local opts = {buffer = bufnr, silent = true, remap = false}
 
         map("n", "<leader>h", ":ClangdSwitchSourceHeader<CR>", opts)
         map({"n", "v"}, "<leader>cf", ":pyf ~/files/Dev/llvm-project/main/clang/tools/clang-format/clang-format.py<CR>", opts)

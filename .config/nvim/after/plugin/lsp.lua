@@ -190,8 +190,9 @@ require('lspconfig').clangd.setup({
                 border = "single",
             },
         })
-        require("clangd_extensions.inlay_hints").setup_autocmd()
-        require("clangd_extensions.inlay_hints").set_inlay_hints()
+        -- TODO: there is a bug RN
+        -- require("clangd_extensions.inlay_hints").setup_autocmd()
+        -- require("clangd_extensions.inlay_hints").set_inlay_hints()
 
         local opts = {buffer = bufnr, silent = true, remap = false}
 

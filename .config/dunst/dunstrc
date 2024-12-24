@@ -2,9 +2,9 @@
     monitor = 0
     follow = keyboard
     width = 200
-    height = 200
+    height = 100
     origin = top-right
-    offset = 5x5
+    offset = (5, 5)
     indicate_hidden = yes
     shrink = no
     transparency = 20
@@ -26,7 +26,7 @@
     sort = yes
 
     idle_threshold = 120
-    font = IntelMono 12
+    font = IntoneMonoNerdFontPropo 12
     line_height = 0
     markup = full
 
@@ -63,8 +63,8 @@
     progress_bar = true
     progress_bar_height = 10
     progress_bar_frame_width = 1
-    progress_bar_min_width = 100
-    progress_bar_max_width = 200
+    progress_bar_min_width = 10
+    progress_bar_max_width = 20
 
     title = Dunst
     class = Dunst

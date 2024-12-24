@@ -21,5 +21,11 @@ pipewire &
 pipewire-pulse &
 wireplumber &
 
+# CPU optimizations
+doas intel-undervolt daemon &
+#doas powertop --auto-tune &
+
 # Misc
 fcitx5 -d &
+syncthing --no-browser &
+#espanso daemon &

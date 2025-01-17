@@ -1,0 +1,10 @@
+[pull]
+	rebase = true
+[user]
+	email = tony.guillot@protonmail.com
+	name = Guillot Tony
+	signingkey = 49B3B123D6021FCE
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main

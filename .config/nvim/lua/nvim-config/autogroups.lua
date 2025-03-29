@@ -5,13 +5,6 @@ local opts = { clear = true }
 local automations = autogroup("automations", opts)
 local ft = autogroup("ft", opts)
 
--- Java Deez Nuts
-autocmd({"BufNewFile", "BufRead", "BufReadPost"}, {
-    group = ft,
-    pattern = "*jsp",
-    command = [[set ft=java]]
-})
-
 autocmd("BufReadPost", {
     group = autogroup("colorizer", opts),
     pattern = "*",
@@ -28,11 +21,14 @@ autocmd("BufReadPost", {
 --     end,
 -- })
 
-autocmd("TextYankPost", {
+autocmd('TextYankPost', {
     group = autogroup("highlight_yank", opts),
-    pattern = "*",
+    pattern = '*',
     callback = function()
-        require('vim.highlight').on_yank({timeout = 50})
+        vim.highlight.on_yank({
+            higroup = 'IncSearch',
+            timeout = 40,
+        })
     end,
 })
 

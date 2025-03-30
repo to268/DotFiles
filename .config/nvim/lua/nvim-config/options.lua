@@ -43,6 +43,7 @@ opt.hlsearch = false
 opt.splitbelow = true
 opt.splitright = true
 opt.hidden = true
+opt.winborder = "rounded"
 
 -- Comments formatting
 opt.formatoptions = opt.formatoptions

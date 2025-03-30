@@ -69,7 +69,7 @@ local function global_on_attach(client, bufnr)
     map("n", "<leader>vd", ":lua vim.lsp.buf.definition()<CR>", opts)
     map("n", "<leader>vh", ":lua vim.lsp.buf.hover()<CR>", opts)
     map("n", "<leader>vt", ":lua vim.lsp.buf.type_definition()<CR>", opts)
-    -- map("n", "<leader>vl", "<cmd>TroubleToggle<CR>", opts)
+    map("n", "<leader>v!", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", opts)
 
     -- vim.keymap.set({'n', 'x'}, 'gq', function()
     --     vim.lsp.buf.format({
@@ -87,6 +87,9 @@ local function global_on_attach(client, bufnr)
             border = "rounded"
         }
     }, bufnr)
+
+    -- Enable inlay hints by default
+    vim.lsp.inlay_hint.enable(true)
 end
 
 lsp_zero.on_attach(function(client, bufnr)
@@ -190,9 +193,6 @@ require('lspconfig').clangd.setup({
                 border = "single",
             },
         })
-        -- TODO: there is a bug RN
-        -- require("clangd_extensions.inlay_hints").setup_autocmd()
-        -- require("clangd_extensions.inlay_hints").set_inlay_hints()
 
         local opts = {buffer = bufnr, silent = true, remap = false}
 

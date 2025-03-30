@@ -13,6 +13,20 @@ autocmd("BufReadPost", {
     end,
 })
 
+-- Fix double borders on plenary windows
+vim.api.nvim_create_autocmd("User", {
+    pattern = "TelescopeFindPre",
+    callback = function()
+        vim.opt_local.winborder = "none"
+        vim.api.nvim_create_autocmd("WinLeave", {
+            once = true,
+            callback = function()
+                vim.opt_local.winborder = "rounded"
+            end,
+        })
+    end,
+})
+
 -- autocmd("CursorHold", {
 --     group = autogroup("lsp", opts),
 --     pattern = "*",

@@ -11,11 +11,12 @@ require('mason-lspconfig').setup({
         'lua_ls',
         'rust_analyzer',
     },
-    handlers = {
-        lsp_zero.default_setup,
-        clangd = lsp_zero.noop,
-        rust_analyzer = lsp_zero.noop,
-    },
+    automatic_enable = {
+        exclude = {
+            "clangd",
+            "rust_analyzer"
+        }
+    }
 })
 
 cmp.setup({

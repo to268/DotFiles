@@ -59,7 +59,7 @@ export LESS=-R
 export LOCATION=""
 export MAKEFLAGS=-j$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1)
 
-[ "$(tty)" = "/dev/tty1" ] && ! pidof Hyprland >/dev/null 2>&1  && exec dbus-launch Hyprland
+[ "$(tty)" = "/dev/tty1" ] && ! pidof Hyprland >/dev/null 2>&1  && exec dbus-launch start-hyprland
 
 # Load ssh-keys
 eval `ssh-agent` > /dev/null

@@ -11,7 +11,7 @@ gsettings set org.gnome.desktop.interface font-name 'IntoneMonoNerdFontPropo'
 /usr/lib/xdg-desktop-portal &
 
 wificonnect &
-wpaperd &
+hyprpaper &
 dunst &
 mpd &
 eww daemon && eww open bar0 &

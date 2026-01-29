@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo "[*] Removing expired keys..."
+gpg --list-keys --with-colons \
+  | awk -F: '$1 == "pub" && $2 == "e" {print $5}' \
+  | xargs gpg --batch --yes --delete-keys
+
+echo "[*] Refreshing keys..."
+gpg --batch --quiet --refresh-keys

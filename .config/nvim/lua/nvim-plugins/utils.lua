@@ -1,6 +1,6 @@
 return {
     {
-        "TymekDev/repos.nvim",
+        "to268/repos.nvim",
         lazy = true
     },
 
@@ -62,8 +62,8 @@ return {
         "rmagatti/auto-session",
         opts = {},
         keys = {
-            { "<leader>ss", "<cmd>SessionSave<CR>" },
-            { "<leader>sr", "<cmd>SessionRestore<CR>" }
+            { "<leader>ss", "<cmd>AutoSession save<CR>" },
+            { "<leader>sr", "<cmd>AutoSession restore<CR>" }
         },
         lazy = false
     },
@@ -90,7 +90,7 @@ return {
     },
 
     {
-        "norcalli/nvim-colorizer.lua",
+        "Akianonymus/nvim-colorizer.lua",
         opts = {},
         event = "VeryLazy"
     },

@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Build options
+workdir=$HOME/limine-release
+
+echo "[*] Fetching latest release tag"
+release_tag="$(curl -s "https://codeberg.org/Limine/Limine/tags" | grep -Po '(?<=href=")[^"]*' | grep "^/Limine/Limine/releases/tag/" | grep -v "binary" | head -n1 | xargs basename)"
+current_version="$(limine --version | head -n1 | awk '{print "v" $2}')"
+
+if [ "$release_tag" = "$current_version" ]; then
+    echo "[!] Already using the latest version"
+    exit -1
+fi
+
+echo "[*] Cloning repo at $release_tag"
+git clone --depth 1 https://codeberg.org/Limine/Limine.git -b $release_tag $workdir
+
+pushd $workdir > /dev/null
+less ChangeLog
+
+while true; do
+    read -p "Do you want to proceed? (y/n) " yn
+    case $yn in
+        [yY] ) echo "Proceeding..."; break;;
+        [nN] ) echo "Exiting..."; exit;;
+        * ) echo "Invalid response";;
+    esac
+done
+
+echo "[*] Compiling limine"
+
+./bootstrap
+mkdir build
+cd build
+
+TOOLCHAIN_FOR_TARGET=llvm- CC_FOR_TARGET=clang LD_FOR_TARGET=ld.lld ../configure --enable-all
+
+make
+doas make install
+cd ..
+
+popd > /dev/null
+rm -rf $workdir
+
+echo "[*] Signing latest release"
+doas cp -f /usr/local/share/limine/BOOTX64.EFI /boot/EFI/limine/BOOTX64.EFI
+doas limine enroll-config /boot/EFI/limine/BOOTX64.EFI $(b2sum /boot/EFI/limine/limine.conf)
+doas sbctl sign -s /boot/EFI/limine/BOOTX64.EFI
+
+echo "[*] Done"

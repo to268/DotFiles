@@ -1,18 +1,25 @@
 #!/usr/bin/env bash
 
-neovim_source="$HOME/files/Dev/repos/neovim"
-neovim_path="/usr/local/neovim"
+# Build options
 cc_path="$($HOME/.local/bin/get-cc-path)"
 build_flags="-DCMAKE_C_COMPILER=$cc_path"
+neovim_path="/usr/local/neovim"
+workdir=$HOME/neovim-release
 
-cp -r $neovim_source $HOME
-cd $HOME/neovim
+echo "[*] Cloning repo at HEAD"
+git clone --depth 1 https://github.com/neovim/neovim.git $workdir
 
+pushd $workdir > /dev/null
+
+echo "[*] Compiling neovim"
 make CMAKE_EXTRA_FLAGS="$build_flags" DEPS_CMAKE_FLAGS="$build_flags" \
 CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=$neovim_path
 
-sudo rm -rf /usr/local/neovim/*
-sudo make install
+echo "[*] Installing neovim"
+doas rm -rf /usr/local/neovim/*
+doas make install
 
-cd ..
-rm -rf $HOME/neovim
+popd > /dev/null
+rm -rf $workdir
+
+echo "[*] Done"

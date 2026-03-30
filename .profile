@@ -20,7 +20,11 @@ export PATH=/usr/local/llvm/bin:$PATH
 #export PATH=/usr/local/llvm-dev/bin:$PATH
 
 # Default programs:
-export EDITOR="nvim"
+if [ -f "/usr/local/neovim/bin/nvim" ]; then
+    export EDITOR="/usr/local/neovim/bin/nvim"
+else
+    export EDITOR="nvim"
+fi
 export TERMINAL="foot"
 export BROWSER="firefox"
 export READER="zathura"
@@ -58,6 +62,7 @@ export DEBUGINFOD_URLS="https://debuginfod.artixlinux.org"
 export LESS=-R
 export LOCATION=""
 export MAKEFLAGS=-j$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 1)
+export FZF_DEFAULT_OPTS="--style minimal --color 16 --preview='bat -p --color=always {}'"
 
 [ "$(tty)" = "/dev/tty1" ] && ! pidof Hyprland >/dev/null 2>&1  && exec dbus-launch start-hyprland
 

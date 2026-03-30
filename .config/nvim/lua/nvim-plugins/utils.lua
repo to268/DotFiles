@@ -1,109 +1,35 @@
-return {
+vim.pack.add({
+    "https://github.com/laytan/cloak.nvim",
+    "https://github.com/numToStr/FTerm.nvim",
+    "https://github.com/lewis6991/gitsigns.nvim",
     {
-        "to268/repos.nvim",
-        lazy = true
-    },
-
-    {
-        "nvim-tree/nvim-web-devicons",
-        lazy = true
-    },
-
-    {
-        "tveskag/nvim-blame-line",
-        keys = {
-            { "<leader>bl", "<cmd>ToggleBlameLine<CR>" }
-        },
-        event = "VeryLazy"
-    },
-
-    {
-        "mbbill/undotree",
-        keys = {
-            { "<leader>u", "<cmd>UndotreeToggle<CR>" }
-        },
-        event = "VeryLazy"
-    },
-
-    {
-        "mhinz/vim-rfc",
-        event = "VeryLazy"
-    },
-
-    {
-        "tpope/vim-fugitive",
-        keys = {
-            { "<leader>g", "<cmd>Git<CR>" },
-            { "<leader>ga", "<cmd>Git add -A<CR>" },
-            { "<leader>gc", "<cmd>Git commit<CR>" },
-            { "<leader>gch", "<cmd>GBranches<CR>" },
-            { "<leader>gd", "<cmd>Gvdiffsplit!<CR>" },
-            { "<leader>gf", "<cmd>Git fetch --all<CR>" },
-            { "<leader>gu", "<cmd>diffget //2<CR>" },
-            { "<leader>gh", "<cmd>diffget //3<CR>" },
-            { "<leader>gl", "<cmd>GlLog<CR>" },
-            { "<leader>gpl", "<cmd>Git pull<CR>" },
-            { "<leader>gps", "<cmd>Git push<CR>" },
-            { "<leader>gt", "<cmd>GTags<CR>" }
-        },
-        event = "VeryLazy"
-    },
-
-    {
-        "numtostr/FTerm.nvim",
-        opts = {},
-        keys = {
-            { "<leader>tf", function() require('FTerm').toggle() end }
-        },
-        event = "VeryLazy"
-    },
-
-    {
-        "rmagatti/auto-session",
-        opts = {},
-        keys = {
-            { "<leader>ss", "<cmd>AutoSession save<CR>" },
-            { "<leader>sr", "<cmd>AutoSession restore<CR>" }
-        },
-        lazy = false
-    },
-
-    {
-        "ThePrimeagen/git-worktree.nvim",
-        opts = {},
-        config = function ()
-            local Worktree = require("git-worktree")
-            local AutoSession = require("auto-session")
-            local NvimTree = require("nvim-tree.api")
-
-            Worktree.on_tree_change(function(op, metadata)
-                if op == Worktree.Operations.Switch then
-                    -- Restore session
-                    AutoSession.RestoreSession(metadata.path)
-                    -- Refresh path in nvim-tree
-                    NvimTree.tree.toggle({path = metadata.path})
-                    NvimTree.tree.toggle({path = metadata.path})
-                end
-            end)
-        end,
-        event = "VeryLazy"
-    },
-
-    {
-        "Akianonymus/nvim-colorizer.lua",
-        opts = {},
-        event = "VeryLazy"
-    },
-
-    {
-        "numToStr/Comment.nvim",
-        opts = {},
-        event = "VeryLazy"
-    },
-
-    {
-        "laytan/cloak.nvim",
-        opts = {},
-        lazy = false
+        src = "https://github.com/ThePrimeagen/harpoon",
+        version = "harpoon2"
     }
-}
+})
+
+local harpoon = require("harpoon")
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+require('cloak').setup({})
+require('FTerm').setup({})
+
+map(
+    "n",
+    "<leader>tf",
+    "<CMD>lua require('FTerm').toggle()<CR>",
+    opts
+)
+
+require('gitsigns').setup({})
+
+harpoon:setup()
+
+map("n", "<leader>ha", function() harpoon:list():add() end, opts)
+map("n", "<leader>hq", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts)
+
+map("n", "<C-h>", function() harpoon:list():select(1) end, opts)
+map("n", "<C-t>", function() harpoon:list():select(2) end, opts)
+map("n", "<C-n>", function() harpoon:list():select(3) end, opts)
+map("n", "<C-s>", function() harpoon:list():select(4) end, opts)

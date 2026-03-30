@@ -8,19 +8,20 @@
 --
 -- Config Structure:
 --
--- base configuration:
+-- base configurations:
 --       in ./lua/nvim-config/*.lua
 --
--- plugins configuration:
+-- plugins configurations:
 --       in ./lua/nvim-plugin/*.lua
 --
--- others configurations:
---       in ./after/plugin/*.vim
+-- lsp configurations:
+--       in ./lsp/*.lua
 --
--- others plugin configurations:
---       in ./plugins/*.vim
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.g.have_nerd_font = true
 
--- Load config
+-- Load config and plugins
 require("nvim-config")
+require("nvim-plugins")

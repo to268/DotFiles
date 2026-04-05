@@ -96,7 +96,7 @@ repos.setup({
             map(
                 "n",
                 "<leader>lit",
-                ":!" .. vim.fs.joinpath(root, "build/bin/llvm-lit") .. "-v %<CR>",
+                ":!" .. vim.fs.joinpath(root, "build/bin/llvm-lit") .. " -v %<CR>",
                 map_opts
             )
             map(

@@ -22,7 +22,7 @@ while true; do
     read -p "Do you want to proceed? (y/n) " yn
     case $yn in
         [yY] ) echo "Proceeding..."; break;;
-        [nN] ) echo "Exiting..."; exit;;
+        [nN] ) echo "Exiting..."; rm -rf $workdir; exit;;
         * ) echo "Invalid response";;
     esac
 done

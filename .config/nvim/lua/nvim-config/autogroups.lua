@@ -35,8 +35,11 @@ autocmd("BufWritePre", {
     group = automations,
     pattern = "*",
     callback = function()
-        require('mini.trailspace').trim()
-        require('mini.trailspace').trim_last_lines()
+        -- Do not apply on ReleaseNotes.rst
+        if vim.fn.expand('%:t') ~= "ReleaseNotes.rst" then
+            require('mini.trailspace').trim()
+            require('mini.trailspace').trim_last_lines()
+        end
     end,
 })
 

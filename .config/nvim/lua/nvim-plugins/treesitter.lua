@@ -132,6 +132,7 @@ require('nvim-treesitter').install({
     'php',
     'proto',
     'python',
+    'rst',
     'ruby',
     'rust',
     'scheme',

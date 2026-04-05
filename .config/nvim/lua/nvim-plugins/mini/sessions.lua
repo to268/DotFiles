@@ -18,7 +18,7 @@ local function get_session_name()
     end
 
     if #worktrees == 1 then
-        return basename(git_toplevel) .. ".vim"
+        return basename(git_toplevel:gsub("\n$", "")) .. ".vim"
     end
 
     if not is_worktree then

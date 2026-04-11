@@ -27,5 +27,4 @@ doas intel-undervolt daemon &
 
 # Misc
 fcitx5 -d &
-syncthing --no-browser &
 #espanso daemon &

@@ -2,9 +2,11 @@
 	rebase = true
 [user]
 	email = tony.guillot@protonmail.com
-	name = Guillot Tony
-	signingkey = 49B3B123D6021FCE
+	name = Tony Guillot
+	signingkey = 8FE8250F8B0EAAF5
 [commit]
 	gpgsign = true
 [init]
 	defaultBranch = main
+[alias]
+    ghprwt = "!f() { gh pr checkout $1 -b review-$1 && git worktree add review-$1; }; f"

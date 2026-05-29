@@ -11,11 +11,10 @@ map("n", "k", function()
 end, { expr = true, silent = true })
 
 -- Windows
--- Temporarly disable these remaps to test harpoon
--- map("n", "<C-h>", ":wincmd h<CR>", opts)
--- map("n", "<C-j>", ":wincmd j<CR>", opts)
--- map("n", "<C-k>", ":wincmd k<CR>", opts)
--- map("n", "<C-l>", ":wincmd l<CR>", opts)
+map("n", "<C-h>", ":wincmd h<CR>", opts)
+map("n", "<C-j>", ":wincmd j<CR>", opts)
+map("n", "<C-k>", ":wincmd k<CR>", opts)
+map("n", "<C-l>", ":wincmd l<CR>", opts)
 map("n", "<leader>r=", "<C-w>=", opts)
 map("n", "<leader>r+", ":resize +5<CR>", opts)
 map("n", "<leader>r-", ":resize -5<CR>", opts)

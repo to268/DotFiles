@@ -26,33 +26,8 @@ autocmd('PackChanged', {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function()
-        local excluded = {
-            FTerm = true,
-            TelescopePrompt = true,
-            TelescopeResults = true,
-            ["dap-repl"] = true,
-            ["nvim-pack"] = true,
-            cmp_docs = true,
-            cmp_menu = true,
-            dapui_breakpoints = true,
-            dapui_console = true,
-            dapui_hover = true,
-            dapui_scopes = true,
-            dapui_stacks = true,
-            dapui_watches = true,
-            env = true,
-            git = true,
-            harpoon = true,
-            mason = true,
-            mininotify = true,
-            oil = true,
-            oil_preview = true,
-            qf = true,
-        }
-
-        if not excluded[vim.bo.filetype] then
-            vim.treesitter.start()
-        end
+        pcall(vim.treesitter.start)
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
 })
 
